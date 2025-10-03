@@ -9,6 +9,7 @@ export const Colors = {
   danger: '#DC3545',
   light: '#F8F9FA',
   light_2: '#A3CCDA',
+  light_3: '#F9F5F0',
   dark: '#343A40',
   white: '#FFFFFF',
   black: '#000000',
