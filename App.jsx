@@ -14,7 +14,8 @@ function RootStack() {
     >
       <Stack.Screen
         name="Home"
-        component={HomeScreen}
+        component={
+          HomeScreen}
         options={{ 
           title: 'Home' ,
           headerStyle: { backgroundColor: Colors.primary_2 },
