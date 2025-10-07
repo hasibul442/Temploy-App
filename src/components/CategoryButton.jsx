@@ -85,14 +85,15 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     rowGap: 10,
-    columnGap: 10,
+    columnGap: 5,
     marginTop: 10,
     marginBottom: 10,
   },
 
   category_buttons: {
-    width: '23%',
+    width: '22%',
     alignItems: 'center',
+    marginBottom:15,
   },
 
   category_button_item: {
@@ -130,3 +131,4 @@ const styles = {
   },
 };
 export default CategoryButton;
+
