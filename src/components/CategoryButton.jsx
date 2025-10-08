@@ -1,32 +1,24 @@
-import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
-import React, { useMemo, useRef, useState } from "react";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../utils/constants/Color";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 function CategoryButton({ item }) {
 
   return (
           <View style={styles.category_buttons}>
             <TouchableOpacity
-              onPress={() => alert(`Pressed ${item.name}`)}
+              onPress={() => alert(`Pressed ${item?.name}`)}
               style={styles.category_button_item}
             >
-              {/* <FontAwesome6
-                name={item.icon}
-                size={26}
-                color={Colors.primary_2}
-                iconStyle={item.style}
-              /> */}
-              <FontAwesome6
-                name="hammer"
-                size={26}
-                color={Colors.primary_2}
-                iconStyle="solid"
-              />
+              <Image source={{
+                uri: item?.icon_png_active,
+              }}
+              style={{ 
+                width: 40, 
+                height: 40 
+              }}
+               />
             </TouchableOpacity>
-            <Text style={styles.category_button_item_text}>{item.name}</Text>
+            <Text style={styles.category_button_item_text}>{item?.name}</Text>
           </View>
   );
 }
@@ -52,7 +44,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     justifyContent: "center",
     textAlign: "center",
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: "600",
   },
 
