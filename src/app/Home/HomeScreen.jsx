@@ -11,13 +11,13 @@ import { Colors } from "../../utils/constants/Color";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import Category from "../../utils/data/Category";
 import CategoryButton from "../../components/CategoryButton";
+import OfferCarousel from "../../components/OfferCarousel";
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -25,8 +25,7 @@ function HomeScreen() {
 
   // 👇 Move BottomSheet ref to screen level
   const BottomSheetRef = useRef(null);
-  const snapPoints = useMemo(() => ["25%", "50%"], []);
-  const [isOpen, setIsOpen] = useState(false);
+  const snapPoints = useMemo(() => ["50%"], []);
 
   const openSheet = () => BottomSheetRef.current?.expand();
   const backDrop = useCallback(
@@ -66,15 +65,23 @@ function HomeScreen() {
                   onPress={openSheet}
                   style={style.category_button_item}
                 >
-                  <FontAwesome6
-                    name="ellipsis"
-                    size={26}
-                    color={Colors.primary_2}
-                    iconStyle="solid"
+                  <Image
+                    source={{
+                      uri: "https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/svg/all-services.svg",
+                    }}
+                    style={{
+                      width: 36,
+                      height: 36,
+                    }}
                   />
                 </TouchableOpacity>
                 <Text style={style.category_button_item_text}>More</Text>
               </View>
+            </View>
+
+            {/* Promo Section */}
+            <View>
+              <OfferCarousel />
             </View>
 
             {/* Navigation Button */}
@@ -84,14 +91,6 @@ function HomeScreen() {
             >
               <Text style={style.details_button_text}>Go to Details</Text>
             </TouchableOpacity>
-
-            {/* Another Banner */}
-            <View style={style.banner_container}>
-              <Image
-                source={require("../../assets/image/banner_1.jpg")}
-                style={style.banner_image}
-              />
-            </View>
           </ScrollView>
 
           {/* 👇 BOTTOM SHEET OUTSIDE SCROLLVIEW */}
@@ -103,16 +102,11 @@ function HomeScreen() {
             backdropComponent={backDrop}
           >
             <BottomSheetView style={{ padding: 15 }}>
-              <Text
-                style={{ fontWeight: "bold", fontSize: 16, marginBottom: 10 }}
-              >
-                More Categories
-              </Text>
-              {categories.map((item, index) => (
-                <View key={index} style={{ paddingVertical: 8 }}>
-                  <Text style={{ fontSize: 14 }}>{item.name}</Text>
-                </View>
-              ))}
+              <View style={style.category_block}>
+                {categories.map((item, index) => (
+                  <CategoryButton key={item.id} item={item} />
+                ))}
+              </View>
             </BottomSheetView>
           </BottomSheet>
         </SafeAreaView>
@@ -151,7 +145,6 @@ const style = StyleSheet.create({
     rowGap: 10,
     columnGap: 5,
     marginTop: 10,
-    marginBottom: 10,
   },
 
   category_buttons: {
