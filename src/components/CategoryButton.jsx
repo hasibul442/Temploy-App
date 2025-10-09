@@ -2,25 +2,24 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../utils/constants/Color";
 
 function CategoryButton({ item }) {
-
   return (
-          <View style={styles.category_buttons}>
-            <TouchableOpacity
-              onPress={() => alert(`Pressed ${item?.name}`)}
-              style={styles.category_button_item}
-            >
-              <Image source={{
-                uri: item?.icon_png_active,
-              }}
-              style={{ 
-                width: 40, 
-                height: 40 
-              }}
-              alt={item?.name}
-               />
-            </TouchableOpacity>
-            <Text style={styles.category_button_item_text}>{item?.name}</Text>
-          </View>
+    <View style={styles.category_buttons}>
+      <TouchableOpacity
+        onPress={() => alert(`Pressed ${item?.name}`)}
+        style={styles.category_button_item}
+      >
+        <Image
+          source={{
+            uri: item?.icon_png_active,
+          }}
+          style={styles.tinyLogo}
+          alt={item?.name}
+          resizeMode="contain"
+          onLoad={() => console.log(`${item?.icon_png_active} image loaded`)}
+        />
+      </TouchableOpacity>
+      <Text style={styles.category_button_item_text}>{item?.name}</Text>
+    </View>
   );
 }
 
@@ -63,6 +62,11 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+    tinyLogo: {
+    width: 50,
+    height: 50,
   },
 });
 export default CategoryButton;
