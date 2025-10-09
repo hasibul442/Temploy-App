@@ -1,0 +1,42 @@
+export default [
+    {
+        id: 1,
+        title: "4-Ton AC Cleaner Needed",
+        price_type: "Fixed",
+        price: 150,
+        per: "Task",
+        currency: "$",
+        experience_level: "Intermediate",
+        location: "New York, NY",
+    },
+    {
+        id: 2,
+        title: "Website Redesign Project",
+        price_type: "Hourly",
+        price: 40,
+        per: "Hour",
+        currency: "$",
+        experience_level: "Expert",
+        location: "Remote",
+    },
+    {
+        id: 3,
+        title: "Restaurant worker needed",
+        price_type: "Hourly",
+        price: 20,
+        per: "Hour",
+        currency: "$",
+        experience_level: "Entry",
+        location: "On-site",
+    },
+    {
+        id: 4,
+        title: "Food Delivery Driver Wanted",
+        price_type: "Fixed",
+        price: 100,
+        per: "Week",
+        currency: "$",
+        experience_level: "Entry",
+        location: "Los Angeles, CA",
+    }
+]
