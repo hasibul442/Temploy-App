@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Dimensions, Image, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
-import PromoData from "../utils/data/PromoData";
+import PromoData from "../../utils/data/PromoData";
 
 function OfferCarousel() {
   const data = PromoData;
@@ -11,12 +11,6 @@ function OfferCarousel() {
   const ref = useRef(null);
   const progress = useSharedValue(0);
 
-  const onPressPagination = (index) => {
-    ref?.current?.scrollTo({
-      count: index - progress.value,
-      animated: true,
-    });
-  };
   return (
     <>
       <View
@@ -30,9 +24,9 @@ function OfferCarousel() {
           pagingEnabled={true}
           snapEnabled={true}
           width={width}
-          style={{ 
-            width: width
-        }}
+          style={{
+            width: width,
+          }}
           mode="parallax"
           modeConfig={{
             parallaxScrollingScale: 0.9,
@@ -55,7 +49,7 @@ function OfferCarousel() {
                 source={{ uri: data[index].image }}
                 style={{ width: "100%", height: "100%", borderRadius: 10 }}
                 resizeMode="cover"
-              /> 
+              />
             </View>
           )}
         />
