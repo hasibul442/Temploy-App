@@ -17,7 +17,9 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 import Category from "../../utils/data/Category";
 import CategoryButton from "../../components/CategoryButton";
-import OfferCarousel from "../../components/OfferCarousel";
+import OfferCarousel from "../../components/Sliders/OfferCarousel";
+import { CommonStyles } from "../../utils/styles/CommonStyle";
+import HotJobSlider from "../../components/Sliders/HotJobSlider";
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -82,6 +84,38 @@ function HomeScreen() {
             {/* Promo Section */}
             <View>
               <OfferCarousel />
+            </View>
+
+            <View style={style.statsRow}>
+              <View style={style.statBox}>
+                <Text style={style.statTitle}>New Jobs</Text>
+                <Text style={style.statValue}>747</Text>
+              </View>
+              <View style={[style.statBox, { marginLeft: 10 }]}>
+                <Text style={style.statTitle}>Live Job</Text>
+                <Text style={style.statValue}>7574</Text>
+              </View>
+            </View>
+
+            {/* Trending Section */}
+            <View style={style.trending_section}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: 10,
+                }}
+              >
+                <Text style={CommonStyles.title_16_bold}> Hot Jobs</Text>
+                <TouchableOpacity onPress={() => alert("See All Pressed")}>
+                  <Text style={CommonStyles.button_text_12}>See All</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View>
+                <HotJobSlider />
+              </View>
             </View>
 
             {/* Navigation Button */}
@@ -182,6 +216,33 @@ const style = StyleSheet.create({
     color: Colors.light,
     fontWeight: "bold",
     fontSize: 16,
+  },
+
+  trending_section: {
+    marginTop: 20,
+  },
+  statsRow: {
+    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  statBox: {
+    flex: 1,
+    height: 100,
+    backgroundColor: Colors.light_3,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  statTitle: {
+    fontSize: 14,
+    color: Colors.dark,
+  },
+  statValue: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginTop: 6,
+    color: Colors.primary_2,
   },
 });
 
