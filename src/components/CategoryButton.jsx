@@ -16,6 +16,7 @@ function CategoryButton({ item }) {
                 width: 40, 
                 height: 40 
               }}
+              alt={item?.name}
                />
             </TouchableOpacity>
             <Text style={styles.category_button_item_text}>{item?.name}</Text>

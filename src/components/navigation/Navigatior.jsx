@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // Screens
 import { View, Text } from "react-native";
@@ -54,34 +55,40 @@ function Placeholder({ name }) {
 
 // Bottom Tab Navigator component
 export default function Navigator() {
+  const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
       initialRouteName="HomeTab"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: true,
-        tabBarActiveTintColor: Colors.white,
+        tabBarActiveTintColor: Colors.primary_2,
         tabBarInactiveTintColor: "gray",
-        tabBarActiveBackgroundColor: Colors.primary_2,
+        // tabBarActiveBackgroundColor: Colors.primary_2,
         tabBarVisibilityAnimationConfig: {
           show: {
             animation: "timing",
             config: { duration: 250 },
-            },
+          },
         },
         tabBarStyle: {
           height: 60,
           position: "absolute",
-          bottom: 16,
-          right: 16,
-          left: 16,
+          bottom: 10 + insets.bottom,
+ 
           borderRadius: 16,
-          elevation: 5,
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           overflow: "hidden",
+          paddingBottom: 0,
+          paddingTop: 2,
+          paddingRight: 0,
+          paddingLeft: 0,
+          marginRight: 10,
+          marginLeft: 10,
+          
         },
         tabBarLabelStyle: {
-          margin: 0,
+          margin: -2,
           fontSize: 10,
         },
         tabBarIcon: ({ focused, color, size }) => {
