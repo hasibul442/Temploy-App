@@ -154,13 +154,13 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.light,
     paddingHorizontal: 10,
-    paddingTop: 10,
   },
 
   banner_container: {
     height: 200,
     backgroundColor: Colors.primary_2,
     marginBottom: 10,
+    marginTop: 10,
     borderRadius: 10,
     overflow: "hidden",
   },
@@ -191,7 +191,7 @@ const style = StyleSheet.create({
     width: "100%",
     height: 70,
     borderRadius: 10,
-    backgroundColor: Colors.light_3,
+    backgroundColor: Colors.light_gray_2,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -229,20 +229,20 @@ const style = StyleSheet.create({
   statBox: {
     flex: 1,
     height: 100,
-    backgroundColor: Colors.light_3,
+    backgroundColor: Colors.basil_green_800,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   statTitle: {
     fontSize: 14,
-    color: Colors.dark,
+    color: Colors.white,
   },
   statValue: {
     fontSize: 20,
     fontWeight: "700",
     marginTop: 6,
-    color: Colors.primary_2,
+    color: Colors.white,
   },
 });
 
