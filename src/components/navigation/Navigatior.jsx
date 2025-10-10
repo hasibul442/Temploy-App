@@ -33,9 +33,9 @@ function HomeStack() {
         name="Details"
         component={Details}
         options={{
-          title: "Details",
-          headerStyle: { backgroundColor: "#f4511e" },
-          headerTintColor: "#fff",
+          title: "",
+          headerStyle: { backgroundColor: Colors.primary_2 },
+          headerTintColor: Colors.white,
           headerTitleStyle: { fontWeight: "bold" },
           headerBackVisible: false,
         }}
@@ -75,7 +75,7 @@ export default function Navigator() {
           height: 60,
           position: "absolute",
           bottom: 10 + insets.bottom,
- 
+
           borderRadius: 16,
           // backgroundColor: Colors.white,
           overflow: "hidden",
@@ -85,7 +85,6 @@ export default function Navigator() {
           paddingLeft: 0,
           marginRight: 10,
           marginLeft: 10,
-          
         },
         tabBarLabelStyle: {
           margin: -2,
