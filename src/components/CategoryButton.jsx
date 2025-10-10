@@ -1,11 +1,13 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../utils/constants/Color";
+import { useNavigation } from "@react-navigation/native";
 
 function CategoryButton({ item }) {
+  const navigation = useNavigation();
   return (
     <View style={styles.category_buttons}>
       <TouchableOpacity
-        onPress={() => alert(`Pressed ${item?.name}`)}
+        onPress={() => navigation.navigate("Details", { itemId: item.id })}
         style={styles.category_button_item}
       >
         <Image
