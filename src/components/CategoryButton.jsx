@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 70,
     borderRadius: 10,
-    backgroundColor: Colors.light_3,
+    backgroundColor: Colors.light_gray_2,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -47,23 +47,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: "600",
   },
-
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    justifyContent: "flex-end",
-  },
-
-  modalContainer: {
-    height: "70%",
-    backgroundColor: "white",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
     tinyLogo: {
     width: 50,
     height: 50,
