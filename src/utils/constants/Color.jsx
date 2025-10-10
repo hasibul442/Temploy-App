@@ -13,4 +13,30 @@ export const Colors = {
   dark: '#343A40',
   white: '#FFFFFF',
   black: '#000000',
+
+  green_dark: '#071E07',
+  green_pantone: '#002B2A',
+  green_pakistan: '#0D330E',
+  green_dark_moss: '#2D531A',
+  green_fern: '#477023',
+  green_reseda: '#6E8649',
+
+  basil_green_800: '#356859',
+  basil_green_500: '#37966F',
+  basil_green_100: '#B9E4C9',
+  basil_orange_800: '#FD5523',
+  basil_orange_50: '#FFFBE6',
+
+  dark_gray: '#0F0F0F',
+  dark_charcoal: '#202020',
+  lime_green: '#5DD62C',
+  forest_green: '#337418',
+  light_gray: '#F8F8F8',
+  light_gray_2: '#F1F1F2',
+
+  deep_teal_green: '#014122',
+  ice_blue: '#C0DFE7',
+  baby_blue: '#8AAAE5',
+  light_blue: '#CADCFC',
+  light_blue_2: '#A1D6E2',
 };
