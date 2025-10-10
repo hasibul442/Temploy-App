@@ -24,6 +24,8 @@ function HotJobSlider() {
           pagingEnabled={true}
           snapEnabled={true}
           width={width}
+          autoPlay={true}
+          autoPlayInterval={3000}
           style={{
             width: width,
           }}
@@ -50,6 +52,7 @@ function HotJobSlider() {
                 style={{
                   flex: 1,
                   height: "100%",
+                  width: "100%",
                 }}
                 imageStyle={{ opacity: 0.4 }}
               >
