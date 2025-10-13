@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Temploy",
-    "slug": "Temploy",
+    "name": "temploy",
+    "slug": "temploy",
     "version": "1.0.0",
     "extra": {
       "eas": {
