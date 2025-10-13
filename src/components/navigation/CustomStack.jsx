@@ -63,7 +63,7 @@ export function MessageStack() {
         name="Messages"
         component={Messages}
         options={{
-          title: "Messages",
+          title: "Inbox",
           headerStyle: { backgroundColor: Colors.primary_2 },
           headerTintColor: Colors.white,
           headerTitleStyle: { fontWeight: "bold" },
