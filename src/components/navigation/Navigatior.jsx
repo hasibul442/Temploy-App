@@ -1,64 +1,20 @@
-import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // Screens
-import { View, Text } from "react-native";
 import { Colors } from "../../utils/constants/Color";
-import HomeScreen from "../../app/Home/HomeScreen";
-import Details from "../../app/Details/Details";
+import { OrderStack, HomeStack, MessageStack, OfferStack, MenuStack } from "./CustomStack";
 
 // Navigators
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
-
-// Home Stack inside Tab
-function HomeStack() {
-  return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          title: "Home",
-          headerStyle: { backgroundColor: Colors.primary_2 },
-          headerTintColor: Colors.white,
-          headerTitleStyle: { fontWeight: "bold" },
-          headerBackVisible: false,
-        }}
-      />
-      <Stack.Screen
-        name="Details"
-        component={Details}
-        options={{
-          title: "",
-          headerStyle: { backgroundColor: Colors.primary_2 },
-          headerTintColor: Colors.white,
-          headerTitleStyle: { fontWeight: "bold" },
-          headerBackVisible: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-// Placeholder for other tabs
-function Placeholder({ name }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>⚙️ {name} Screen</Text>
-    </View>
-  );
-}
 
 // Bottom Tab Navigator component
 export default function Navigator() {
   const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
-      initialRouteName="HomeTab"
+      initialRouteName="Home"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: true,
@@ -93,7 +49,7 @@ export default function Navigator() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "HomeTab") {
+          if (route.name === "Home") {
             iconName = "home";
           } else if (route.name === "Settings") {
             iconName = "settings";
@@ -115,19 +71,20 @@ export default function Navigator() {
     >
       <Tab.Screen
         name="Message"
-        component={() => <Placeholder name="Message" />}
+        component={MessageStack}
       />
-      <Tab.Screen name="Offer" component={() => <Placeholder name="Offer" />} />
+      <Tab.Screen name="Offer" component={OfferStack} />
       <Tab.Screen
-        name="HomeTab"
+        name="Home"
         component={HomeStack}
         options={{ title: "Home" }}
       />
       <Tab.Screen
         name="Orders"
-        component={() => <Placeholder name="Orders" />}
+        component={OrderStack}
+        options={{ title: "Orders" }}
       />
-      <Tab.Screen name="Menu" component={() => <Placeholder name="Menu" />} />
+      <Tab.Screen name="Menu" component={MenuStack} />
     </Tab.Navigator>
   );
 }
