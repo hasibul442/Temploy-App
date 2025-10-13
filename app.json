@@ -2,6 +2,12 @@
   "expo": {
     "name": "Temploy",
     "slug": "Temploy",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "49a294b6-ed63-442f-b04c-ab53e3969150"
+      }
+    },
+    "owner": "hasibulhasan442"
   }
 }
