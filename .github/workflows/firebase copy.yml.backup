@@ -34,20 +34,6 @@ jobs:
       - name: Prebuild native project (generate android/ios folders)
         run: npx expo prebuild --non-interactive
 
-      - name: Accept Android SDK licenses and install missing components
-        run: |
-          set -e
-          ANDROID_SDK_ROOT=${ANDROID_HOME:-/usr/local/lib/android/sdk}
-          echo "Using ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/cmdline-tools/bin:$ANDROID_SDK_ROOT/tools/bin:$PATH"
-          # Accept SDK licenses
-          yes | sdkmanager --licenses || true
-          # Install specific NDK and platform/build-tools that Gradle may need
-          sdkmanager "ndk;29.0.14033849" "platforms;android-33" "build-tools;33.0.2"
-        env:
-          ANDROID_HOME: /usr/local/lib/android/sdk
-          JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64
-
       - name: Build Android APK
         working-directory: android
         # Build an APK (assembleRelease) instead of an AAB to avoid requiring a Google Play linking for AAB uploads
@@ -59,8 +45,23 @@ jobs:
       - name: Verify APK exists
         run: ls -lah android/app/build/outputs/apk/release/
 
-      - name: Upload APK as workflow artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Upload to Firebase App Distribution
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+        run: |
+          APK_PATH="android/app/build/outputs/apk/release/app-release.apk"
+          if [ ! -f "$APK_PATH" ]; then
+            echo "❌ Build failed: APK not found at $APK_PATH"
+            # show directory for troubleshooting
+            ls -lah android/app/build/outputs/apk/release/ || true
+            exit 1
+          fi
+          echo "✅ Found APK at $APK_PATH"
+          firebase appdistribution:distribute "$APK_PATH" \
+            --app $FIREBASE_APP_ID \
+            --groups "QA" \
+            --release-notes "Build from $GITHUB_SHA"
