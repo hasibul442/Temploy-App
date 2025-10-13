@@ -34,6 +34,29 @@ jobs:
       - name: Prebuild native project (generate android/ios folders)
         run: npx expo prebuild --non-interactive
 
+      - name: Accept Android SDK licenses and install missing components
+        # This ensures sdkmanager is available and accepts licenses
+        run: |
+          set -e
+          ANDROID_SDK_ROOT=${ANDROID_HOME:-/usr/local/lib/android/sdk}
+          echo "Using ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/cmdline-tools/bin:$ANDROID_SDK_ROOT/tools/bin:$PATH"
+
+          # Ensure cmdline-tools are present (some runners have them under cmdline-tools/latest)
+          if [ ! -x "$(command -v sdkmanager)" ]; then
+            echo "sdkmanager not found on PATH, attempting to use bundled sdkmanager"
+          fi
+
+          # Accept all SDK licenses
+          yes | sdkmanager --licenses || true
+
+          # Install required NDK and build tools which Gradle needs
+          sdkmanager "ndk;29.0.14033849" "platforms;android-33" "build-tools;33.0.2"
+
+        env:
+          ANDROID_HOME: /usr/local/lib/android/sdk
+          JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64
+
       - name: Build Android app
         working-directory: android
         run: ./gradlew bundleRelease
