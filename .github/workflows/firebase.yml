@@ -3,7 +3,7 @@
  on:
    push:
      branches:
-       - expo
+       - expo-test
    workflow_dispatch: {}
  
  jobs:
