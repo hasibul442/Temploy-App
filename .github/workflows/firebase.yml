@@ -31,8 +31,8 @@
        - name: Install Expo CLI
          run: npm install -g expo-cli
  
-       - name: Prebuild native project (generate android/ios folders)
-         run: npx expo prebuild --non-interactive
+      # - name: Prebuild native project (generate android/ios folders)
+      #  run: npx expo prebuild --non-interactive
  
        - name: Accept Android SDK licenses and install missing components
          run: |
