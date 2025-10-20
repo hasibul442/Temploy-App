@@ -30,19 +30,12 @@
          tabBarStyle: {
            height: 60,
            position: "absolute",
-           bottom: 10 + insets.bottom,
- 
-           borderRadius: 16,
-           backgroundColor: Colors.light_blue,
+           backgroundColor:"rgba(202, 220, 252, 0.93)",
            overflow: "hidden",
            paddingBottom: 0,
            paddingTop: 2,
            paddingRight: 0,
            paddingLeft: 0,
-           marginRight: 10,
-           marginLeft: 10,
-           right: 1,
-           left: 1,
            elevation: 5,
            border: 0,
            

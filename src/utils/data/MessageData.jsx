@@ -1,5 +1,3 @@
-// Test dataset with > 20 conversations for list / pagination / performance testing
-// Each conversation keeps a small set of message objects; extend as desired.
 export default [
   {
     id: 1,
