@@ -1,15 +1,30 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, Image, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
 import PromoData from "../../utils/data/PromoData";
+import { getData } from "../../utils/helper/HttpHelper";
 
 function OfferCarousel() {
-  const data = PromoData;
   const width = Dimensions.get("window").width - 20;
 
   const ref = useRef(null);
   const progress = useSharedValue(0);
+  const [promodata, setPromodata] = useState([]);
+
+  const getOfferData = async() => {
+    try {
+      await getData("/api/v1/banners", {}, false).then((response) => {
+        setPromodata(response);
+      });
+    } catch (error) {
+      console.error("Error fetching offer data:", error);
+    }
+  }
+
+  useEffect(() => {
+    getOfferData();
+  }, []);
 
   return (
     <>
@@ -18,7 +33,7 @@ function OfferCarousel() {
         dataSet={{ kind: "basic-layouts", name: "parallax" }}
       >
         <Carousel
-          data={data}
+          data={promodata?.data || []}
           height={150}
           loop={true}
           pagingEnabled={true}
@@ -46,7 +61,7 @@ function OfferCarousel() {
               }}
             >
               <Image
-                source={{ uri: data[index].image }}
+                source={{ uri: promodata?.data[index]?.banner }}
                 style={{ width: "100%", height: "100%", borderRadius: 10 }}
                 resizeMode="cover"
               />
