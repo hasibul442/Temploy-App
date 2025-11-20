@@ -7,20 +7,20 @@ function CategoryButton({ item }) {
   return (
     <View style={styles.category_buttons}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Details", { itemId: item.id })}
+        onPress={() => navigation.navigate("Details", { itemId: item?._id })}
         style={styles.category_button_item}
       >
         <Image
           source={{
-            uri: item?.icon_png_active,
+            uri: item?.cat_icon_url,
           }}
           style={styles.tinyLogo}
-          alt={item?.name}
+          alt={item?.cat_name}
           resizeMode="contain"
-          onLoad={() => console.log(`${item?.icon_png_active} image loaded`)}
+          // onLoad={() => console.log(`${item?.cat_icon_url} image loaded`)}
         />
       </TouchableOpacity>
-      <Text style={styles.category_button_item_text}>{item?.name}</Text>
+      <Text style={styles.category_button_item_text}>{item?.cat_name}</Text>
     </View>
   );
 }
