@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -15,15 +15,15 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import Category from "../../utils/data/Category";
 import CategoryButton from "../../components/CategoryButton";
 import OfferCarousel from "../../components/Sliders/OfferCarousel";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import HotJobSlider from "../../components/Sliders/HotJobSlider";
+import { getData } from "../../utils/helper/HttpHelper";
 
 function HomeScreen() {
   const navigation = useNavigation();
-  const categories = Category;
+  const [categories, setCategories] = useState([]);
 
   // 👇 Move BottomSheet ref to screen level
   const BottomSheetRef = useRef(null);
@@ -40,6 +40,22 @@ function HomeScreen() {
     ),
     []
   );
+
+  const fetchCategories = async () => {
+    try {
+      await getData("/api/v1/categories", {}, false).then((response) => {
+        setCategories(response?.data);
+      });
+    } catch (error) {
+      console.error("Error fetching offer data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+
 
   return (
     <SafeAreaProvider>
