@@ -5,28 +5,28 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../utils/constants/Color";
-import Category from "../../utils/data/Category";
 import { ImageBackground } from "react-native";
+import { getData } from "../../utils/helper/HttpHelper";
 function Details({ route }) {
   const navigation = useNavigation();
   const { itemId } = route.params || {};
-  const [subcategory, setSubcategory] = useState([]);
   const [error, setError] = useState(false);
 
-  const data = Category;
+  const [data, setData] = useState({});
 
-  const getFilteredSubcategories = (id) => {
-    const sub = data.filter((category) => category.id == id);
-    if (sub.length > 0) {
-      setSubcategory(sub[0] || []);
-    } else {
-      setSubcategory([]);
-    }
-  };
+    const fetchData = async (id) => {
+      try {
+        await getData(`/api/v1/categories/${id}/subcat`, {}, false).then((response) => {
+          setData(response?.data);
+        });
+      } catch (error) {
+        console.error("Error fetching offer data:", error);
+      }
+    };
 
   useEffect(() => {
     if (itemId) {
-      getFilteredSubcategories(itemId);
+      fetchData(itemId);
     }
   }, [itemId]);
 
@@ -37,9 +37,9 @@ function Details({ route }) {
           <SafeAreaView edges={["top"]} style={[style.task_list_container]}>
             {/* Page Title */}
             <View style={style.page_title_container}>
-              <Text style={style.page_title}>{subcategory?.name}</Text>
+              <Text style={style.page_title}>{data?.category?.cat_name}</Text>
               <Text style={style.page_subtitle}>
-                We provide top-notch AC repair services.
+                {data?.category?.description}
               </Text>
             </View>
 
@@ -53,9 +53,9 @@ function Details({ route }) {
                 msOverflowStyle: "none",
               }}
             >
-              {subcategory?.children?.map((sub) => (
+              {data?.subcategories?.map((sub) => (
                 <TouchableOpacity
-                  key={sub.id}
+                  key={sub._id}
                   style={{
                     backgroundColor: Colors.light_gray_2,
                     marginRight: 15,
@@ -69,10 +69,10 @@ function Details({ route }) {
                     shadowRadius: 8,
                     elevation: 5,
                   }}
-                  onPress={() => alert(`Pressed ${sub?.name}`)}
+                  onPress={() => alert(`Pressed ${sub?.sub_cat_name}`)}
                 >
                   <ImageBackground
-                    source={{ uri: sub?.app_thumb }}
+                    source={{ uri: sub?.sub_cat_icon_url }}
                     style={{
                       width: "100%",
                       height: "100%",
@@ -104,7 +104,7 @@ function Details({ route }) {
                           paddingRight: 5,
                         }}
                       >
-                        {sub.name}
+                        {sub.sub_cat_name}
                       </Text>
                     </View>
                   </ImageBackground>
