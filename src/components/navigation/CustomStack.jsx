@@ -1,4 +1,6 @@
- import Details from '../../app/Details/Details';
+ import LoginScreen from '../../app/Auth/LoginScreen';
+import SignupScreen from '../../app/Auth/SignupScreen';
+import Details from '../../app/Details/Details';
  import HomeScreen from '../../app/Home/HomeScreen';
  import Menu from '../../app/Menu/Menu';
  import MessageDetails from '../../app/Message/MessageDetails';
@@ -129,6 +131,27 @@ import Profile from '../../app/User/Profile/Profile';
        <Stack.Screen
          name="Profile"
          component={Profile}
+         options={{
+           headerShown: false,
+         }}
+       />
+     </Stack.Navigator>
+   );
+ }
+
+ export function AuthStack() {
+   return (
+     <Stack.Navigator>
+       <Stack.Screen
+         name="Login"
+         component={LoginScreen}
+         options={{
+           headerShown: false,
+         }}
+       />
+       <Stack.Screen
+         name="Signup"
+         component={SignupScreen}
          options={{
            headerShown: false,
          }}
