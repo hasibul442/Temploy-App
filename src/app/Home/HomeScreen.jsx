@@ -74,7 +74,7 @@ function HomeScreen() {
             {/* Categories */}
             <View style={style.category_block}>
               {categories.slice(0, 7).map((item, index) => (
-                <CategoryButton key={index} item={item} />
+                <CategoryButton key={item._id} item={item} />
               ))}
 
               {/* More Button */}
@@ -140,6 +140,12 @@ function HomeScreen() {
               onPress={() => navigation.navigate("Details")}
             >
               <Text style={style.details_button_text}>Go to Details</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={style.details_button}
+              onPress={() => navigation.navigate("Profile")}
+            >
+              <Text style={style.details_button_text}>Go to Profile</Text>
             </TouchableOpacity>
           </ScrollView>
 
