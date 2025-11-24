@@ -10,6 +10,7 @@ import {
   MessageStack,
   OfferStack,
   MenuStack,
+  ProfileStack
 } from "./CustomStack";
 import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
@@ -37,7 +38,7 @@ export default function Navigator() {
         },
         tabBarBackground: () => (
           <BlurView
-            tint="systemChromeMaterialDark"
+            tint="systemMaterialLight"
             intensity={100}
             style={StyleSheet.absoluteFill}
           />
@@ -73,6 +74,8 @@ export default function Navigator() {
             iconName = "mail-unread-outline";
           } else if (route.name === "Offer") {
             iconName = "pricetag";
+          } else {
+            iconName = none;
           }
 
           return (
@@ -81,19 +84,28 @@ export default function Navigator() {
         },
       })}
     >
-      <Tab.Screen name="Message" component={MessageStack} />
-      <Tab.Screen name="Offer" component={OfferStack} />
       <Tab.Screen
         name="Home"
         component={HomeStack}
         options={{ title: "Home" }}
       />
+      <Tab.Screen name="Offer" component={OfferStack} />
+
       <Tab.Screen
         name="Orders"
         component={OrderStack}
         options={{ title: "Orders" }}
       />
+      <Tab.Screen name="Message" component={MessageStack} />
       <Tab.Screen name="Menu" component={MenuStack} />
+      <Tab.Screen 
+        name="Profile" 
+        component={ProfileStack}
+        options={{ 
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: 'none' }
+        }}
+      />
     </Tab.Navigator>
   );
 }
