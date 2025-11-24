@@ -5,6 +5,7 @@
  import Messages from '../../app/Message/Messages';
  import Offers from '../../app/Offer/Offers';
  import Orders from '../../app/Orders/Orders'
+import Profile from '../../app/User/Profile/Profile';
  import { Colors } from '../../utils/constants/Color'
  import { createNativeStackNavigator } from '@react-navigation/native-stack';
  
@@ -116,6 +117,20 @@
            headerTintColor: Colors.white,
            headerTitleStyle: { fontWeight: "bold" },
            headerBackVisible: false,
+         }}
+       />
+     </Stack.Navigator>
+   );
+ }
+
+ export function ProfileStack() {
+   return (
+     <Stack.Navigator>
+       <Stack.Screen
+         name="Profile"
+         component={Profile}
+         options={{
+           headerShown: false,
          }}
        />
      </Stack.Navigator>
