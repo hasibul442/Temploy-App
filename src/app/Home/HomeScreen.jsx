@@ -147,6 +147,13 @@ function HomeScreen() {
             >
               <Text style={style.details_button_text}>Go to Profile</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              style={style.details_button}
+              onPress={() => navigation.navigate('Auth', { screen: 'Login' })}
+            >
+              <Text style={style.details_button_text}>Go to Login</Text>
+            </TouchableOpacity>
           </ScrollView>
 
           {/* 👇 BOTTOM SHEET OUTSIDE SCROLLVIEW */}
