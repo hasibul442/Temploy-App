@@ -10,7 +10,8 @@ import {
   MessageStack,
   OfferStack,
   MenuStack,
-  ProfileStack
+  ProfileStack,
+  AuthStack
 } from "./CustomStack";
 import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
@@ -101,6 +102,14 @@ export default function Navigator() {
       <Tab.Screen 
         name="Profile" 
         component={ProfileStack}
+        options={{ 
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: 'none' }
+        }}
+      />
+      <Tab.Screen 
+        name="Auth" 
+        component={AuthStack}
         options={{ 
           tabBarButton: () => null,
           tabBarItemStyle: { display: 'none' }
