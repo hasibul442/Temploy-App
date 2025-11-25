@@ -24,7 +24,7 @@ export default function Navigator() {
   const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Auth"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: true,
@@ -112,7 +112,8 @@ export default function Navigator() {
         component={AuthStack}
         options={{ 
           tabBarButton: () => null,
-          tabBarItemStyle: { display: 'none' }
+          tabBarItemStyle: { display: 'none' },
+          tabBarStyle: { display: 'none' }
         }}
       />
     </Tab.Navigator>
