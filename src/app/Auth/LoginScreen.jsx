@@ -6,17 +6,17 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  TextInput,
   ScrollView,
 } from "react-native";
+import { TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../utils/constants/Color";
 
 const { width, height } = Dimensions.get("window");
 
 function LoginScreen() {
-  const [email, setEmail] = useState("Joydeo@gmail.com");
-  const [password, setPassword] = useState("password123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const navigation = useNavigation();
@@ -45,39 +45,47 @@ function LoginScreen() {
           <View style={styles.loginCard}>
             {/* Email Input */}
             <View style={styles.inputGroup}>
-              <Text style={styles.inputLabel}>Gmail</Text>
               <View style={styles.inputContainer}>
                 <TextInput
-                  style={styles.textInput}
-                  placeholder="Joydeo@gmail.com"
+                  mode="outlined"
+                  label="Email"
                   keyboardType="email-address"
-                  placeholderTextColor="#999"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  textContentType="emailAddress"
+                  placeholder="Please Insert Email"
                   value={email}
                   onChangeText={setEmail}
+                  outlineColor="#333"
+                  activeOutlineColor={Colors.success}
+                  textColor="#000"
+                  style={{ backgroundColor: 'white', width: '100%' }}
+                  theme={{ colors: { background: 'white' } }}
                 />
-                <Text style={styles.checkIcon}>✓</Text>
               </View>
             </View>
 
             {/* Password Input */}
             <View style={styles.inputGroup}>
-              <Text style={styles.inputLabel}>Password</Text>
               <View style={styles.inputContainer}>
                 <TextInput
-                  style={styles.textInput}
-                  placeholder="••••••••"
+                  mode="outlined"
+                  label="Password"
                   secureTextEntry={!showPassword}
-                  placeholderTextColor="#999"
                   value={password}
                   onChangeText={setPassword}
+                  outlineColor="#333"
+                  activeOutlineColor={Colors.success}
+                  textColor="#000"
+                  style={{ backgroundColor: 'white', width: '100%' }}
+                  theme={{ colors: { background: 'white' } }}
+                  right={
+                    <TextInput.Icon
+                      icon={showPassword ? "eye-off" : "eye"}
+                      onPress={() => setShowPassword(!showPassword)}
+                    />
+                  }
                 />
-                <TouchableOpacity
-                  onPress={() => setShowPassword(!showPassword)}
-                >
-                  <Text style={styles.eyeIcon}>
-                    {showPassword ? "👁️" : "👁️‍🗨️"}
-                  </Text>
-                </TouchableOpacity>
               </View>
             </View>
 
@@ -125,8 +133,6 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   scrollContent: {
-    // flexGrow: 1,
-    // paddingBottom: 40,
     justifyContent: "space-between",
     minHeight: height,
   },
@@ -222,16 +228,17 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderBottomWidth: 1.5,
-    borderBottomColor: "#E8E8E8",
     paddingBottom: 8,
   },
   textInput: {
     flex: 1,
     fontSize: 15,
-    color: "#333",
-    paddingVertical: 0,
-    height: 24,
+    color: "#000",
+    height: 40,
+    padding: 10,
+    borderColor: "#000",
+    borderWidth: 1,
+    borderRadius: 8,
   },
   checkIcon: {
     fontSize: 16,
