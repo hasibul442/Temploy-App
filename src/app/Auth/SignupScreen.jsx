@@ -1,19 +1,26 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, TextInput, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  TextInput,
+  ScrollView,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Colors } from "../../utils/constants/Color";
 
-const { width, height } = Dimensions.get('window');
-
-// Theme colors matching the design
-const PRIMARY_COLOR = '#880E4F'; // Deep burgundy/maroon
-const ACCENT_COLOR = '#E91E63';   // Bright pink for labels
+const { width, height } = Dimensions.get("window");
 
 function SignupScreen() {
-
-    const navigation = useNavigation();
-  const [email, setEmail] = useState('Joydeo@gmail.com');
-  const [password, setPassword] = useState('password123');
+  const navigation = useNavigation();
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -21,11 +28,10 @@ function SignupScreen() {
       <View style={styles.backgroundSolid}>
         {/* Decorative circles */}
         <View style={styles.circleTopLeft} />
-        <View style={styles.circleBottomLeft} />
-        <View style={styles.circleMidRight} />
+        <View style={styles.circleTopRight} />
 
-        <ScrollView 
-          contentContainerStyle={styles.scrollContent} 
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -39,19 +45,42 @@ function SignupScreen() {
 
           {/* Main White Card */}
           <View style={styles.loginCard}>
-            {/* Email Input */}
             <View style={styles.inputGroup}>
-              <Text style={styles.inputLabel}>Name</Text>
+              <Text style={styles.inputLabel}>First Name</Text>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder="Joydeo@gmail.com"
-                  keyboardType="email-address"
+                  placeholder="John"
                   placeholderTextColor="#999"
-                  value={email}
-                  onChangeText={setEmail}
+                  value={fname}
+                  onChangeText={setFname}
                 />
-                <Text style={styles.checkIcon}>✓</Text>
+              </View>
+            </View>
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputLabel}>Last Name</Text>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Doe"
+                  placeholderTextColor="#999"
+                  value={lname}
+                  onChangeText={setLname}
+                />
+              </View>
+            </View>
+            {/* Phone Input */}
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputLabel}>Phone</Text>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="(123) 456-7890"
+                  keyboardType="phone-pad"
+                  placeholderTextColor="#999"
+                  value={phone}
+                  onChangeText={setPhone}
+                />
               </View>
             </View>
 
@@ -67,7 +96,6 @@ function SignupScreen() {
                   value={email}
                   onChangeText={setEmail}
                 />
-                <Text style={styles.checkIcon}>✓</Text>
               </View>
             </View>
 
@@ -83,21 +111,32 @@ function SignupScreen() {
                   value={password}
                   onChangeText={setPassword}
                 />
-                <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                  <Text style={styles.eyeIcon}>{showPassword ? '👁️' : '👁️‍🗨️'}</Text>
+                <TouchableOpacity
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  <Text style={styles.eyeIcon}>
+                    {showPassword ? "👁️" : "👁️‍🗨️"}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
 
             {/* Sign In Button */}
-            <TouchableOpacity style={styles.signInButton}>
+            <TouchableOpacity
+              style={styles.signInButton}
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            >
               <Text style={styles.signInButtonText}>SIGN UP</Text>
             </TouchableOpacity>
 
             {/* Sign Up Link */}
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Already have an account? </Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Auth', { screen: 'Login' })}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Auth", { screen: "Login" })}
+              >
                 <Text style={styles.signUpLink}>Sign in</Text>
               </TouchableOpacity>
             </View>
@@ -111,47 +150,47 @@ function SignupScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: PRIMARY_COLOR,
+    backgroundColor: Colors.success_2,
   },
   backgroundSolid: {
     flex: 1,
-    // backgroundColor: PRIMARY_COLOR,
-    position: 'relative',
+    // backgroundColor: Colors.success_2,
+    position: "relative",
   },
   scrollContent: {
     // flexGrow: 1,
     // paddingBottom: 40,
-    justifyContent: 'space-between',
-    minHeight: height
+    justifyContent: "space-between",
+    minHeight: height,
   },
 
   // --- Decorative Circles ---
   circleTopLeft: {
-    position: 'absolute',
+    position: "absolute",
     width: 180,
     height: 180,
     borderRadius: 90,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: "#ffffff1a",
     top: -40,
     left: -40,
     zIndex: 0,
   },
-  circleBottomLeft: {
-    position: 'absolute',
-    width: 250,
-    height: 250,
-    borderRadius: 125,
-    backgroundColor: 'rgba(211, 47, 47, 0.3)',
-    bottom: -100,
-    left: -100,
+  circleTopRight: {
+    position: "absolute",
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: "#ffffff1a",
+    top: 50,
+    right: -20,
     zIndex: 0,
   },
   circleMidRight: {
-    position: 'absolute',
+    position: "absolute",
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: 'rgba(211, 47, 47, 0.3)',
+    backgroundColor: "#d32f2f4d",
     top: height * 0.4,
     right: -60,
     zIndex: 0,
@@ -159,42 +198,42 @@ const styles = StyleSheet.create({
 
   // --- Header Content ---
   headerContent: {
-    width: '100%',
+    width: "100%",
     paddingHorizontal: 30,
     paddingTop: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     zIndex: 1,
     marginBottom: 60,
   },
   helloText: {
     fontSize: 32,
-    fontWeight: '600',
-    color: 'white',
+    fontWeight: "600",
+    color: "white",
     letterSpacing: 0.5,
   },
   signInText: {
     fontSize: 42,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     marginTop: 2,
     letterSpacing: 0.5,
   },
 
   // --- Main Login Card ---
   loginCard: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     width: "100%",
-    height: 500,
-    alignSelf: 'center',
+    height: "70%",
+    alignSelf: "center",
     padding: 32,
     paddingTop: 36,
     paddingBottom: 60,
     zIndex: 1,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 15 },
     shadowOpacity: 0.25,
     shadowRadius: 25,
@@ -203,35 +242,46 @@ const styles = StyleSheet.create({
   },
 
   // --- Input Styles ---
+  nameRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 16,
+  },
+  halfWidth: {
+    flex: 1,
+  },
   inputGroup: {
-    marginBottom: 24,
+    marginBottom: 5,
   },
   inputLabel: {
     fontSize: 15,
-    color: ACCENT_COLOR,
-    fontWeight: '600',
+    color: Colors.success,
+    fontWeight: "600",
     marginBottom: 10,
     letterSpacing: 0.3,
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth: 1.5,
-    borderBottomColor: '#E8E8E8',
+    flexDirection: "row",
+    alignItems: "center",
+    // borderBottomWidth: 1.5,
+    borderBottomColor: "#E8E8E8",
     paddingBottom: 8,
   },
   textInput: {
     flex: 1,
     fontSize: 15,
-    color: '#333',
-    paddingVertical: 0,
-    height: 24,
+    color: "#333",
+    height: 40,
+    padding: 10,
+    borderColor: "#000",
+    borderWidth: 1,
+    borderRadius: 8,
   },
   checkIcon: {
     fontSize: 16,
-    color: '#4CAF50',
+    color: Colors.success_2,
     marginLeft: 10,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   eyeIcon: {
     fontSize: 18,
@@ -240,53 +290,53 @@ const styles = StyleSheet.create({
 
   // --- Forgot Password ---
   forgotPasswordButton: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     marginTop: 8,
     marginBottom: 35,
   },
   forgotPasswordText: {
     fontSize: 13.5,
-    color: '#757575',
+    color: "#757575",
     letterSpacing: 0.2,
   },
 
   // --- Sign In Button ---
   signInButton: {
-    backgroundColor: PRIMARY_COLOR,
+    backgroundColor: Colors.success_2,
     borderRadius: 12,
     paddingVertical: 17,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 25,
-    shadowColor: PRIMARY_COLOR,
+    shadowColor: Colors.success_2,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.4,
     shadowRadius: 12,
     elevation: 10,
   },
   signInButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 1.5,
   },
 
   // --- Sign Up Link ---
   signUpContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 8,
   },
   signUpText: {
     fontSize: 13.5,
-    color: '#757575',
+    color: "#757575",
     letterSpacing: 0.2,
   },
   signUpLink: {
     fontSize: 13.5,
-    color: '#333',
-    fontWeight: 'bold',
+    color: "#333",
+    fontWeight: "bold",
     letterSpacing: 0.2,
   },
 });
