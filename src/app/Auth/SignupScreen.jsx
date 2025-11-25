@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../utils/constants/Color";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { TextInput } from "react-native-paper";
+import { ButtonStyle } from "../../utils/styles/ButtonStyle";
 
 const { width, height } = Dimensions.get("window");
 
@@ -138,12 +139,12 @@ function SignupScreen() {
 
               {/* Sign In Button */}
               <TouchableOpacity
-                style={styles.signInButton}
+                style={ButtonStyle.signInButton}
                 onPress={() => {
                   navigation.navigate("Home");
                 }}
               >
-                <Text style={styles.signInButtonText}>SIGN UP</Text>
+                <Text style={ButtonStyle.signInButtonText}>SIGN UP</Text>
               </TouchableOpacity>
 
               {/* Sign Up Link */}
@@ -219,27 +220,11 @@ const styles = StyleSheet.create({
   inputGroup: {
     marginBottom: 5,
   },
-  inputLabel: {
-    fontSize: 15,
-    color: Colors.success,
-    fontWeight: "600",
-    marginBottom: 10,
-    letterSpacing: 0.3,
-  },
+
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     paddingBottom: 8,
-  },
-  textInput: {
-    flex: 1,
-    fontSize: 15,
-    color: "#000",
-    height: 40,
-    padding: 10,
-    borderColor: "#000",
-    borderWidth: 1,
-    borderRadius: 8,
   },
 
   // --- Forgot Password ---
@@ -252,28 +237,6 @@ const styles = StyleSheet.create({
     fontSize: 13.5,
     color: "#757575",
     letterSpacing: 0.2,
-  },
-
-  // --- Sign In Button ---
-  signInButton: {
-    backgroundColor: Colors.success_2,
-    borderRadius: 12,
-    paddingVertical: 17,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 18,
-    marginBottom: 18,
-    shadowColor: Colors.success_2,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
-    elevation: 10,
-  },
-  signInButtonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
-    letterSpacing: 1.5,
   },
 
   // --- Sign Up Link ---
