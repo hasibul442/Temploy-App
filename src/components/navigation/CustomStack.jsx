@@ -8,6 +8,7 @@ import Details from '../../app/Details/Details';
  import Offers from '../../app/Offer/Offers';
  import Orders from '../../app/Orders/Orders'
 import Profile from '../../app/User/Profile/Profile';
+import WelcomeScreen from '../../app/WelcomeScreen';
  import { Colors } from '../../utils/constants/Color'
  import { createNativeStackNavigator } from '@react-navigation/native-stack';
  
@@ -33,7 +34,7 @@ import Profile from '../../app/User/Profile/Profile';
  
  export function HomeStack() {
     return (
-     <Stack.Navigator initialRouteName="Home">
+     <Stack.Navigator>
        <Stack.Screen
          name="Home"
          component={HomeScreen}
@@ -141,7 +142,7 @@ import Profile from '../../app/User/Profile/Profile';
 
  export function AuthStack() {
    return (
-     <Stack.Navigator>
+     <Stack.Navigator initialRouteName="Welcome">
        <Stack.Screen
          name="Login"
          component={LoginScreen}
@@ -152,6 +153,14 @@ import Profile from '../../app/User/Profile/Profile';
        <Stack.Screen
          name="Signup"
          component={SignupScreen}
+         options={{
+           headerShown: false,
+         }}
+       />
+
+        <Stack.Screen
+         name="Welcome"
+         component={WelcomeScreen}
          options={{
            headerShown: false,
          }}
