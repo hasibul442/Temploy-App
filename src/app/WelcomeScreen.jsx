@@ -14,6 +14,7 @@ import { Colors } from "../utils/constants/Color";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { AntDesign } from "@expo/vector-icons";
 import { CommonStyles } from "../utils/styles/CommonStyle";
+import { ButtonStyle } from "../utils/styles/ButtonStyle";
 
 const { width } = Dimensions.get("window");
 
@@ -33,28 +34,26 @@ function WelcomeScreen() {
           {/* Logo Section */}
           <View style={styles.logoContainer}>
             <Image
-              source={{
-                uri: "https://placehold.co/60x40/ffffff/ffffff?text=H",
-              }}
+              source={require("../assets/logo/logo-1.png")}
               style={styles.dumbbellIcon}
             />
-            <Text style={styles.logoText}>Temploy</Text>
+            {/* <Text style={styles.logoText}>Temploy</Text> */}
           </View>
 
           <Text style={styles.welcomeText}>Welcome to Temploy</Text>
 
           <TouchableOpacity
-            style={styles.signInButton}
+            style={ButtonStyle.signInButton_2}
             onPress={() => navigation.navigate("Auth", { screen: "Login" })}
           >
-            <Text style={styles.signInButtonText}>SIGN IN</Text>
+            <Text style={ButtonStyle.signInButtonText_2}>SIGN IN</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.signUpButton}
+            style={ButtonStyle.signUpButton}
             onPress={() => navigation.navigate("Auth", { screen: "Signup" })}
           >
-            <Text style={styles.signUpButtonText}>SIGN UP</Text>
+            <Text style={ButtonStyle.signUpButtonText}>SIGN UP</Text>
           </TouchableOpacity>
 
           {/* Social Media Login */}
@@ -95,31 +94,14 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
 
-  // --- Header/Menu Dots ---
-  menuDots: {
-    position: "absolute",
-    top: 30,
-    right: 20,
-    width: 30,
-    height: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1,
-  },
-  menuDotsText: {
-    fontSize: 30,
-    color: "white",
-    lineHeight: 25,
-  },
-
   // --- Logo Section ---
   logoContainer: {
     alignItems: "center",
     marginBottom: 50,
   },
   dumbbellIcon: {
-    width: 60,
-    height: 40,
+    width: 150,
+    height: 80,
     resizeMode: "contain",
     tintColor: "white",
     marginBottom: 10,
@@ -137,41 +119,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     marginBottom: 50,
-  },
-
-  // --- Action Buttons ---
-  signInButton: {
-    width: "100%",
-    backgroundColor: "transparent",
-    borderWidth: 2,
-    borderColor: "white",
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  signInButtonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  signUpButton: {
-    width: "100%",
-    backgroundColor: "white",
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 60,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 8,
-  },
-  signUpButtonText: {
-    color: Colors.success_2,
-    fontSize: 18,
-    fontWeight: "bold",
   },
 
   // --- Social Media Login ---
