@@ -5,6 +5,7 @@ export const Colors = {
   secondary_2: '#FFBA00',
   info: '#17A2B8',
   success: '#28A745',
+  success_2: '#4CAF50',
   warning: '#FFC107',
   danger: '#DC3545',
   light: '#F8F9FA',
