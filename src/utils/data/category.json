@@ -1,0 +1,180 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Labor",
+      "subcategories": [
+        {"id": 101, "name": "Moving & Relocation"},
+        {"id": 102, "name": "Loading & Unloading"},
+        {"id": 103, "name": "Warehouse Work"},
+        {"id": 104, "name": "Packing & Unpacking"},
+        {"id": 105, "name": "Assembly Work"},
+        {"id": 1501, "name": "Farm Labor"},
+        {"id": 1502, "name": "Harvesting"},
+        {"id": 1503, "name": "Animal Care"},
+        {"id": 1504, "name": "Planting & Seeding"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Cleaning Services",
+      "subcategories": [
+        {"id": 201, "name": "Home Cleaning"},
+        {"id": 202, "name": "Furniture & Carpet"},
+        {"id": 203, "name": "Outdoor Cleaning"},
+        {"id": 204, "name": "Appliance Cleaning"},
+        {"id": 205, "name": "Window Cleaning"},
+        {"id": 206, "name": "Office Cleaning"},
+        {"id": 207, "name": "Tank & Pipe Cleaning"},
+        {"id": 208, "name": "Pool Cleaning"},
+        {"id": 209, "name": "Industrial Cleaning"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Landscaping & Gardening",
+      "subcategories": [
+        {"id": 301, "name": "Lawn Mowing"},
+        {"id": 302, "name": "Tree Trimming & Pruning"},
+        {"id": 303, "name": "Garden Maintenance"},
+        {"id": 304, "name": "Landscape Design & Install"},
+        {"id": 305, "name": "Snow Removal"}
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Home Repair Services",
+      "subcategories": [
+        {"id": 401, "name": "Furniture Assembly"},
+        {"id": 402, "name": "Plumbing Services"},
+        {"id": 403, "name": "Electrical Services"},
+        {"id": 404, "name": "Painting & Decorating"},
+        {"id": 406, "name": "Carpentry Services"},
+        {"id": 405, "name": "Thai Aluminium, Glass & Mirror Worker"},
+        {"id": 407, "name": "Interior Designers"},
+        {"id": 408, "name": "Interior Design Consultants"}
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Event Support",
+      "subcategories": [
+        {"id": 501, "name": "Setup & Breakdown"},
+        {"id": 502, "name": "Catering Assistance"},
+        {"id": 503, "name": "Security & Crowd Control"},
+        {"id": 504, "name": "Equipment Transport"},
+        {"id": 505, "name": "Cleaning After Event"},
+        {"id": 506, "name": "Restaurant Worker"}
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Delivery & Courier",
+      "subcategories": [
+        {"id": 601, "name": "Package"},
+        {"id": 602, "name": "Food"},
+        {"id": 603, "name": "Grocery Shopping"},
+        {"id": 604, "name": "Courier Services"}
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Construction Assistance",
+      "subcategories": [
+        {"id": 701, "name": "Site Cleanup"},
+        {"id": 702, "name": "Material Transport"},
+        {"id": 703, "name": "Demolition Assistance"},
+        {"id": 704, "name": "General Laborer Support"}
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Pet Care",
+      "subcategories": [
+        {"id": 801, "name": "Dog Walking"},
+        {"id": 802, "name": "Pet Sitting"},
+        {"id": 803, "name": "Pet Grooming Assistance"}
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Personal Assistance",
+      "subcategories": [
+        {"id": 901, "name": "Errand Running"},
+        {"id": 902, "name": "Personal Shopping"},
+        {"id": 903, "name": "Caregiving Support (non-medical)"}
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Transportation & Driving",
+      "subcategories": [
+        {"id": 1001, "name": "Rideshare Driving"},
+        {"id": 1002, "name": "Taxi Services"},
+        {"id": 1003, "name": "Shuttle Services"},
+        {"id": 1004, "name": "Truck Driving (short haul)"},
+        {"id": 1005, "name": "Motorcycle Courier"}
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Home Improvement",
+      "subcategories": [
+        {"id": 1101, "name": "Flooring Installation"},
+        {"id": 1102, "name": "Tiling & Grouting"},
+        {"id": 1103, "name": "Roofing Assistance"},
+        {"id": 1104, "name": "Drywall Installation & Repair"},
+        {"id": 1105, "name": "Fence Building & Repair"}
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Appliance & Equipment Support",
+      "subcategories": [
+        {"id": 1201, "name": "Appliance Installation"},
+        {"id": 1202, "name": "Equipment Moving & Setup"},
+        {"id": 1203, "name": "Repair Assistance"},
+        {"id": 1204, "name": "Maintenance & Servicing"}
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Waste Management",
+      "subcategories": [
+        {"id": 1301, "name": "Junk Removal"},
+        {"id": 1302, "name": "Recycling Pickup"},
+        {"id": 1303, "name": "Hazardous Waste Disposal"},
+        {"id": 1304, "name": "Yard Waste Removal"}
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Security Services",
+      "subcategories": [
+        {"id": 1401, "name": "Patrol & Monitoring"},
+        {"id": 1402, "name": "Event Security"},
+        {"id": 1403, "name": "Building Security"},
+        {"id": 1404, "name": "Alarm System Installation Assistance"}
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Agricultural Work",
+      "subcategories": [
+        {"id": 1501, "name": "Farm Labor"},
+        {"id": 1502, "name": "Harvesting"},
+        {"id": 1503, "name": "Animal Care"},
+        {"id": 1504, "name": "Planting & Seeding"}
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Fitness Assistance",
+      "subcategories": [
+        {"id": 1601, "name": "Setup & Cleanup of Equipment"},
+        {"id": 1602, "name": "Event Assistance"},
+        {"id": 1603, "name": "Personal Training Support"}
+      ]
+    }
+  ]
+}

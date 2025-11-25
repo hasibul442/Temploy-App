@@ -1,0 +1,82 @@
+ name: Build & Firebase App Distribution (No EAS)
+ 
+ on:
+   workflow_dispatch:
+    inputs:
+      branch:
+        description: "Select the branch to build"
+        required: true
+        type: choice
+        options:
+          - expo-test
+          - main
+          - dev
+          - staging
+        default: expo-test
+ 
+ jobs:
+   build-and-distribute:
+     runs-on: ubuntu-latest
+ 
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v4
+ 
+       - name: Set up Node.js
+         uses: actions/setup-node@v4
+         with:
+           node-version: 18
+ 
+       - name: Set up Java (for Gradle build)
+         uses: actions/setup-java@v4
+         with:
+           distribution: "temurin"
+           java-version: "17"
+ 
+       - name: Install dependencies
+         run: npm ci
+ 
+       - name: Install Expo CLI
+         run: npm install -g expo-cli
+ 
+      # - name: Prebuild native project (generate android/ios folders)
+      #  run: npx expo prebuild --non-interactive
+ 
+       - name: Accept Android SDK licenses and install missing components
+         run: |
+           set -e
+           ANDROID_SDK_ROOT=${ANDROID_HOME:-/usr/local/lib/android/sdk}
+           echo "Using ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+           PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/cmdline-tools/bin:$ANDROID_SDK_ROOT/tools/bin:$PATH"
+           # Accept SDK licenses
+           yes | sdkmanager --licenses || true
+           # Install specific NDK and platform/build-tools that Gradle may need
+           sdkmanager "ndk;29.0.14033849" "platforms;android-33" "build-tools;33.0.2"
+         env:
+           ANDROID_HOME: /usr/local/lib/android/sdk
+           JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64
+ 
+       - name: Build Android APK
+         working-directory: android
+         # Build an APK (assembleRelease) instead of an AAB to avoid requiring a Google Play linking for AAB uploads
+         run: ./gradlew assembleRelease
+         env:
+           JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64
+           ANDROID_HOME: /usr/local/lib/android/sdk
+ 
+       - name: Verify APK exists
+         run: ls -lah android/app/build/outputs/apk/release/
+ 
+       - name: Upload APK as workflow artifact
+         uses: actions/upload-artifact@v4
+         with:
+           name: app-release.apk
+           path: android/app/build/outputs/apk/release/app-release.apk
+ 
+       - name: Distribute to Firebase App Distribution
+         uses: wzieba/Firebase-Distribution-Github-Action@v1
+         with:
+             appId: ${{ secrets.FIREBASE_APP_ID }}
+             serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+             groups: testers
+             file: android/app/build/outputs/apk/release/app-release.apk
