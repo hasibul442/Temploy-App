@@ -21,7 +21,6 @@ function WelcomeScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.backgroundSolid}>
-        {/* Decorative Circles */}
         <View style={styles.circleTopLeft} />
         <View style={styles.circleTopRight} />
         <View style={styles.circleBottomRight} />
@@ -73,8 +72,7 @@ function WelcomeScreen() {
             <TouchableOpacity style={styles.socialIcon}>
               <Text style={styles.socialIconText}>
                 <FontAwesome5 name="facebook" size={24} color="black" />
-              </Text>{" "}
-              {/* Facebook */}
+              </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -86,13 +84,11 @@ function WelcomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#F5F5F5", // Light grey background outside the main block
+    backgroundColor: Colors.success_2,
   },
   backgroundSolid: {
     flex: 1,
-    backgroundColor: Colors.success_2,
-    borderRadius: 0,
-    overflow: "hidden",
+     position: "relative",
   },
   scrollContent: {
     flexGrow: 1,

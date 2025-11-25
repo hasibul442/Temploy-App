@@ -22,17 +22,13 @@ function LoginScreen() {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={styles.safeArea}>
       <View style={styles.backgroundSolid}>
         <View style={styles.circleTopLeft} />
         <View style={styles.circleTopRight} />
         {/* <View style={styles.circleMidRight} /> */}
 
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
+        <View style={styles.contentWrapper}>
           {/* Top Header */}
           <View style={styles.headerContent}>
             <View>
@@ -41,84 +37,90 @@ function LoginScreen() {
             </View>
           </View>
 
-          {/* Main White Card */}
-          <View style={styles.loginCard}>
-            {/* Email Input */}
-            <View style={styles.inputGroup}>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  mode="outlined"
-                  label="Email"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  textContentType="emailAddress"
-                  placeholder="Please Insert Email"
-                  value={email}
-                  onChangeText={setEmail}
-                  outlineColor="#333"
-                  activeOutlineColor={Colors.success}
-                  textColor="#000"
-                  style={{ backgroundColor: 'white', width: '100%' }}
-                  theme={{ colors: { background: 'white' } }}
-                />
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            {/* Main White Card */}
+            <View style={styles.loginCard}>
+              {/* Email Input */}
+              <View style={styles.inputGroup}>
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    mode="outlined"
+                    label="Email"
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    textContentType="emailAddress"
+                    placeholder="Please Insert Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    outlineColor="#333"
+                    activeOutlineColor={Colors.success}
+                    textColor="#000"
+                    style={{ backgroundColor: "white", width: "100%" }}
+                    theme={{ colors: { background: "white" } }}
+                  />
+                </View>
               </View>
-            </View>
 
-            {/* Password Input */}
-            <View style={styles.inputGroup}>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  mode="outlined"
-                  label="Password"
-                  secureTextEntry={!showPassword}
-                  value={password}
-                  onChangeText={setPassword}
-                  outlineColor="#333"
-                  activeOutlineColor={Colors.success}
-                  textColor="#000"
-                  style={{ backgroundColor: 'white', width: '100%' }}
-                  theme={{ colors: { background: 'white' } }}
-                  right={
-                    <TextInput.Icon
-                      icon={showPassword ? "eye-off" : "eye"}
-                      onPress={() => setShowPassword(!showPassword)}
-                    />
-                  }
-                />
+              {/* Password Input */}
+              <View style={styles.inputGroup}>
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    mode="outlined"
+                    label="Password"
+                    secureTextEntry={!showPassword}
+                    value={password}
+                    onChangeText={setPassword}
+                    outlineColor="#333"
+                    activeOutlineColor={Colors.success}
+                    textColor="#000"
+                    style={{ backgroundColor: "white", width: "100%" }}
+                    theme={{ colors: { background: "white" } }}
+                    right={
+                      <TextInput.Icon
+                        icon={showPassword ? "eye-off" : "eye"}
+                        onPress={() => setShowPassword(!showPassword)}
+                      />
+                    }
+                  />
+                </View>
               </View>
-            </View>
 
-            {/* Forgot Password */}
-            <TouchableOpacity style={styles.forgotPasswordButton}>
-              <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-            </TouchableOpacity>
-
-            {/* Sign In Button */}
-            <TouchableOpacity
-              style={styles.signInButton}
-              onPress={() => {
-                navigation.navigate("Home");
-              }}
-            >
-              <Text style={styles.signInButtonText}>SIGN IN</Text>
-            </TouchableOpacity>
-
-            {/* Sign Up Link */}
-            <View style={styles.signUpContainer}>
-              <Text style={styles.signUpText}>Don't have account? </Text>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("Auth", { screen: "Signup" })
-                }
-              >
-                <Text style={styles.signUpLink}>Sign up</Text>
+              {/* Forgot Password */}
+              <TouchableOpacity style={styles.forgotPasswordButton}>
+                <Text style={styles.forgotPasswordText}>Forgot password?</Text>
               </TouchableOpacity>
+
+              {/* Sign In Button */}
+              <TouchableOpacity
+                style={styles.signInButton}
+                onPress={() => {
+                  navigation.navigate("Home");
+                }}
+              >
+                <Text style={styles.signInButtonText}>SIGN IN</Text>
+              </TouchableOpacity>
+
+              {/* Sign Up Link */}
+              <View style={styles.signUpContainer}>
+                <Text style={styles.signUpText}>Don't have account? </Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("Auth", { screen: "Signup" })
+                  }
+                >
+                  <Text style={styles.signUpLink}>Sign up</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -126,15 +128,15 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: Colors.success_2,
+    height: "100%",
   },
   backgroundSolid: {
     flex: 1,
-    // backgroundColor: Colors.success_2,
     position: "relative",
+    justifyContent: "flex-end",
   },
   scrollContent: {
-    justifyContent: "space-between",
-    minHeight: height,
+    flexGrow: 0,
   },
 
   // --- Decorative Circles ---
@@ -174,11 +176,8 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 30,
     paddingTop: 30,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
+    paddingBottom: 120,
     zIndex: 1,
-    marginBottom: 60,
   },
   helloText: {
     fontSize: 32,
@@ -196,22 +195,20 @@ const styles = StyleSheet.create({
 
   // --- Main Login Card ---
   loginCard: {
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     width: "100%",
-    height: 500,
     alignSelf: "center",
     padding: 32,
     paddingTop: 36,
-    paddingBottom: 60,
-    zIndex: 1,
+    paddingBottom: 80,
+    // zIndex: 1,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 15 },
     shadowOpacity: 0.25,
     shadowRadius: 25,
     elevation: 20,
-    // marginBottom: 40,
   },
 
   // --- Input Styles ---
