@@ -11,6 +11,7 @@ import {
 import { TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../utils/constants/Color";
+import { CommonStyles } from "../../utils/styles/CommonStyle";
 
 const { width, height } = Dimensions.get("window");
 
@@ -22,26 +23,24 @@ function LoginScreen() {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.safeArea}>
+    <View style={CommonStyles.safeArea}>
       <View style={styles.backgroundSolid}>
-        <View style={styles.circleTopLeft} />
-        <View style={styles.circleTopRight} />
-        {/* <View style={styles.circleMidRight} /> */}
+        <View style={CommonStyles.circleTopLeft} />
+        <View style={CommonStyles.circleTopRight} />
 
-        <View style={styles.contentWrapper}>
-          {/* Top Header */}
-          <View style={styles.headerContent}>
+        <View>
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.headerContent}>
             <View>
               <Text style={styles.helloText}>Hello</Text>
               <Text style={styles.signInText}>Sign in!</Text>
             </View>
           </View>
 
-          <ScrollView
-            contentContainerStyle={styles.scrollContent}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
             {/* Main White Card */}
             <View style={styles.loginCard}>
               {/* Email Input */}
@@ -125,11 +124,6 @@ function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: Colors.success_2,
-    height: "100%",
-  },
   backgroundSolid: {
     flex: 1,
     position: "relative",
@@ -138,38 +132,7 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 0,
   },
-
-  // --- Decorative Circles ---
-  circleTopLeft: {
-    position: "absolute",
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: "#ffffff1a",
-    top: -50,
-    left: -50,
-    zIndex: 0,
-  },
-  circleTopRight: {
-    position: "absolute",
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: "#ffffff1a",
-    top: 50,
-    right: -20,
-    zIndex: 0,
-  },
-  circleMidRight: {
-    position: "absolute",
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: "#d32f2f4d",
-    top: height * 0.4,
-    right: -60,
-    zIndex: 0,
-  },
+  
 
   // --- Header Content ---
   headerContent: {
@@ -236,16 +199,6 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     borderWidth: 1,
     borderRadius: 8,
-  },
-  checkIcon: {
-    fontSize: 16,
-    color: Colors.success_2,
-    marginLeft: 10,
-    fontWeight: "bold",
-  },
-  eyeIcon: {
-    fontSize: 18,
-    marginLeft: 10,
   },
 
   // --- Forgot Password ---
