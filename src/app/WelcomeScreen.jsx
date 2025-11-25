@@ -13,17 +13,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../utils/constants/Color";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { AntDesign } from "@expo/vector-icons";
+import { CommonStyles } from "../utils/styles/CommonStyle";
 
 const { width } = Dimensions.get("window");
 
 function WelcomeScreen() {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={CommonStyles.safeArea}>
       <View style={styles.backgroundSolid}>
-        <View style={styles.circleTopLeft} />
-        <View style={styles.circleTopRight} />
-        <View style={styles.circleBottomRight} />
+        <View style={CommonStyles.circleTopLeft} />
+        <View style={CommonStyles.circleTopRight} />
+        <View style={CommonStyles.circleBottomRight} />
 
         <ScrollView
           contentContainerStyle={styles.scrollContent}
@@ -82,13 +83,9 @@ function WelcomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: Colors.success_2,
-  },
   backgroundSolid: {
     flex: 1,
-     position: "relative",
+    position: "relative",
   },
   scrollContent: {
     flexGrow: 1,
@@ -96,38 +93,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 30,
     paddingVertical: 50,
-  },
-
-  // --- Decorative Circles ---
-  circleTopLeft: {
-    position: "absolute",
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: "#ffffff1a",
-    top: -50,
-    left: -50,
-    zIndex: 0,
-  },
-  circleTopRight: {
-    position: "absolute",
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: "#ffffff1a",
-    top: 50,
-    right: -20,
-    zIndex: 0,
-  },
-  circleBottomRight: {
-    position: "absolute",
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    backgroundColor: "#ffffff1a",
-    bottom: -80,
-    right: -80,
-    zIndex: 0,
   },
 
   // --- Header/Menu Dots ---
