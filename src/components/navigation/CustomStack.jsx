@@ -16,49 +16,33 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
 
-export function OrderStack() {
+// Common header options
+const getHeaderOptions = (title, showBack = false) => ({
+  title,
+  headerStyle: { backgroundColor: Colors.success_2 },
+  headerTintColor: Colors.white,
+  headerTitleStyle: { fontWeight: "bold" },
+  headerBackVisible: showBack,
+});
+
+// Generic stack creator for simple single-screen stacks
+const createSimpleStack = (screenName, component, headerOptions) => {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Orders"
-        component={Orders}
-        options={{
-          title: "Orders",
-          headerStyle: { backgroundColor: Colors.primary_2 },
-          headerTintColor: Colors.white,
-          headerTitleStyle: { fontWeight: "bold" },
-          headerBackVisible: false,
-        }}
-      />
+      <Stack.Screen name={screenName} component={component} options={headerOptions} />
     </Stack.Navigator>
   );
+};
+
+export function OrderStack() {
+  return createSimpleStack("Orders", Orders, getHeaderOptions("Orders"));
 }
 
 export function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          title: "Home",
-          headerStyle: { backgroundColor: Colors.success_2 },
-          headerTintColor: Colors.white,
-          headerTitleStyle: { fontWeight: "bold" },
-          headerBackVisible: false,
-        }}
-      />
-      <Stack.Screen
-        name="Details"
-        component={Details}
-        options={{
-          title: "",
-          headerStyle: { backgroundColor: Colors.success_2 },
-          headerTintColor: Colors.white,
-          headerTitleStyle: { fontWeight: "bold" },
-          headerBackVisible: false,
-        }}
-      />
+      <Stack.Screen name="Home" component={HomeScreen} options={getHeaderOptions("Home")} />
+      <Stack.Screen name="Details" component={Details} options={getHeaderOptions("")} />
     </Stack.Navigator>
   );
 }
@@ -66,26 +50,12 @@ export function HomeStack() {
 export function MessageStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Messages"
-        component={Messages}
-        options={{
-          title: "Inbox",
-          headerStyle: { backgroundColor: Colors.success_2 },
-          headerTintColor: Colors.white,
-          headerTitleStyle: { fontWeight: "bold" },
-          headerBackVisible: false,
-        }}
-      />
+      <Stack.Screen name="Messages" component={Messages} options={getHeaderOptions("Inbox")} />
       <Stack.Screen
         name="MessageDetails"
         component={MessageDetails}
         options={({ route }) => ({
-          title: route.params?.item?.sender ?? "Temploy",
-          headerStyle: { backgroundColor: Colors.success_2 },
-          headerTintColor: Colors.white,
-          headerTitleStyle: { fontWeight: "bold" },
-          headerBackVisible: true,
+          ...getHeaderOptions(route.params?.item?.sender ?? "Temploy", true),
         })}
       />
     </Stack.Navigator>
@@ -93,96 +63,36 @@ export function MessageStack() {
 }
 
 export function OfferStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Offers"
-        component={Offers}
-        options={{
-          title: "Offers",
-          headerStyle: { backgroundColor: Colors.success_2 },
-          headerTintColor: Colors.white,
-          headerTitleStyle: { fontWeight: "bold" },
-          headerBackVisible: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
+  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers"));
 }
 
 export function MenuStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Menu"
-        component={Menu}
-        options={{
-          title: "Menu",
-          headerStyle: { backgroundColor: Colors.success_2 },
-          headerTintColor: Colors.white,
-          headerTitleStyle: { fontWeight: "bold" },
-          headerBackVisible: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
+  return createSimpleStack("Menu", Menu, getHeaderOptions("Menu"));
 }
 
 export function ProfileStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
+  return createSimpleStack("Profile", Profile, { headerShown: false });
 }
 
 export function AuthStack() {
+  const authScreens = [
+    { name: "Welcome", component: WelcomeScreen },
+    { name: "Login", component: LoginScreen },
+    { name: "Signup", component: SignupScreen },
+    { name: "ForgetPassword", component: ForgetPasswordScreen },
+    { name: "OTPScreen", component: OTPScreen },
+  ];
+
   return (
     <Stack.Navigator initialRouteName="Welcome">
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Signup"
-        component={SignupScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
-        name="ForgetPassword"
-        component={ForgetPasswordScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
-        name="OTPScreen"
-        component={OTPScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
-        name="Welcome"
-        component={WelcomeScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+      {authScreens.map(({ name, component }) => (
+        <Stack.Screen
+          key={name}
+          name={name}
+          component={component}
+          options={{ headerShown: false }}
+        />
+      ))}
     </Stack.Navigator>
   );
 }
