@@ -91,7 +91,7 @@ function LoginScreen() {
               </View>
 
               {/* Forgot Password */}
-              <TouchableOpacity style={styles.forgotPasswordButton}>
+              <TouchableOpacity style={styles.forgotPasswordButton} onPress={() => navigation.navigate("ForgetPassword")}>
                 <Text style={styles.forgotPasswordText}>Forgot password?</Text>
               </TouchableOpacity>
 
@@ -145,20 +145,20 @@ const styles = StyleSheet.create({
   helloText: {
     fontSize: 32,
     fontWeight: "600",
-    color: "white",
+    color: Colors.white,
     letterSpacing: 0.5,
   },
   signInText: {
     fontSize: 42,
     fontWeight: "bold",
-    color: "white",
+    color: Colors.white,
     marginTop: 2,
     letterSpacing: 0.5,
   },
 
   // --- Main Login Card ---
   loginCard: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     width: "100%",
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     paddingTop: 36,
     paddingBottom: 80,
     // zIndex: 1,
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 15 },
     shadowOpacity: 0.25,
     shadowRadius: 25,
