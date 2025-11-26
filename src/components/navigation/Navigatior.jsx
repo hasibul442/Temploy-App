@@ -21,7 +21,7 @@ const Tab = createBottomTabNavigator();
 
 // Bottom Tab Navigator component
 export default function Navigator() {
-  const insets = useSafeAreaInsets();
+  // const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
       initialRouteName="Auth"
