@@ -29,7 +29,11 @@ const getHeaderOptions = (title, showBack = false) => ({
 const createSimpleStack = (screenName, component, headerOptions) => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name={screenName} component={component} options={headerOptions} />
+      <Stack.Screen
+        name={screenName}
+        component={component}
+        options={headerOptions}
+      />
     </Stack.Navigator>
   );
 };
@@ -41,8 +45,16 @@ export function OrderStack() {
 export function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} options={getHeaderOptions("Home")} />
-      <Stack.Screen name="Details" component={Details} options={getHeaderOptions("")} />
+      <Stack.Screen
+        name="HomeMain"
+        component={HomeScreen}
+        options={getHeaderOptions("Home")}
+      />
+      <Stack.Screen
+        name="Details"
+        component={Details}
+        options={getHeaderOptions("")}
+      />
     </Stack.Navigator>
   );
 }
@@ -50,7 +62,11 @@ export function HomeStack() {
 export function MessageStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Messages" component={Messages} options={getHeaderOptions("Inbox")} />
+      <Stack.Screen
+        name="Messages"
+        component={Messages}
+        options={getHeaderOptions("Inbox")}
+      />
       <Stack.Screen
         name="MessageDetails"
         component={MessageDetails}
