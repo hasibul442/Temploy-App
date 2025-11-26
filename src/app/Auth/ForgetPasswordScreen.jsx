@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  ScrollView,
+  ToastAndroid,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -15,15 +15,29 @@ import { Colors } from "../../utils/constants/Color";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { ButtonStyle } from "../../utils/styles/ButtonStyle";
 import { TextInput } from "react-native-paper";
+import { ErrorAlert } from "../../utils/helper/AlertHelper";
 
 const { width } = Dimensions.get("window");
 
 function ForgetPasswordScreen() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmitButton = () => {
-    navigation.navigate("Auth", { screen: "OTPScreen" });
+    if (!email) {
+      setError("Email is required");
+      ErrorAlert("Email is required");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please enter a valid email address");
+      ErrorAlert("Please enter a valid email address");
+      return;
+    }
+    
+    setError("");
+    navigation.navigate("Auth", { screen: "OTPScreen", params: { email } });
   };
 
   return (
@@ -73,6 +87,7 @@ function ForgetPasswordScreen() {
               width: "100%",
               marginBottom: 20,
             }}
+            error={!!error}
             theme={{ colors: { background: "white" } }}
           />
 
