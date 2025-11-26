@@ -10,8 +10,6 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { AntDesign } from "@expo/vector-icons";
 import { Colors } from "../../utils/constants/Color";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { ButtonStyle } from "../../utils/styles/ButtonStyle";
@@ -24,7 +22,7 @@ function ForgetPasswordScreen() {
   const [email, setEmail] = useState("");
 
   const handleSubmitButton = () => {
-    navigation.navigate("Auth", { screen: "Login" });
+    navigation.navigate("Auth", { screen: "OTPScreen" });
   };
 
   return (
