@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Colors } from "../../utils/constants/Color";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { ButtonStyle } from "../../utils/styles/ButtonStyle";
@@ -32,9 +33,13 @@ function ForgetPasswordScreen() {
         <View style={CommonStyles.circleTopRight} />
         <View style={CommonStyles.circleBottomRight} />
 
-        <ScrollView
+        <KeyboardAwareScrollView
           contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
+          extraHeight={180}
+          enableOnAndroid={true}
+          enableAutomaticScroll={true}
         >
           {/* Logo Section */}
           <View style={styles.logoContainer}>
@@ -86,7 +91,7 @@ function ForgetPasswordScreen() {
               </TouchableOpacity>
             </Text>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     </SafeAreaView>
   );
@@ -102,7 +107,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 30,
-    paddingVertical: 50,
   },
 
   // --- Logo Section ---
