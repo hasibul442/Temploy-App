@@ -6,8 +6,8 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  ScrollView,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../utils/constants/Color";
@@ -23,105 +23,102 @@ function LoginScreen() {
 
   const navigation = useNavigation();
 
-  return (
-    <View style={CommonStyles.safeArea}>
+  const handleSignIn = () => {
+    navigation.navigate("Home");
+  };
+
+return (
+  <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
       <View style={styles.backgroundSolid}>
         <View style={CommonStyles.circleTopLeft} />
         <View style={CommonStyles.circleTopRight} />
 
-        <View>
-          <ScrollView
-            contentContainerStyle={styles.scrollContent}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={styles.headerContent}>
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          extraHeight={180}
+          enableOnAndroid={true}
+          enableAutomaticScroll={true}
+        >
+          <View style={styles.headerContent}>
             <View>
               <Text style={styles.helloText}>Hello</Text>
               <Text style={styles.signInText}>Sign in!</Text>
             </View>
           </View>
 
-            {/* Main White Card */}
-            <View style={styles.loginCard}>
-              {/* Email Input */}
-              <View style={styles.inputGroup}>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    mode="outlined"
-                    label="Email"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    textContentType="emailAddress"
-                    placeholder="Please Insert Email"
-                    value={email}
-                    onChangeText={setEmail}
-                    outlineColor="#333"
-                    activeOutlineColor={Colors.success}
-                    textColor="#000"
-                    style={{ backgroundColor: "white", width: "100%" }}
-                    theme={{ colors: { background: "white" } }}
-                  />
-                </View>
-              </View>
-
-              {/* Password Input */}
-              <View style={styles.inputGroup}>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    mode="outlined"
-                    label="Password"
-                    secureTextEntry={!showPassword}
-                    value={password}
-                    onChangeText={setPassword}
-                    outlineColor="#333"
-                    activeOutlineColor={Colors.success}
-                    textColor="#000"
-                    style={{ backgroundColor: "white", width: "100%" }}
-                    theme={{ colors: { background: "white" } }}
-                    right={
-                      <TextInput.Icon
-                        icon={showPassword ? "eye-off" : "eye"}
-                        onPress={() => setShowPassword(!showPassword)}
-                      />
-                    }
-                  />
-                </View>
-              </View>
-
-              {/* Forgot Password */}
-              <TouchableOpacity style={styles.forgotPasswordButton} onPress={() => navigation.navigate("ForgetPassword")}>
-                <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-              </TouchableOpacity>
-
-              {/* Sign In Button */}
-              <TouchableOpacity
-                style={ButtonStyle.signInButton}
-                onPress={() => {
-                  navigation.navigate("Home");
-                }}
-              >
-                <Text style={ButtonStyle.signInButtonText}>SIGN IN</Text>
-              </TouchableOpacity>
-
-              {/* Sign Up Link */}
-              <View style={styles.signUpContainer}>
-                <Text style={styles.signUpText}>Don't have account? </Text>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("Auth", { screen: "Signup" })
-                  }
-                >
-                  <Text style={styles.signUpLink}>Sign up</Text>
-                </TouchableOpacity>
+          <View style={styles.loginCard}>
+            {/* Email */}
+            <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  mode="outlined"
+                  label="Email"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  value={email}
+                  onChangeText={setEmail}
+                  outlineColor="#333"
+                  activeOutlineColor={Colors.success}
+                  textColor="#000"
+                  style={{ backgroundColor: "white", width: "100%" }}
+                />
               </View>
             </View>
-          </ScrollView>
-        </View>
+
+            {/* Password */}
+            <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  mode="outlined"
+                  label="Password"
+                  secureTextEntry={!showPassword}
+                  value={password}
+                  onChangeText={setPassword}
+                  outlineColor="#333"
+                  activeOutlineColor={Colors.success}
+                  textColor="#000"
+                  style={{ backgroundColor: "white", width: "100%" }}
+                  right={
+                    <TextInput.Icon
+                      icon={showPassword ? "eye-off" : "eye"}
+                      onPress={() => setShowPassword(!showPassword)}
+                    />
+                  }
+                />
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={styles.forgotPasswordButton}
+              onPress={() => navigation.navigate("ForgetPassword")}
+            >
+              <Text style={styles.forgotPasswordText}>Forgot password?</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={ButtonStyle.signInButton}
+              onPress={handleSignIn}
+            >
+              <Text style={ButtonStyle.signInButtonText}>SIGN IN</Text>
+            </TouchableOpacity>
+
+            <View style={styles.signUpContainer}>
+              <Text style={styles.signUpText}>Don't have account? </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Auth", { screen: "Signup" })
+                }
+              >
+                <Text style={styles.signUpLink}>Sign up</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </KeyboardAwareScrollView>
       </View>
-    </View>
-  );
+  </SafeAreaView>
+);
 }
 
 const styles = StyleSheet.create({
@@ -131,9 +128,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   scrollContent: {
-    flexGrow: 0,
+    flexGrow: 1,
+    justifyContent: "flex-end",
   },
-  
+
   // --- Header Content ---
   headerContent: {
     width: "100%",
@@ -178,7 +176,7 @@ const styles = StyleSheet.create({
   inputGroup: {
     marginBottom: 24,
   },
- 
+
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -188,8 +186,6 @@ const styles = StyleSheet.create({
   // --- Forgot Password ---
   forgotPasswordButton: {
     alignSelf: "flex-end",
-    marginTop: 8,
-    marginBottom: 35,
   },
   forgotPasswordText: {
     fontSize: 13.5,
