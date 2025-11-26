@@ -167,7 +167,7 @@ function HomeScreen() {
             <BottomSheetView style={{ padding: 15 }}>
               <View style={style.category_block}>
                 {categories.map((item, index) => (
-                  <CategoryButton key={item.id} item={item} />
+                  <CategoryButton key={item._id} item={item} />
                 ))}
               </View>
             </BottomSheetView>

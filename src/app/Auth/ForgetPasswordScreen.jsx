@@ -7,24 +7,37 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  ScrollView,
+  ToastAndroid,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { AntDesign } from "@expo/vector-icons";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Colors } from "../../utils/constants/Color";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { ButtonStyle } from "../../utils/styles/ButtonStyle";
 import { TextInput } from "react-native-paper";
+import { ErrorAlert } from "../../utils/helper/AlertHelper";
 
 const { width } = Dimensions.get("window");
 
 function ForgetPasswordScreen() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmitButton = () => {
-    navigation.navigate("Auth", { screen: "Login" });
+    if (!email) {
+      setError("Email is required");
+      ErrorAlert("Email is required");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please enter a valid email address");
+      ErrorAlert("Please enter a valid email address");
+      return;
+    }
+    
+    setError("");
+    navigation.navigate("Auth", { screen: "OTPScreen", params: { email } });
   };
 
   return (
@@ -34,9 +47,13 @@ function ForgetPasswordScreen() {
         <View style={CommonStyles.circleTopRight} />
         <View style={CommonStyles.circleBottomRight} />
 
-        <ScrollView
+        <KeyboardAwareScrollView
           contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
+          extraHeight={180}
+          enableOnAndroid={true}
+          enableAutomaticScroll={true}
         >
           {/* Logo Section */}
           <View style={styles.logoContainer}>
@@ -70,6 +87,7 @@ function ForgetPasswordScreen() {
               width: "100%",
               marginBottom: 20,
             }}
+            error={!!error}
             theme={{ colors: { background: "white" } }}
           />
 
@@ -88,7 +106,7 @@ function ForgetPasswordScreen() {
               </TouchableOpacity>
             </Text>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     </SafeAreaView>
   );
@@ -104,7 +122,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 30,
-    paddingVertical: 50,
   },
 
   // --- Logo Section ---

@@ -13,18 +13,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../utils/constants/Color";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { AntDesign } from "@expo/vector-icons";
+import { CommonStyles } from "../utils/styles/CommonStyle";
+import { ButtonStyle } from "../utils/styles/ButtonStyle";
 
 const { width } = Dimensions.get("window");
 
 function WelcomeScreen() {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={CommonStyles.safeArea}>
       <View style={styles.backgroundSolid}>
-        {/* Decorative Circles */}
-        <View style={styles.circleTopLeft} />
-        <View style={styles.circleTopRight} />
-        <View style={styles.circleBottomRight} />
+        <View style={CommonStyles.circleTopLeft} />
+        <View style={CommonStyles.circleTopRight} />
+        <View style={CommonStyles.circleBottomRight} />
 
         <ScrollView
           contentContainerStyle={styles.scrollContent}
@@ -33,28 +34,26 @@ function WelcomeScreen() {
           {/* Logo Section */}
           <View style={styles.logoContainer}>
             <Image
-              source={{
-                uri: "https://placehold.co/60x40/ffffff/ffffff?text=H",
-              }}
+              source={require("../assets/logo/logo-1.png")}
               style={styles.dumbbellIcon}
             />
-            <Text style={styles.logoText}>Temploy</Text>
+            {/* <Text style={styles.logoText}>Temploy</Text> */}
           </View>
 
           <Text style={styles.welcomeText}>Welcome to Temploy</Text>
 
           <TouchableOpacity
-            style={styles.signInButton}
+            style={ButtonStyle.signInButton_2}
             onPress={() => navigation.navigate("Auth", { screen: "Login" })}
           >
-            <Text style={styles.signInButtonText}>SIGN IN</Text>
+            <Text style={ButtonStyle.signInButtonText_2}>SIGN IN</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.signUpButton}
+            style={ButtonStyle.signUpButton}
             onPress={() => navigation.navigate("Auth", { screen: "Signup" })}
           >
-            <Text style={styles.signUpButtonText}>SIGN UP</Text>
+            <Text style={ButtonStyle.signUpButtonText}>SIGN UP</Text>
           </TouchableOpacity>
 
           {/* Social Media Login */}
@@ -73,8 +72,7 @@ function WelcomeScreen() {
             <TouchableOpacity style={styles.socialIcon}>
               <Text style={styles.socialIconText}>
                 <FontAwesome5 name="facebook" size={24} color="black" />
-              </Text>{" "}
-              {/* Facebook */}
+              </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -84,15 +82,9 @@ function WelcomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#F5F5F5", // Light grey background outside the main block
-  },
   backgroundSolid: {
     flex: 1,
-    backgroundColor: Colors.success_2,
-    borderRadius: 0,
-    overflow: "hidden",
+    position: "relative",
   },
   scrollContent: {
     flexGrow: 1,
@@ -102,63 +94,14 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
   },
 
-  // --- Decorative Circles ---
-  circleTopLeft: {
-    position: "absolute",
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: "#ffffff1a",
-    top: -50,
-    left: -50,
-    zIndex: 0,
-  },
-  circleTopRight: {
-    position: "absolute",
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: "#ffffff1a",
-    top: 50,
-    right: -20,
-    zIndex: 0,
-  },
-  circleBottomRight: {
-    position: "absolute",
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    backgroundColor: "#ffffff1a",
-    bottom: -80,
-    right: -80,
-    zIndex: 0,
-  },
-
-  // --- Header/Menu Dots ---
-  menuDots: {
-    position: "absolute",
-    top: 30,
-    right: 20,
-    width: 30,
-    height: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1,
-  },
-  menuDotsText: {
-    fontSize: 30,
-    color: "white",
-    lineHeight: 25,
-  },
-
   // --- Logo Section ---
   logoContainer: {
     alignItems: "center",
     marginBottom: 50,
   },
   dumbbellIcon: {
-    width: 60,
-    height: 40,
+    width: 150,
+    height: 80,
     resizeMode: "contain",
     tintColor: "white",
     marginBottom: 10,
@@ -176,41 +119,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     marginBottom: 50,
-  },
-
-  // --- Action Buttons ---
-  signInButton: {
-    width: "100%",
-    backgroundColor: "transparent",
-    borderWidth: 2,
-    borderColor: "white",
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  signInButtonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  signUpButton: {
-    width: "100%",
-    backgroundColor: "white",
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 60,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 8,
-  },
-  signUpButtonText: {
-    color: Colors.success_2,
-    fontSize: 18,
-    fontWeight: "bold",
   },
 
   // --- Social Media Login ---
