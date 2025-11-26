@@ -6,8 +6,8 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  ScrollView,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../utils/constants/Color";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
@@ -26,17 +26,20 @@ function SignupScreen() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <View style={CommonStyles.safeArea}>
+    <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
       <View style={styles.backgroundSolid}>
         {/* Decorative circles */}
         <View style={CommonStyles.circleTopLeft} />
         <View style={CommonStyles.circleTopRight} />
 
-        <View>
-          <ScrollView
+        {/* <View> */}
+          <KeyboardAwareScrollView
             contentContainerStyle={styles.scrollContent}
-            keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            extraHeight={180}
+            enableOnAndroid={true}
+            enableAutomaticScroll={true}
           >
             {/* Top Header */}
             <View style={styles.headerContent}>
@@ -159,10 +162,10 @@ function SignupScreen() {
                 </TouchableOpacity>
               </View>
             </View>
-          </ScrollView>
-        </View>
+          </KeyboardAwareScrollView>
+        {/* </View> */}
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -173,7 +176,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   scrollContent: {
-    flexGrow: 0,
+    flexGrow: 1,
+    justifyContent: "flex-end",
   },
 
   // --- Header Content ---
