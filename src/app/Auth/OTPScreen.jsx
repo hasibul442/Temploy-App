@@ -1,117 +1,153 @@
-import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { TextInput } from 'react-native-paper';
+import React, { forwardRef, useEffect, useRef, useState } from "react";
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { TextInput } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { CommonStyles } from "../../utils/styles/CommonStyle";
+import { Colors } from "../../utils/constants/Color";
+import { ButtonStyle } from "../../utils/styles/ButtonStyle";
+import { useNavigation } from "@react-navigation/native";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
-const PRIMARY_ORANGE = '#FF5722';
-const BACKGROUND_CREAM = '#FFF8E1';
-
-// --- OTP Input Component (Unchanged, relies on parent props) ---
-const OtpInput = React.forwardRef(({ value, onKeyPress, onChangeText }, ref) => (
+const OtpInput = forwardRef(({ value, onKeyPress, onChangeText }, ref) => (
   <TextInput
     ref={ref}
     mode="outlined"
-    outlineColor='#E0E0E0'
-    activeOutlineColor={PRIMARY_ORANGE}
+    outlineColor={Colors.white}
+    activeOutlineColor={Colors.basil_orange_800}
     keyboardType="number-pad"
     maxLength={1}
     value={value}
     onKeyPress={onKeyPress}
     onChangeText={onChangeText}
-    selectionColor={PRIMARY_ORANGE}
+    selectionColor={Colors.basil_orange_800}
     textAlign="center"
     style={styles.otpInputPaper}
     theme={{
-      colors: { text: '#333', primary: PRIMARY_ORANGE },
+      colors: { text: Colors.dark },
       roundness: 8,
     }}
   />
 ));
 
 // --- Main Screen Component ---
-function OTPScreen() {
+function OTPScreen({ route }) {
   // Initialize with empty strings to properly handle input
-  const [otp, setOtp] = useState(['', '', '', '', '', '']); 
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputs = useRef([]);
+  const navigation = useNavigation();
+  const [time, setTime] = useState(150);
 
-  const phoneNumber = '+8801774280874';
+  const email = route?.params?.email || "your email";
 
   const focusNextInput = (index, value) => {
-    
-    // 1. Create a copy of the state array
     const newOtp = [...otp];
-    
-    // 2. Update the specific digit in the copy
     newOtp[index] = value;
-    
-    // 3. Update the state
     setOtp(newOtp);
-
-    // 4. Handle auto-advance logic
     if (value && index < 5) {
       inputs.current[index + 1].focus();
     }
   };
 
   const focusPrevInput = (index, key) => {
-    // If Backspace is pressed and the current field is empty, move focus back
-    if (key === 'Backspace' && index > 0 && !otp[index]) {
-        inputs.current[index - 1].focus();
+    if (key === "Backspace" && index > 0 && !otp[index]) {
+      inputs.current[index - 1].focus();
     }
-    
-    // If Backspace is pressed and the current field HAS a value, clearing it should NOT move focus.
-    // The focus will stay on the cleared box, ready for new input.
   };
 
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  const handleOTPSubmit = () => {
+    const enteredOtp = otp.join("");
+    // Here you can add your OTP verification logic
+    console.log("Entered OTP:", enteredOtp);
+    // For demonstration, we'll just navigate to a "Home" screen
+    navigation.navigate("Home");
+  }
+
+  useEffect(() => {
+    let timer;
+    if (time > 0) {
+      timer = setInterval(() => {
+        setTime((prevTime) => prevTime - 1);
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [time]);
+
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => console.log('Go back')}>
-          <Text style={styles.backButton}>←</Text>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Sign up</Text>
-      </View>
-      
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
-          
-          <Text style={styles.otpHeading}>OTP Verification</Text>
-          <Text style={styles.otpSubtext}>
-            Enter the code from the sms we sent to <Text style={styles.phoneNumber}>{phoneNumber}</Text>
-          </Text>
+    <SafeAreaView style={CommonStyles.safeArea}>
+      <View style={styles.backgroundSolid}>
+        <View style={CommonStyles.circleTopLeft} />
+        <View style={CommonStyles.circleTopRight} />
+        <View style={CommonStyles.circleBottomRight} />
 
-          <View style={styles.timerContainer}>
-            <Text style={styles.timerText}>02:32</Text>
-          </View>
-
-          {/* OTP Input Fields */}
-          <View style={styles.otpInputRow}>
-            {otp.map((digit, index) => (
-              <OtpInput
-                key={index}
-                ref={el => inputs.current[index] = el}
-                value={digit}
-                // Handle manual backspace: move to prev input if current is empty
-                onKeyPress={({ nativeEvent }) => focusPrevInput(index, nativeEvent.key)} 
-                // Handle input change: update state and move to next input
-                onChangeText={(value) => focusNextInput(index, value)}
-              />
-            ))}
-          </View>
-          
-          {/* Resend Link */}
-          <TouchableOpacity style={styles.resendButton}>
-            <Text style={styles.resendText}>Don't receive the OTP? RESEND</Text>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text style={styles.backButton}>←</Text>
           </TouchableOpacity>
+          <Text style={styles.headerTitle}>Sign up</Text>
+        </View>
 
-          {/* Submit Button */}
-          <TouchableOpacity style={styles.submitButton} onPress={() => console.log('Submit OTP', otp.join(''))}>
-            <Text style={styles.submitButtonText}>Submit</Text>
-          </TouchableOpacity>
+        <View style={styles.container}>
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+          >
+            <Text style={styles.otpHeading}>OTP Verification</Text>
+            <Text style={styles.otpSubtext}>
+              Enter the code from the sms we sent to
+              <Text style={styles.phoneNumber}> {email}</Text>
+            </Text>
 
-        </ScrollView>
+            <View style={styles.timerContainer}>
+              <Text style={styles.timerText}>{formatTime(time)}</Text>
+            </View>
+
+            {/* OTP Input Fields */}
+            <View style={styles.otpInputRow}>
+              {otp.map((digit, index) => (
+                <OtpInput
+                  key={index}
+                  ref={(el) => (inputs.current[index] = el)}
+                  value={digit}
+                  // Handle manual backspace: move to prev input if current is empty
+                  onKeyPress={({ nativeEvent }) =>
+                    focusPrevInput(index, nativeEvent.key)
+                  }
+                  // Handle input change: update state and move to next input
+                  onChangeText={(value) => focusNextInput(index, value)}
+                />
+              ))}
+            </View>
+
+            <TouchableOpacity style={styles.resendButton}>
+              <Text style={styles.resendText}>
+                Don't receive the OTP? RESEND
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={ButtonStyle.signInButton_2}
+              onPress={handleOTPSubmit}
+            >
+              <Text style={ButtonStyle.signInButtonText_2}>Submit</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -121,105 +157,92 @@ function OTPScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
   },
+
+  backgroundSolid: {
+    flex: 1,
+    position: "relative",
+  },
+
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 15,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
   },
+
   backButton: {
     fontSize: 24,
-    color: '#333',
+    color: Colors.white,
     marginRight: 15,
-    paddingRight: 10,
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: Colors.white,
   },
   container: {
     flex: 1,
-    backgroundColor: BACKGROUND_CREAM,
   },
   scrollContent: {
-    flexGrow: 1,           // <-- 1. STRETCH VERTICALLY
-    justifyContent: 'center', // <-- 2. CENTER VERTICALLY
-    // alignItems: 'center',    // <-- 3. CENTER HORIZONTALLY
+    flexGrow: 1,
+    justifyContent: "center",
     paddingHorizontal: 25,
-    // paddingTop: 40,
   },
-  
+
   otpHeading: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: Colors.white,
     marginBottom: 10,
+    textAlign: "center",
   },
   otpSubtext: {
     fontSize: 16,
-    color: '#666',
+    color: Colors.white,
     lineHeight: 24,
     marginBottom: 30,
+    textAlign: "center",
   },
   phoneNumber: {
-    fontWeight: 'bold',
-    color: PRIMARY_ORANGE,
+    fontWeight: "bold",
+    color: Colors.white,
+    textAlign: "center",
   },
-  
+
   timerContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 30,
   },
   timerText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: PRIMARY_ORANGE,
+    fontSize: 24,
+    fontWeight: "bold",
+    color: Colors.white,
   },
 
   otpInputRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 30,
   },
   otpInputPaper: {
     width: width / 8.5,
     height: 55,
-    padding: 0, 
+    padding: 0,
     fontSize: 24,
-    fontWeight: '600',
-    color: '#333',
-    backgroundColor: 'white',
+    fontWeight: "600",
+    color: Colors.dark,
+    backgroundColor: Colors.white,
   },
 
   resendButton: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 40,
   },
   resendText: {
     fontSize: 14,
-    color: PRIMARY_ORANGE,
-    fontWeight: '600',
-  },
-  submitButton: {
-    backgroundColor: PRIMARY_ORANGE,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    shadowColor: PRIMARY_ORANGE,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 5,
-    elevation: 6,
-  },
-  submitButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
+    color: Colors.white,
+    fontWeight: "600",
   },
 });
 
