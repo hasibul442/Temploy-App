@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
+  Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,6 +14,8 @@ import { Colors } from "../../utils/constants/Color";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { TextInput } from "react-native-paper";
 import { ButtonStyle } from "../../utils/styles/ButtonStyle";
+import { CommonValidation } from "../../utils/validation/CommonValidation";
+import { ErrorAlert } from "../../utils/helper/AlertHelper";
 
 const { width, height } = Dimensions.get("window");
 
@@ -24,6 +27,27 @@ function SignupScreen() {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState({ field: "", message: "" });
+
+  const handleSignUp = () => {
+    // Sign Up Logic Here
+    const validationError = CommonValidation({
+      fname,
+      lname,
+      phone,
+      email,
+      password,
+    });
+
+    if (validationError) {
+      setError(validationError);
+      ErrorAlert(validationError.message);
+      Alert.alert("Validation Error", validationError.message);
+      return;
+    }
+
+    navigation.navigate("Home");
+  };
 
   return (
     <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
@@ -33,136 +57,152 @@ function SignupScreen() {
         <View style={CommonStyles.circleTopRight} />
 
         {/* <View> */}
-          <KeyboardAwareScrollView
-            contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-            extraHeight={180}
-            enableOnAndroid={true}
-            enableAutomaticScroll={true}
-          >
-            {/* Top Header */}
-            <View style={styles.headerContent}>
-              <View>
-                <Text style={styles.helloText}>Create Your</Text>
-                <Text style={styles.signInText}>Account</Text>
-              </View>
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          extraHeight={180}
+          enableOnAndroid={true}
+          enableAutomaticScroll={true}
+        >
+          {/* Top Header */}
+          <View style={styles.headerContent}>
+            <View>
+              <Text style={styles.helloText}>Create Your</Text>
+              <Text style={styles.signInText}>Account</Text>
             </View>
+          </View>
 
-            {/* Main White Card */}
-            <View style={styles.loginCard}>
-              <View style={styles.inputGroup}>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    mode="outlined"
-                    label="First Name"
-                    placeholder="Please Insert First Name"
-                    outlineColor="#333"
-                    activeOutlineColor={Colors.success}
-                    value={fname}
-                    onChangeText={setFname}
-                    textColor="#000"
-                    style={{ backgroundColor: "white", width: "100%" }}
-                    theme={{ colors: { background: "white" } }}
-                  />
-                </View>
-              </View>
-              <View style={styles.inputGroup}>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    mode="outlined"
-                    label="Last Name"
-                    placeholder="Please Insert Last Name"
-                    outlineColor="#333"
-                    activeOutlineColor={Colors.success}
-                    value={lname}
-                    onChangeText={setLname}
-                    textColor="#000"
-                    style={{ backgroundColor: "white", width: "100%" }}
-                    theme={{ colors: { background: "white" } }}
-                  />
-                </View>
-              </View>
-              {/* Phone Input */}
-              <View style={styles.inputGroup}>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    mode="outlined"
-                    label="Phone"
-                    placeholder="(123) 456-7890"
-                    keyboardType="phone-pad"
-                    outlineColor="#333"
-                    activeOutlineColor={Colors.success}
-                    textColor="#000"
-                    style={{ backgroundColor: "white", width: "100%" }}
-                    theme={{ colors: { background: "white" } }}
-                    value={phone}
-                    onChangeText={setPhone}
-                  />
-                </View>
-              </View>
-
-              {/* Email Input */}
-              <View style={styles.inputGroup}>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    mode="outlined"
-                    label="Email"
-                    placeholder="Please Insert Email"
-                    keyboardType="email-address"
-                    outlineColor="#333"
-                    activeOutlineColor={Colors.success}
-                    textColor="#000"
-                    style={{ backgroundColor: "white", width: "100%" }}
-                    theme={{ colors: { background: "white" } }}
-                    value={email}
-                    onChangeText={setEmail}
-                  />
-                </View>
-              </View>
-
-              {/* Password Input */}
-              <View style={styles.inputGroup}>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    mode="outlined"
-                    label="Password"
-                    placeholder="Please Insert Password"
-                    outlineColor="#333"
-                    activeOutlineColor={Colors.success}
-                    value={password}
-                    onChangeText={setPassword}
-                    textColor="#000"
-                    style={{ backgroundColor: "white", width: "100%" }}
-                    theme={{ colors: { background: "white" } }}
-                    secureTextEntry={!showPassword}
-                  />
-                </View>
-              </View>
-
-              {/* Sign In Button */}
-              <TouchableOpacity
-                style={ButtonStyle.signInButton}
-                onPress={() => {
-                  navigation.navigate("Home");
-                }}
-              >
-                <Text style={ButtonStyle.signInButtonText}>SIGN UP</Text>
-              </TouchableOpacity>
-
-              {/* Sign Up Link */}
-              <View style={styles.signUpContainer}>
-                <Text style={styles.signUpText}>Already have an account? </Text>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("Auth", { screen: "Login" })
+          {/* Main White Card */}
+          <View style={styles.loginCard}>
+            <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  mode="outlined"
+                  label="First Name"
+                  placeholder="Please Insert First Name"
+                  outlineColor={
+                    error.field === "fname" ? Colors.danger : Colors.dark
                   }
-                >
-                  <Text style={styles.signUpLink}>Sign in</Text>
-                </TouchableOpacity>
+                  activeOutlineColor={Colors.success}
+                  value={fname}
+                  onChangeText={setFname}
+                  textColor={
+                    error.field === "email" ? Colors.danger : Colors.black
+                  }
+                  style={{ backgroundColor: Colors.white, width: "100%" }}
+                  theme={{ colors: { background: Colors.white } }}
+                />
               </View>
             </View>
-          </KeyboardAwareScrollView>
+            <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  mode="outlined"
+                  label="Last Name"
+                  placeholder="Please Insert Last Name"
+                  outlineColor={
+                    error.field === "lname" ? Colors.danger : Colors.dark
+                  }
+                  activeOutlineColor={Colors.success}
+                  value={lname}
+                  onChangeText={setLname}
+                  textColor={
+                    error.field === "lname" ? Colors.danger : Colors.black
+                  }
+                  style={{ backgroundColor: Colors.white, width: "100%" }}
+                  theme={{ colors: { background: Colors.white } }}
+                />
+              </View>
+            </View>
+            {/* Phone Input */}
+            <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  mode="outlined"
+                  label="Phone"
+                  placeholder="(123) 456-7890"
+                  keyboardType="phone-pad"
+                  outlineColor={
+                    error.field === "phone" ? Colors.danger : Colors.dark
+                  }
+                  activeOutlineColor={Colors.success}
+                  textColor={
+                    error.field === "phone" ? Colors.danger : Colors.black
+                  }
+                  style={{ backgroundColor: Colors.white, width: "100%" }}
+                  theme={{ colors: { background: Colors.white } }}
+                  value={phone}
+                  onChangeText={setPhone}
+                />
+              </View>
+            </View>
+
+            {/* Email Input */}
+            <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  mode="outlined"
+                  label="Email"
+                  placeholder="Please Insert Email"
+                  keyboardType="email-address"
+                  outlineColor={
+                    error.field === "email" ? Colors.danger : Colors.dark
+                  }
+                  activeOutlineColor={Colors.success}
+                  textColor={
+                    error.field === "email" ? Colors.danger : Colors.black
+                  }
+                  style={{ backgroundColor: Colors.white, width: "100%" }}
+                  theme={{ colors: { background: Colors.white } }}
+                  value={email}
+                  onChangeText={setEmail}
+                />
+              </View>
+            </View>
+
+            {/* Password Input */}
+            <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  mode="outlined"
+                  label="Password"
+                  placeholder="Please Insert Password"
+                  outlineColor={
+                    error.field === "password" ? Colors.danger : Colors.dark
+                  }
+                  activeOutlineColor={Colors.success}
+                  value={password}
+                  onChangeText={setPassword}
+                  textColor={
+                    error.field === "password" ? Colors.danger : Colors.black
+                  }
+                  style={{ backgroundColor: Colors.white, width: "100%" }}
+                  theme={{ colors: { background: Colors.white } }}
+                  secureTextEntry={!showPassword}
+                />
+              </View>
+            </View>
+
+            {/* Sign In Button */}
+            <TouchableOpacity
+              style={ButtonStyle.signInButton}
+              onPress={handleSignUp}
+            >
+              <Text style={ButtonStyle.signInButtonText}>SIGN UP</Text>
+            </TouchableOpacity>
+
+            {/* Sign Up Link */}
+            <View style={styles.signUpContainer}>
+              <Text style={styles.signUpText}>Already have an account? </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Auth", { screen: "Login" })}
+              >
+                <Text style={styles.signUpLink}>Sign in</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </KeyboardAwareScrollView>
         {/* </View> */}
       </View>
     </SafeAreaView>
