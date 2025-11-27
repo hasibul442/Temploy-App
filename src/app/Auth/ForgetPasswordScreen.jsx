@@ -6,8 +6,6 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  Image,
-  ToastAndroid,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -16,27 +14,26 @@ import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { ButtonStyle } from "../../utils/styles/ButtonStyle";
 import { TextInput } from "react-native-paper";
 import { ErrorAlert } from "../../utils/helper/AlertHelper";
+import { CommonValidation } from "../../utils/validation/CommonValidation";
 
 const { width } = Dimensions.get("window");
 
 function ForgetPasswordScreen() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState({ field: "", message: "" });
 
   const handleSubmitButton = () => {
-    if (!email) {
-      setError("Email is required");
-      ErrorAlert("Email is required");
+    const validationError = CommonValidation({
+      email,
+    });
+    if (validationError) {
+      setError(validationError);
+      ErrorAlert(validationError.message);
       return;
     }
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setError("Please enter a valid email address");
-      ErrorAlert("Please enter a valid email address");
-      return;
-    }
-    
-    setError("");
+
+    setError({ field: "", message: "" });
     navigation.navigate("Auth", { screen: "OTPScreen", params: { email } });
   };
 
@@ -79,16 +76,16 @@ function ForgetPasswordScreen() {
             placeholder="Please Insert Email"
             value={email}
             onChangeText={setEmail}
-            outlineColor="#333"
+            outlineColor={error.field === "email" ? Colors.danger : Colors.dark}
             activeOutlineColor={Colors.success}
-            textColor="#000"
+            textColor={error.field === "email" ? Colors.danger : Colors.black}
             style={{
-              backgroundColor: "white",
+              backgroundColor: Colors.white,
               width: "100%",
               marginBottom: 20,
             }}
-            error={!!error}
-            theme={{ colors: { background: "white" } }}
+            error={error.field === "email"}
+            theme={{ colors: { background:Colors.white } }}
           />
 
           <TouchableOpacity
