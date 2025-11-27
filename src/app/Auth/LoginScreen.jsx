@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
+  Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TextInput } from "react-native-paper";
@@ -13,6 +14,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../utils/constants/Color";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { ButtonStyle } from "../../utils/styles/ButtonStyle";
+import { ErrorAlert } from "../../utils/helper/AlertHelper";
+import { CommonValidation } from "../../utils/validation/CommonValidation";
 
 const { width, height } = Dimensions.get("window");
 
@@ -20,15 +23,27 @@ function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState({ field: "", message: "" });
 
   const navigation = useNavigation();
 
   const handleSignIn = () => {
+    const validationError = CommonValidation({
+      email,
+      password,
+    });
+    if (validationError) {
+      setError(validationError);
+      ErrorAlert(validationError.message);
+      Alert.alert("Validation Error", validationError.message);
+      return;
+    }
+    setError({ field: "", message: "" });
     navigation.navigate("Home");
   };
 
-return (
-  <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
+  return (
+    <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
       <View style={styles.backgroundSolid}>
         <View style={CommonStyles.circleTopLeft} />
         <View style={CommonStyles.circleTopRight} />
@@ -59,10 +74,11 @@ return (
                   autoCapitalize="none"
                   value={email}
                   onChangeText={setEmail}
-                  outlineColor="#333"
+                  outlineColor={error.field === "email" ? Colors.danger : Colors.dark}
                   activeOutlineColor={Colors.success}
-                  textColor="#000"
-                  style={{ backgroundColor: "white", width: "100%" }}
+                  textColor={error.field === "email" ? Colors.danger : Colors.black}
+                  style={{ backgroundColor: Colors.white, width: "100%" }}
+                  error={error.field === "email"}
                 />
               </View>
             </View>
@@ -76,10 +92,11 @@ return (
                   secureTextEntry={!showPassword}
                   value={password}
                   onChangeText={setPassword}
-                  outlineColor="#333"
+                  outlineColor={error.field === "password" ? "#DC0000" : Colors.dark}
                   activeOutlineColor={Colors.success}
-                  textColor="#000"
-                  style={{ backgroundColor: "white", width: "100%" }}
+                  textColor={error.field === "password" ? Colors.danger : Colors.black}
+                  style={{ backgroundColor: Colors.white, width: "100%" }}
+                  error={error.field === "password"}
                   right={
                     <TextInput.Icon
                       icon={showPassword ? "eye-off" : "eye"}
@@ -117,8 +134,8 @@ return (
           </View>
         </KeyboardAwareScrollView>
       </View>
-  </SafeAreaView>
-);
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -178,8 +195,7 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "column",
     paddingBottom: 8,
   },
 
