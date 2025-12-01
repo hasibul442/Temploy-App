@@ -16,6 +16,9 @@ import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { ButtonStyle } from "../../utils/styles/ButtonStyle";
 import { ErrorAlert } from "../../utils/helper/AlertHelper";
 import { CommonValidation } from "../../utils/validation/CommonValidation";
+import { postData } from "../../utils/helper/HttpHelper";
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../slices/authSlice';
 
 const { width, height } = Dimensions.get("window");
 
@@ -26,12 +29,14 @@ function LoginScreen() {
   const [error, setError] = useState({ field: "", message: "" });
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const handleSignIn = () => {
+  const handleSignIn = async() => {
     const validationError = CommonValidation({
       email,
       password,
     });
+
     if (validationError) {
       setError(validationError);
       ErrorAlert(validationError.message);
@@ -39,7 +44,27 @@ function LoginScreen() {
       return;
     }
     setError({ field: "", message: "" });
-    navigation.navigate("Home");
+
+    try{
+      await postData("/api/v1/auth/user/login", {
+        email,
+        password,
+      }, false).then(async (response)=>{
+        if(response?.status == 200){
+          await dispatch(loginUser({
+            token: response?.token?.token,
+            user: response?.user || null
+          })).unwrap();
+        }else{
+          ErrorAlert(response?.message || "An error occurred during login.");
+          Alert.alert("Login Failed", response?.message || "An error occurred during login.");
+        }
+      });
+    } catch (error) {
+      ErrorAlert("An error occurred during login. Please try again.");
+      console.error("Login error:", error);
+      Alert.alert("Error", "An error occurred during login. Please try again.");
+    }
   };
 
   return (
@@ -124,9 +149,7 @@ function LoginScreen() {
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Don't have account? </Text>
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("Auth", { screen: "Signup" })
-                }
+                onPress={() => navigation.navigate("Signup")}
               >
                 <Text style={styles.signUpLink}>Sign up</Text>
               </TouchableOpacity>
