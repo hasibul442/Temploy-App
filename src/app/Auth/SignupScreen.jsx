@@ -16,11 +16,15 @@ import { TextInput } from "react-native-paper";
 import { ButtonStyle } from "../../utils/styles/ButtonStyle";
 import { CommonValidation } from "../../utils/validation/CommonValidation";
 import { ErrorAlert } from "../../utils/helper/AlertHelper";
+import { postData } from "../../utils/helper/HttpHelper";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../slices/authSlice";
 
 const { width, height } = Dimensions.get("window");
 
 function SignupScreen() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
@@ -29,7 +33,7 @@ function SignupScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({ field: "", message: "" });
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     // Sign Up Logic Here
     const validationError = CommonValidation({
       fname,
@@ -45,18 +49,43 @@ function SignupScreen() {
       Alert.alert("Validation Error", validationError.message);
       return;
     }
+    setError({ field: "", message: "" });
 
-    navigation.navigate("Home");
+    try {
+      await postData(
+        "/api/v1/auth/user/register",
+        {
+          f_name: fname,
+          l_name: lname,
+          phone: phone,
+          email: email,
+          password: password,
+        },
+        false
+      ).then(async (response) => {
+        if (response?.status == 200) {
+          await dispatch(
+            loginUser({
+              token: response?.token?.token,
+              user: response?.user || null,
+            })).unwrap();
+        } else {
+          ErrorAlert(response?.message || "An error occurred during signup.");
+          Alert.alert("Signup Failed", response?.message || "An error occurred during signup. Please try again.");
+        }
+      });
+    } catch (error) {
+      console.error("Signup Error:", error);
+      Alert.alert("Signup Error", "An error occurred during signup. Please try again.");
+    }
   };
 
   return (
     <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
       <View style={styles.backgroundSolid}>
-        {/* Decorative circles */}
         <View style={CommonStyles.circleTopLeft} />
         <View style={CommonStyles.circleTopRight} />
 
-        {/* <View> */}
         <KeyboardAwareScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
@@ -195,9 +224,7 @@ function SignupScreen() {
             {/* Sign Up Link */}
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Already have an account? </Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Auth", { screen: "Login" })}
-              >
+              <TouchableOpacity onPress={() => navigation.navigate("Login")}>
                 <Text style={styles.signUpLink}>Sign in</Text>
               </TouchableOpacity>
             </View>
