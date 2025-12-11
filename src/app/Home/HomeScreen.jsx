@@ -22,7 +22,7 @@ import HotJobSlider from "../../components/Sliders/HotJobSlider";
 import { getData } from "../../utils/helper/HttpHelper";
 import LogoutButton from "../../components/LogoutButton";
 
-function HomeScreen() {
+function MenuScreen() {
   const navigation = useNavigation();
   const [categories, setCategories] = useState([]);
 
@@ -260,22 +260,22 @@ const style = StyleSheet.create({
   },
   statBox: {
     flex: 1,
-    height: 100,
-    backgroundColor: Colors.basil_green_800,
+    height: 200,
+    backgroundColor: Colors.light_3,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   statTitle: {
     fontSize: 14,
-    color: Colors.white,
+    color: Colors.dark_gray,
   },
   statValue: {
     fontSize: 20,
     fontWeight: "700",
     marginTop: 6,
-    color: Colors.white,
+    color: Colors.dark_gray,
   },
 });
 
-export default HomeScreen;
+export default MenuScreen;

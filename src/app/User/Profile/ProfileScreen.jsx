@@ -37,7 +37,7 @@ const StandardCard = ({ title, percentage, description, color }) => {
 };
 
 
-function Profile() {
+function ProfileScreen() {
   return (
     <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
       <ScrollView 
@@ -305,4 +305,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default ProfileScreen;

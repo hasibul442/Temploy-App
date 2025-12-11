@@ -9,7 +9,7 @@ import MessageDetails from "../../app/Message/MessageDetails";
 import Messages from "../../app/Message/Messages";
 import Offers from "../../app/Offer/Offers";
 import Orders from "../../app/Orders/Orders";
-import Profile from "../../app/User/Profile/Profile";
+import ProfileScreen from "../../app/User/Profile/ProfileScreen";
 import WelcomeScreen from "../../app/WelcomeScreen";
 import { Colors } from "../../utils/constants/Color";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -88,7 +88,7 @@ export function MenuStack() {
 }
 
 export function ProfileStack() {
-  return createSimpleStack("Profile", Profile, { headerShown: false });
+  return createSimpleStack("Profile", ProfileScreen, { headerShown: false });
 }
 
 export function AuthStack() {
