@@ -4,7 +4,7 @@ import OTPScreen from "../../app/Auth/OTPScreen";
 import SignupScreen from "../../app/Auth/SignupScreen";
 import Details from "../../app/Details/Details";
 import HomeScreen from "../../app/Home/HomeScreen";
-import Menu from "../../app/Menu/Menu";
+import MenuScreen from "../../app/Menu/MenuScreen";
 import MessageDetails from "../../app/Message/MessageDetails";
 import Messages from "../../app/Message/Messages";
 import Offers from "../../app/Offer/Offers";
@@ -17,8 +17,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
 
 // Common header options
-const getHeaderOptions = (title, showBack = false) => ({
+const getHeaderOptions = (title, showBack, header_shown) => ({
   title,
+  headerShown: header_shown,
   headerStyle: { backgroundColor: Colors.success_2 },
   headerTintColor: Colors.white,
   headerTitleStyle: { fontWeight: "bold" },
@@ -39,7 +40,7 @@ const createSimpleStack = (screenName, component, headerOptions) => {
 };
 
 export function OrderStack() {
-  return createSimpleStack("Orders", Orders, getHeaderOptions("Orders"));
+  return createSimpleStack("Orders", Orders, getHeaderOptions("Orders", true, false));
 }
 
 export function HomeStack() {
@@ -48,12 +49,12 @@ export function HomeStack() {
       <Stack.Screen
         name="HomeMain"
         component={HomeScreen}
-        options={getHeaderOptions("Home")}
+        options={getHeaderOptions("Home", false, true)}
       />
       <Stack.Screen
         name="Details"
         component={Details}
-        options={getHeaderOptions("")}
+        options={getHeaderOptions("", false, true)}
       />
     </Stack.Navigator>
   );
@@ -65,13 +66,13 @@ export function MessageStack() {
       <Stack.Screen
         name="Messages"
         component={Messages}
-        options={getHeaderOptions("Inbox")}
+        options={getHeaderOptions("Inbox", false, true)}
       />
       <Stack.Screen
         name="MessageDetails"
         component={MessageDetails}
         options={({ route }) => ({
-          ...getHeaderOptions(route.params?.item?.sender ?? "Temploy", true),
+          ...getHeaderOptions(route.params?.item?.sender ?? "Temploy", true, true),
         })}
       />
     </Stack.Navigator>
@@ -79,11 +80,11 @@ export function MessageStack() {
 }
 
 export function OfferStack() {
-  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers"));
+  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", true, false));
 }
 
 export function MenuStack() {
-  return createSimpleStack("Menu", Menu, getHeaderOptions("Menu"));
+  return createSimpleStack("MenuTab", MenuScreen, getHeaderOptions("Menu", true, false));
 }
 
 export function ProfileStack() {

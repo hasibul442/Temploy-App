@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import { CommonStyles } from "../../../utils/styles/CommonStyle";
 
 const { width } = Dimensions.get('window');
 
@@ -38,7 +39,7 @@ const StandardCard = ({ title, percentage, description, color }) => {
 
 function Profile() {
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
       <ScrollView 
         style={styles.container} 
         showsVerticalScrollIndicator={false}
@@ -114,10 +115,6 @@ function Profile() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#E8F5E9', // Lighter green for the safe area background
-  },
   container: {
     flex: 1,
     backgroundColor: 'white', 

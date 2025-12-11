@@ -22,7 +22,7 @@ import HotJobSlider from "../../components/Sliders/HotJobSlider";
 import { getData } from "../../utils/helper/HttpHelper";
 import LogoutButton from "../../components/LogoutButton";
 
-function HomeScreen() {
+function MenuScreen() {
   const navigation = useNavigation();
   const [categories, setCategories] = useState([]);
 
@@ -278,4 +278,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default MenuScreen;
