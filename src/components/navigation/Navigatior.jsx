@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 
 // Screens
 import { Colors } from "../../utils/constants/Color";
@@ -13,12 +13,12 @@ import {
   OfferStack,
   MenuStack,
   ProfileStack,
-  AuthStack
+  AuthStack,
 } from "./CustomStack";
 import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
-import { checkAuthStatus } from '../../slices/authSlice';
-import LoadingScreen from '../LoadingScreen';
+import { checkAuthStatus } from "../../slices/authSlice";
+import LoadingScreen from "../LoadingScreen";
 
 // Navigators
 const Tab = createBottomTabNavigator();
@@ -35,7 +35,10 @@ export default function Navigator() {
 
   // Debug log to track auth state changes
   useEffect(() => {
-    console.log('Navigator - Auth state changed:', { isAuthenticated, isLoading });
+    console.log("Navigator - Auth state changed:", {
+      isAuthenticated,
+      isLoading,
+    });
   }, [isAuthenticated, isLoading]);
 
   // Show loading screen while checking authentication
@@ -49,7 +52,7 @@ export default function Navigator() {
   }
 
   // If authenticated, show private app tabs
-  // const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -65,24 +68,17 @@ export default function Navigator() {
             config: { duration: 250 },
           },
         },
-        tabBarBackground: () => (
-          <BlurView
-            tint="systemMaterialLight"
-            intensity={100}
-            style={StyleSheet.absoluteFill}
-          />
-        ),
+        
         tabBarStyle: {
-          height: 60,
+          height: 60 + insets.bottom,
           position: "absolute",
-          // backgroundColor: "rgba(202, 220, 252, 0.93)",
           overflow: "hidden",
-          paddingBottom: 0,
+          paddingBottom: insets.bottom,
           paddingTop: 2,
           paddingRight: 0,
           paddingLeft: 0,
           elevation: 5,
-          border: 0,
+          borderTopWidth: 0,
         },
         tabBarLabelStyle: {
           margin: -2,
@@ -132,7 +128,7 @@ export default function Navigator() {
         component={ProfileStack}
         options={{
           tabBarButton: () => null,
-          tabBarItemStyle: { display: 'none' }
+          tabBarItemStyle: { display: "none" },
         }}
       />
     </Tab.Navigator>
