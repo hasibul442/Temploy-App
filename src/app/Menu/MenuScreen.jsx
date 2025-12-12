@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useState } from "react";
 import {
   Image,
   ScrollView,
@@ -12,27 +6,20 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Switch,
 } from "react-native";
 import { Colors } from "../../utils/constants/Color";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
-import { getData } from "../../utils/helper/HttpHelper";
 import LogoutButton from "../../components/LogoutButton";
 import { useSelector } from "react-redux";
 
-function MenuScreen() {
-  const navigation = useNavigation();
-  const [userMode, setUserMode] = useState(1); // 1 - Worker, 0 - Hirer
-  const { user } = useSelector((state) => state.auth);
-
-  const MenuItem = ({ icon, title, onPress, showChevron = true }) => (
+function MenuItem({ icon, title, onPress, showChevron }) {
+  return (
     <TouchableOpacity style={styles.menuItem} onPress={onPress}>
       <View style={styles.menuItemLeft}>
-        <Ionicons name={icon} size={24} color={Colors.dark} />
+        {icon}
         <Text style={styles.menuItemText}>{title}</Text>
       </View>
       {showChevron && (
@@ -40,115 +27,104 @@ function MenuScreen() {
       )}
     </TouchableOpacity>
   );
+}
 
-  function workerModeOption() {
-    return (
-      <>
-        <Text style={styles.sectionTitle}>My Temploy</Text>
-        <MenuItem
-          icon="diamond-outline"
-          title="Running Jobs"
-          onPress={() => {}}
-        />
-        <MenuItem icon="diamond-outline" title="Earnings" onPress={() => {}} />
-        <MenuItem icon="heart-outline" title="My Profile" onPress={() => {}} />
-        <MenuItem
-          icon="paper-plane-outline"
-          title="Invite friends"
-          onPress={() => {}}
-          showChevron={false}
-        />
+function WorkerMenuOption() {
+  const navigation = useNavigation();
+  return (
+    <>
+      <Text style={styles.sectionTitle}>My Temploy</Text>
+      <MenuItem
+        icon={<FontAwesome name="user-o" size={24} color={Colors.dark} />}
+        title="My Profile"
+        onPress={() => navigation.navigate("Profile")}
+      />
+      <MenuItem
+        icon={<Ionicons name="heart-outline" size={24} color={Colors.dark} />}
+        title="My Jobs"
+        onPress={() => {}}
+      />
+      <MenuItem
+        icon={<Ionicons name="cash-outline" size={24} color={Colors.dark} />}
+        title="Earnings"
+        onPress={() => {}}
+      />
+      <MenuItem
+        icon={
+          <Ionicons name="paper-plane-outline" size={24} color={Colors.dark} />
+        }
+        title="Invite friends"
+        onPress={() => {}}
+        showChevron={false}
+      />
 
-        {/* Settings Section */}
-        <Text style={styles.sectionTitle}>Settings</Text>
+      {/* Settings Section */}
+      <Text style={styles.sectionTitle}>Settings</Text>
 
-        <MenuItem
-          icon="settings-outline"
-          title="Preferences"
-          onPress={() => {}}
-        />
-        <MenuItem
-          icon="person-circle-outline"
-          title="Account"
-          onPress={() => {}}
-        />
+      <MenuItem
+        icon={
+          <Ionicons name="settings-outline" size={24} color={Colors.dark} />
+        }
+        title="Preferences"
+        onPress={() => {}}
+      />
+      <MenuItem
+        icon={
+          <Ionicons
+            name="person-circle-outline"
+            size={24}
+            color={Colors.dark}
+          />
+        }
+        title="Account"
+        onPress={() => {}}
+      />
 
-        {/* Resources Section */}
-        <Text style={styles.sectionTitle}>Resources</Text>
+      {/* Resources Section */}
+      <Text style={styles.sectionTitle}>Resources</Text>
 
-        <MenuItem
-          icon="help-circle-outline"
-          title="Support"
-          onPress={() => {}}
-        />
-        <MenuItem
-          icon="document-text-outline"
-          title="Terms of Service"
-          onPress={() => {}}
-        />
-        <MenuItem
-          icon="shield-checkmark-outline"
-          title="Privacy Policy"
-          onPress={() => {}}
-        />
-      </>
-    );
-  }
+      <MenuItem
+        icon={
+          <Ionicons name="help-circle-outline" size={24} color={Colors.dark} />
+        }
+        title="Support"
+        onPress={() => {}}
+      />
+      <MenuItem
+        icon={
+          <Ionicons
+            name="document-text-outline"
+            size={24}
+            color={Colors.dark}
+          />
+        }
+        title="Terms of Service"
+        onPress={() => navigation.navigate("OtherPages", { screen: "Terms" })}
+      />
+      <MenuItem
+        icon={
+          <Ionicons name="chatbubbles-outline" size={24} color={Colors.dark} />
+        }
+        title="FAQ"
+        onPress={() => navigation.navigate("OtherPages", { screen: "FAQ" })}
+      />
+      <MenuItem
+        icon={
+          <Ionicons
+            name="shield-checkmark-outline"
+            size={24}
+            color={Colors.dark}
+          />
+        }
+        title="Privacy Policy"
+        onPress={() => navigation.navigate("OtherPages", { screen: "Privacy" })}
+      />
+    </>
+  );
+}
 
-  function hirerModeOption() {
-    return (
-      <>
-        <Text style={styles.sectionTitle}>Hirer </Text>
-
-        <MenuItem icon="diamond-outline" title="My posts" onPress={() => {}} />
-        <MenuItem icon="heart-outline" title="Saved lists" onPress={() => {}} />
-        <MenuItem
-          icon="layers-outline"
-          title="My interests"
-          onPress={() => {}}
-        />
-        <MenuItem
-          icon="paper-plane-outline"
-          title="Invite friends"
-          onPress={() => {}}
-          showChevron={false}
-        />
-
-        {/* Settings Section */}
-        <Text style={styles.sectionTitle}>Settings</Text>
-
-        <MenuItem
-          icon="settings-outline"
-          title="Preferences"
-          onPress={() => {}}
-        />
-        <MenuItem
-          icon="person-circle-outline"
-          title="Account"
-          onPress={() => {}}
-        />
-
-        {/* Resources Section */}
-        <Text style={styles.sectionTitle}>Resources</Text>
-
-        <MenuItem
-          icon="help-circle-outline"
-          title="Help & Support"
-          onPress={() => {}}
-        />
-        <MenuItem
-          icon="document-text-outline"
-          title="Terms of Service"
-          onPress={() => {}}
-        />
-        <MenuItem
-          icon="shield-checkmark-outline"
-          title="Privacy Policy"
-          onPress={() => {}}
-        />
-      </>
-    );
-  }
+function MenuScreen() {
+  const { user } = useSelector((state) => state.auth);
   return (
     <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
       <View style={styles.container}>
@@ -175,17 +151,15 @@ function MenuScreen() {
           </View>
           <View>
             <Text style={styles.profileName}>{user?.name || "User Name"}</Text>
-            {userMode === 1 && (
-              <Text
-                style={{
-                  color: Colors.white,
-                  fontSize: 12,
-                  marginLeft: 15,
-                }}
-              >
-                Personal Balance : 0.00
-              </Text>
-            )}
+            <Text
+              style={{
+                color: Colors.white,
+                fontSize: 12,
+                marginLeft: 15,
+              }}
+            >
+              Personal Balance : 0.00
+            </Text>
           </View>
         </View>
 
@@ -195,18 +169,7 @@ function MenuScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
         >
-          {/* Seller Mode Toggle */}
-          <View style={styles.sellerModeCard}>
-            <Text style={styles.sellerModeText}>Worker Mode</Text>
-            <Switch
-              value={userMode === 1}
-              onValueChange={(value) => setUserMode(value ? 1 : 0)}
-              trackColor={{ false: "#767577", true: Colors.basil_green_500 }}
-              thumbColor={userMode === 1 ? Colors.white : "#f4f3f4"}
-            />
-          </View>
-
-          {userMode === 1 ? workerModeOption() : hirerModeOption()}
+          <WorkerMenuOption />
 
           {/* Logout Button */}
           <View style={styles.logoutContainer}>
