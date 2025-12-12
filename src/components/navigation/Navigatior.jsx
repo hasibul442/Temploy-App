@@ -14,6 +14,7 @@ import {
   MenuStack,
   ProfileStack,
   AuthStack,
+  OtherStack,
 } from "./CustomStack";
 import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
@@ -68,7 +69,7 @@ export default function Navigator() {
             config: { duration: 250 },
           },
         },
-        
+
         tabBarStyle: {
           height: 60 + insets.bottom,
           position: "absolute",
@@ -126,6 +127,14 @@ export default function Navigator() {
       <Tab.Screen
         name="Profile"
         component={ProfileStack}
+        options={{
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name="OtherPages"
+        component={OtherStack}
         options={{
           tabBarButton: () => null,
           tabBarItemStyle: { display: "none" },
