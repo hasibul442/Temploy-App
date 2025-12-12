@@ -9,6 +9,9 @@ import MessageDetails from "../../app/Message/MessageDetails";
 import Messages from "../../app/Message/Messages";
 import Offers from "../../app/Offer/Offers";
 import Orders from "../../app/Orders/Orders";
+import FAQScreen from "../../app/Other/FAQScreen";
+import PrivacyPolicyScreen from "../../app/Other/PrivacyPolicyScreen";
+import TermsOfServiceScreen from "../../app/Other/TermsOfServiceScreen";
 import ProfileScreen from "../../app/User/Profile/ProfileScreen";
 import WelcomeScreen from "../../app/WelcomeScreen";
 import { Colors } from "../../utils/constants/Color";
@@ -108,6 +111,28 @@ export function AuthStack() {
           name={name}
           component={component}
           options={{ headerShown: false }}
+        />
+      ))}
+    </Stack.Navigator>
+  );
+}
+
+export function OtherStack() {
+  const screens = [
+    { name: "FAQ", component: FAQScreen, header: false },
+    { name: "Privacy", component: PrivacyPolicyScreen, header: false },
+    { name: "Terms", component: TermsOfServiceScreen, header: false },
+  ];
+
+
+  return (
+    <Stack.Navigator>
+      {screens.map(({ name, component, header }) => (
+        <Stack.Screen
+          key={name}
+          name={name}
+          component={component}
+          options={{ headerShown: header }}
         />
       ))}
     </Stack.Navigator>
