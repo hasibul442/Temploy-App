@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { CommonStyles } from '../../utils/styles/CommonStyle';
+import { Colors } from '../../utils/constants/Color';
 
 const termsSections = [
   {
@@ -206,22 +207,21 @@ function TermsOfServiceScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
-  },
   container: {
     flex: 1,
-    padding: 20,
+    backgroundColor: Colors.light_gray_2,
   },
   header: {
-    marginBottom: 20,
+    marginBottom: 24,
   },
-  headerTitle: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#333',
+    headerTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.white,
+    backgroundColor: Colors.success_2,
     marginBottom: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   lastUpdated: {
     fontSize: 13,
