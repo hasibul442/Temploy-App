@@ -1,3 +1,4 @@
+
 import ForgetPasswordScreen from "../../app/Auth/ForgetPasswordScreen";
 import LoginScreen from "../../app/Auth/LoginScreen";
 import OTPScreen from "../../app/Auth/OTPScreen";
@@ -12,6 +13,7 @@ import Orders from "../../app/Orders/Orders";
 import FAQScreen from "../../app/Other/FAQScreen";
 import PrivacyPolicyScreen from "../../app/Other/PrivacyPolicyScreen";
 import TermsOfServiceScreen from "../../app/Other/TermsOfServiceScreen";
+import EarningScreen from "../../app/User/Earning/EarningScreen";
 import ProfileScreen from "../../app/User/Profile/ProfileScreen";
 import WelcomeScreen from "../../app/WelcomeScreen";
 import { Colors } from "../../utils/constants/Color";
@@ -122,6 +124,7 @@ export function OtherStack() {
     { name: "FAQ", component: FAQScreen, header: false },
     { name: "Privacy", component: PrivacyPolicyScreen, header: false },
     { name: "Terms", component: TermsOfServiceScreen, header: false },
+    { name: "Earning", component: EarningScreen, header: true },
   ];
 
 
@@ -132,7 +135,10 @@ export function OtherStack() {
           key={name}
           name={name}
           component={component}
-          options={{ headerShown: header }}
+          options={{
+            headerShown: header,
+            ...(header ? getHeaderOptions(name, true, true) : {})
+          }}
         />
       ))}
     </Stack.Navigator>
