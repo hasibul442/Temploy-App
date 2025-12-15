@@ -47,7 +47,7 @@ function WorkerMenuOption() {
       <MenuItem
         icon={<Ionicons name="cash-outline" size={24} color={Colors.dark} />}
         title="Earnings"
-        onPress={() => {}}
+        onPress={() => navigation.navigate("OtherPages", { screen: "Earning" })}
       />
       <MenuItem
         icon={
