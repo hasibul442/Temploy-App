@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { CommonStyles } from '../../utils/styles/CommonStyle';
 import { Colors } from '../../utils/constants/Color';
 import PolicyData from '../../utils/data/PolicyData';
@@ -27,14 +27,12 @@ function PrivacyPolicyScreen() {
   };
 
   return (
-    <>
+    <SafeAreaProvider>
       <SafeAreaView style={CommonStyles.safeArea} edges={['top']}>
-        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <Text style={styles.headerTitle}>Privacy Policy</Text>
-            <Text style={styles.lastUpdated}>Last Updated: December 2024</Text>
-          </View>
-
+        <ScrollView style={styles.container} 
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 100 }}
+        >
           <View style={styles.introContainer}>
             <Text style={styles.introText}>
               Welcome to <Text style={styles.bold}>Temploy</Text> ("we", "us", "our").
@@ -60,10 +58,12 @@ function PrivacyPolicyScreen() {
               If you have any concerns about our privacy practices, please don't hesitate to
               contact us.
             </Text>
+            <Text style={styles.lastUpdated}>Last Updated: December 2024</Text>
           </View>
+
         </ScrollView>
       </SafeAreaView>
-    </>
+    </SafeAreaProvider>
   );
 }
 
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginHorizontal: 10,
     padding: 16,
+    marginTop: 20,
     marginBottom: 24,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -157,8 +158,8 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-    paddingVertical: 20,
-    marginBottom: 30,
+    paddingBottom: 30,
+    paddingHorizontal: 20,
   },
   footerText: {
     fontSize: 14,

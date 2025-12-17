@@ -14,6 +14,8 @@ import FAQScreen from "../../app/Other/FAQScreen";
 import PreferencesScreen from "../../app/Other/PreferencesScreen";
 import PrivacyPolicyScreen from "../../app/Other/PrivacyPolicyScreen";
 import TermsOfServiceScreen from "../../app/Other/TermsOfServiceScreen";
+import CurrencyScreen from "../../app/Settings/CurrencyScreen";
+import LanguageScreen from "../../app/Settings/LanguageScreen";
 import EarningScreen from "../../app/User/Earning/EarningScreen";
 import ProfileScreen from "../../app/User/Profile/ProfileScreen";
 import WelcomeScreen from "../../app/WelcomeScreen";
@@ -122,24 +124,26 @@ export function AuthStack() {
 
 export function OtherStack() {
   const screens = [
-    { name: "FAQ", component: FAQScreen, header: false },
-    { name: "Privacy", component: PrivacyPolicyScreen, header: false },
-    { name: "Terms", component: TermsOfServiceScreen, header: false },
-    { name: "Earning", component: EarningScreen, header: true },
-    { name: "Preferences", component: PreferencesScreen, header: true },
+    { name: "FAQ", component: FAQScreen, header: false, page_title: "FAQ" },
+    { name: "Privacy", component: PrivacyPolicyScreen, header: true, page_title: "Privacy Policy" },
+    { name: "Terms", component: TermsOfServiceScreen, header: false, page_title: "Terms of Service" },
+    { name: "Earning", component: EarningScreen, header: true, page_title: "Earning" },
+    { name: "Preferences", component: PreferencesScreen, header: true, page_title: "Preferences" },
+    { name: "CurrencySelection", component: CurrencyScreen, header: true, page_title: "Currency Selection" },
+    { name: "LanguageSelection", component: LanguageScreen, header: true, page_title: "Language Selection" },
   ];
 
 
   return (
     <Stack.Navigator>
-      {screens.map(({ name, component, header }) => (
+      {screens.map(({ name, component, header, page_title }) => (
         <Stack.Screen
           key={name}
           name={name}
           component={component}
           options={{
             headerShown: header,
-            ...(header ? getHeaderOptions(name, true, true) : {})
+            ...(header ? getHeaderOptions(page_title, true, true) : {})
           }}
         />
       ))}

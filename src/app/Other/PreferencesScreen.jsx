@@ -21,14 +21,14 @@ const PreferencesScreen = () => {
     const menuItems = [
         { id: 1, title: "Notifications", icon: "notifications-outline" },
         { id: 2, title: "Security", icon: "shield-checkmark-outline" },
-        { id: 3, title: "Language", icon: "language-outline" },
+        { id: 3, title: "Language", icon: "language-outline", onPress: () => navigation.navigate("OtherPages", { screen: "LanguageSelection" }) },
         { id: 4, title: "Appearance", icon: "color-palette-outline" },
         { id: 5, title: "Briefs", icon: "document-text-outline" },
-        { id: 6, title: "Currency", icon: "cash-outline" },
+        { id: 6, title: "Currency", icon: "cash-outline", onPress: () => navigation.navigate("OtherPages", { screen: "CurrencySelection" }) },
     ];
 
     const MenuItem = ({ item }) => (
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem} onPress={item.onPress}>
             <Text style={styles.menuText}>{item.title}</Text>
             <Ionicons name="chevron-forward" size={20} color="#999" />
         </TouchableOpacity>
