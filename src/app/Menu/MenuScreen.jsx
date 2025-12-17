@@ -66,7 +66,7 @@ function WorkerMenuOption() {
           <Ionicons name="settings-outline" size={24} color={Colors.dark} />
         }
         title="Preferences"
-        onPress={() => {}}
+        onPress={() => navigation.navigate("OtherPages", { screen: "Preferences" })}
       />
       <MenuItem
         icon={

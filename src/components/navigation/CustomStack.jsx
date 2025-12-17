@@ -11,6 +11,7 @@ import Messages from "../../app/Message/Messages";
 import Offers from "../../app/Offer/Offers";
 import Orders from "../../app/Orders/Orders";
 import FAQScreen from "../../app/Other/FAQScreen";
+import PreferencesScreen from "../../app/Other/PreferencesScreen";
 import PrivacyPolicyScreen from "../../app/Other/PrivacyPolicyScreen";
 import TermsOfServiceScreen from "../../app/Other/TermsOfServiceScreen";
 import EarningScreen from "../../app/User/Earning/EarningScreen";
@@ -125,6 +126,7 @@ export function OtherStack() {
     { name: "Privacy", component: PrivacyPolicyScreen, header: false },
     { name: "Terms", component: TermsOfServiceScreen, header: false },
     { name: "Earning", component: EarningScreen, header: true },
+    { name: "Preferences", component: PreferencesScreen, header: true },
   ];
 
 

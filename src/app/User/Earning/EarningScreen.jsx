@@ -10,66 +10,14 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 import { Colors } from "../../../utils/constants/Color";
 import { CommonStyles } from "../../../utils/styles/CommonStyle";
-
-const incomeData = [
-  {
-    id: 1,
-    title: "Construction Laborer Wanted",
-    date: "12-03-2019",
-    amount: 50,
-    icon: "money-bill-wave",
-    color: "#8B5CF6",
-    status: "completed",
-  },
-  {
-    id: 2,
-    title: "Need Carpenter for Deck Building Project",
-    date: "10-03-2019",
-    amount: 40,
-    icon: "laptop",
-    color: "#10B981",
-    status: "completed",
-  },
-  {
-    id: 3,
-    title: "Looking for Experienced Plumber",
-    date: "08-03-2019",
-    amount: 60,
-    icon: "pipe",
-    color: "#3B82F6",
-    status: "completed",
-  },
-  {
-    id: 4,
-    title: "Electrical Wiring Installation",
-    date: "05-03-2019",
-    amount: 30,
-    icon: "bolt",
-    color: "#F59E0B",
-    status: "completed",
-  },
-];
-
-const expenseData = [
-  {
-    id: 1,
-    title: "Withdrawal to Bank Account",
-    date: "10-12-2025",
-    amount: 200,
-    color: "#3B82F6",
-    status: "pending",
-  },
-  {
-    id: 2,
-    title: "Withdrawal to Bank Account",
-    date: "08-04-2025",
-    amount: 150,
-    color: "#EF4444",
-    status: "completed",
-  },
-];
+import IncomeData from "../../../utils/data/IncomeData";
+import ExpenseData from "../../../utils/data/ExpenseData";
 
 function EarningScreen() {
+
+const incomeData = IncomeData
+const expenseData =  ExpenseData
+
   const TransactionItem = ({ item, type }) => (
     <View style={styles.transactionItem}>
       <View style={styles.transactionLeft}>
@@ -102,7 +50,7 @@ function EarningScreen() {
         <ScrollView
           style={styles.container}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 50 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
         >
           <View style={styles.headerSection}>
             <View style={styles.balanceSection}>
