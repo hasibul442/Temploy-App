@@ -10,6 +10,7 @@ import MessageDetails from "../../app/Message/MessageDetails";
 import Messages from "../../app/Message/Messages";
 import Offers from "../../app/Offer/Offers";
 import Orders from "../../app/Orders/Orders";
+import AccountSettingOptionScreen from "../../app/Other/AccountSettingOptionScreen";
 import FAQScreen from "../../app/Other/FAQScreen";
 import PreferencesScreen from "../../app/Other/PreferencesScreen";
 import PrivacyPolicyScreen from "../../app/Other/PrivacyPolicyScreen";
@@ -131,6 +132,7 @@ export function OtherStack() {
     { name: "Preferences", component: PreferencesScreen, header: true, page_title: "Preferences" },
     { name: "CurrencySelection", component: CurrencyScreen, header: true, page_title: "Currency Selection" },
     { name: "LanguageSelection", component: LanguageScreen, header: true, page_title: "Language Selection" },
+    { name: "AccountSettingOptions", component: AccountSettingOptionScreen, header: true, page_title: "Accounts" },
   ];
 
 
