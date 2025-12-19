@@ -37,16 +37,19 @@ function WorkerMenuOption() {
       <MenuItem
         icon={<FontAwesome name="user-o" size={24} color={Colors.dark} />}
         title="My Profile"
+        showChevron={true}
         onPress={() => navigation.navigate("Profile")}
       />
       <MenuItem
         icon={<Ionicons name="heart-outline" size={24} color={Colors.dark} />}
         title="My Jobs"
+        showChevron={true}
         onPress={() => {}}
       />
       <MenuItem
         icon={<Ionicons name="cash-outline" size={24} color={Colors.dark} />}
         title="Earnings"
+        showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "Earning" })}
       />
       <MenuItem
@@ -66,7 +69,10 @@ function WorkerMenuOption() {
           <Ionicons name="settings-outline" size={24} color={Colors.dark} />
         }
         title="Preferences"
-        onPress={() => navigation.navigate("OtherPages", { screen: "Preferences" })}
+        showChevron={true}
+        onPress={() =>
+          navigation.navigate("OtherPages", { screen: "Preferences" })
+        }
       />
       <MenuItem
         icon={
@@ -77,7 +83,10 @@ function WorkerMenuOption() {
           />
         }
         title="Account"
-        onPress={() => {}}
+        showChevron={true}
+        onPress={() =>
+          navigation.navigate("OtherPages", { screen: "AccountSettingOptions" })
+        }
       />
 
       {/* Resources Section */}
@@ -88,6 +97,7 @@ function WorkerMenuOption() {
           <Ionicons name="help-circle-outline" size={24} color={Colors.dark} />
         }
         title="Support"
+        showChevron={true}
         onPress={() => {}}
       />
       <MenuItem
@@ -99,6 +109,7 @@ function WorkerMenuOption() {
           />
         }
         title="Terms of Service"
+        showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "Terms" })}
       />
       <MenuItem
@@ -106,6 +117,7 @@ function WorkerMenuOption() {
           <Ionicons name="chatbubbles-outline" size={24} color={Colors.dark} />
         }
         title="FAQ"
+        showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "FAQ" })}
       />
       <MenuItem
@@ -117,6 +129,7 @@ function WorkerMenuOption() {
           />
         }
         title="Privacy Policy"
+        showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "Privacy" })}
       />
     </>
