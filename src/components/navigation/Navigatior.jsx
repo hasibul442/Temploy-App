@@ -1,6 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 // Screens
 import { Colors } from "../../utils/constants/Color";
@@ -11,20 +13,50 @@ import {
   OfferStack,
   MenuStack,
   ProfileStack,
-  AuthStack
+  AuthStack,
+  OtherStack,
 } from "./CustomStack";
 import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
+import { checkAuthStatus } from "../../slices/authSlice";
+import LoadingScreen from "../LoadingScreen";
 
 // Navigators
 const Tab = createBottomTabNavigator();
 
 // Bottom Tab Navigator component
 export default function Navigator() {
-  // const insets = useSafeAreaInsets();
+  const dispatch = useDispatch();
+  const { isAuthenticated, isLoading } = useSelector((state) => state.auth);
+
+  // Check auth status on app mount
+  useEffect(() => {
+    dispatch(checkAuthStatus());
+  }, [dispatch]);
+
+  // Debug log to track auth state changes
+  useEffect(() => {
+    console.log("Navigator - Auth state changed:", {
+      isAuthenticated,
+      isLoading,
+    });
+  }, [isAuthenticated, isLoading]);
+
+  // Show loading screen while checking authentication
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  // If not authenticated, show only public Auth screens
+  if (!isAuthenticated) {
+    return <AuthStack key="auth-stack" />;
+  }
+
+  // If authenticated, show private app tabs
+  const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
-      initialRouteName="Auth"
+      initialRouteName="Home"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: true,
@@ -37,24 +69,17 @@ export default function Navigator() {
             config: { duration: 250 },
           },
         },
-        tabBarBackground: () => (
-          <BlurView
-            tint="systemMaterialLight"
-            intensity={100}
-            style={StyleSheet.absoluteFill}
-          />
-        ),
+
         tabBarStyle: {
-          height: 60,
+          height: 60 + insets.bottom,
           position: "absolute",
-          // backgroundColor: "rgba(202, 220, 252, 0.93)",
           overflow: "hidden",
-          paddingBottom: 0,
+          paddingBottom: insets.bottom,
           paddingTop: 2,
           paddingRight: 0,
           paddingLeft: 0,
           elevation: 5,
-          border: 0,
+          borderTopWidth: 0,
         },
         tabBarLabelStyle: {
           margin: -2,
@@ -99,21 +124,20 @@ export default function Navigator() {
       />
       <Tab.Screen name="Message" component={MessageStack} />
       <Tab.Screen name="Menu" component={MenuStack} />
-      <Tab.Screen 
-        name="Profile" 
+      <Tab.Screen
+        name="Profile"
         component={ProfileStack}
-        options={{ 
+        options={{
           tabBarButton: () => null,
-          tabBarItemStyle: { display: 'none' }
+          tabBarItemStyle: { display: "none" },
         }}
       />
-      <Tab.Screen 
-        name="Auth" 
-        component={AuthStack}
-        options={{ 
+      <Tab.Screen
+        name="OtherPages"
+        component={OtherStack}
+        options={{
           tabBarButton: () => null,
-          tabBarItemStyle: { display: 'none' },
-          tabBarStyle: { display: 'none' }
+          tabBarItemStyle: { display: "none" },
         }}
       />
     </Tab.Navigator>

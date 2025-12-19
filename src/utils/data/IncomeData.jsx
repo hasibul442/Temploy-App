@@ -1,0 +1,38 @@
+export default [
+  {
+    id: 1,
+    title: "Construction Laborer Wanted",
+    date: "12-03-2019",
+    amount: 50,
+    icon: "money-bill-wave",
+    color: "#8B5CF6",
+    status: "completed",
+  },
+  {
+    id: 2,
+    title: "Need Carpenter for Deck Building Project",
+    date: "10-03-2019",
+    amount: 40,
+    icon: "laptop",
+    color: "#10B981",
+    status: "completed",
+  },
+  {
+    id: 3,
+    title: "Looking for Experienced Plumber",
+    date: "08-03-2019",
+    amount: 60,
+    icon: "pipe",
+    color: "#3B82F6",
+    status: "completed",
+  },
+  {
+    id: 4,
+    title: "Electrical Wiring Installation",
+    date: "05-03-2019",
+    amount: 30,
+    icon: "bolt",
+    color: "#F59E0B",
+    status: "completed",
+  },
+];

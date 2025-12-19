@@ -71,5 +71,6 @@ export const CommonStyles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: Colors.success_2,
+    overflow : "hidden"
   },
 });

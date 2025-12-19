@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
 import {
   StyleSheet,
   Text,
@@ -44,14 +43,14 @@ function WelcomeScreen() {
 
           <TouchableOpacity
             style={ButtonStyle.signInButton_2}
-            onPress={() => navigation.navigate("Auth", { screen: "Login" })}
+            onPress={() => navigation.navigate("Login")}
           >
             <Text style={ButtonStyle.signInButtonText_2}>SIGN IN</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={ButtonStyle.signUpButton}
-            onPress={() => navigation.navigate("Auth", { screen: "Signup" })}
+            onPress={() => navigation.navigate("Signup")}
           >
             <Text style={ButtonStyle.signUpButtonText}>SIGN UP</Text>
           </TouchableOpacity>

@@ -34,7 +34,7 @@ function ForgetPasswordScreen() {
     }
 
     setError({ field: "", message: "" });
-    navigation.navigate("Auth", { screen: "OTPScreen", params: { email } });
+    navigation.navigate("OTPScreen", { email });
   };
 
   return (

@@ -31,3 +31,28 @@ export async function getData(endpoint, params, isAuthorized) {
     throw error;
   }
 }
+
+export async function postData(endpoint, data, isAuthorized) {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+    };
+    
+    if (isAuthorized) {
+      const token = await AsyncStorage.getItem("authToken");
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${token}`,
+      };
+    }
+    
+    const response = await axios.post(Environment.API_URL+endpoint, data, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error posting data:", error);
+    throw error;
+  }
+}

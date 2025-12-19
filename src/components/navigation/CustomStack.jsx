@@ -1,15 +1,24 @@
+
 import ForgetPasswordScreen from "../../app/Auth/ForgetPasswordScreen";
 import LoginScreen from "../../app/Auth/LoginScreen";
 import OTPScreen from "../../app/Auth/OTPScreen";
 import SignupScreen from "../../app/Auth/SignupScreen";
 import Details from "../../app/Details/Details";
 import HomeScreen from "../../app/Home/HomeScreen";
-import Menu from "../../app/Menu/Menu";
+import MenuScreen from "../../app/Menu/MenuScreen";
 import MessageDetails from "../../app/Message/MessageDetails";
 import Messages from "../../app/Message/Messages";
 import Offers from "../../app/Offer/Offers";
 import Orders from "../../app/Orders/Orders";
-import Profile from "../../app/User/Profile/Profile";
+import AccountSettingOptionScreen from "../../app/Other/AccountSettingOptionScreen";
+import FAQScreen from "../../app/Other/FAQScreen";
+import PreferencesScreen from "../../app/Other/PreferencesScreen";
+import PrivacyPolicyScreen from "../../app/Other/PrivacyPolicyScreen";
+import TermsOfServiceScreen from "../../app/Other/TermsOfServiceScreen";
+import CurrencyScreen from "../../app/Settings/CurrencyScreen";
+import LanguageScreen from "../../app/Settings/LanguageScreen";
+import EarningScreen from "../../app/User/Earning/EarningScreen";
+import ProfileScreen from "../../app/User/Profile/ProfileScreen";
 import WelcomeScreen from "../../app/WelcomeScreen";
 import { Colors } from "../../utils/constants/Color";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -17,8 +26,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
 
 // Common header options
-const getHeaderOptions = (title, showBack = false) => ({
+const getHeaderOptions = (title, showBack, header_shown) => ({
   title,
+  headerShown: header_shown,
   headerStyle: { backgroundColor: Colors.success_2 },
   headerTintColor: Colors.white,
   headerTitleStyle: { fontWeight: "bold" },
@@ -39,7 +49,7 @@ const createSimpleStack = (screenName, component, headerOptions) => {
 };
 
 export function OrderStack() {
-  return createSimpleStack("Orders", Orders, getHeaderOptions("Orders"));
+  return createSimpleStack("Orders", Orders, getHeaderOptions("Orders", true, false));
 }
 
 export function HomeStack() {
@@ -48,12 +58,12 @@ export function HomeStack() {
       <Stack.Screen
         name="HomeMain"
         component={HomeScreen}
-        options={getHeaderOptions("Home")}
+        options={getHeaderOptions("Home", false, true)}
       />
       <Stack.Screen
         name="Details"
         component={Details}
-        options={getHeaderOptions("")}
+        options={getHeaderOptions("", false, true)}
       />
     </Stack.Navigator>
   );
@@ -65,13 +75,13 @@ export function MessageStack() {
       <Stack.Screen
         name="Messages"
         component={Messages}
-        options={getHeaderOptions("Inbox")}
+        options={getHeaderOptions("Inbox", false, true)}
       />
       <Stack.Screen
         name="MessageDetails"
         component={MessageDetails}
         options={({ route }) => ({
-          ...getHeaderOptions(route.params?.item?.sender ?? "Temploy", true),
+          ...getHeaderOptions(route.params?.item?.sender ?? "Temploy", true, true),
         })}
       />
     </Stack.Navigator>
@@ -79,15 +89,15 @@ export function MessageStack() {
 }
 
 export function OfferStack() {
-  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers"));
+  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", true, false));
 }
 
 export function MenuStack() {
-  return createSimpleStack("Menu", Menu, getHeaderOptions("Menu"));
+  return createSimpleStack("MenuTab", MenuScreen, getHeaderOptions("Menu", true, false));
 }
 
 export function ProfileStack() {
-  return createSimpleStack("Profile", Profile, { headerShown: false });
+  return createSimpleStack("Profile", ProfileScreen, { headerShown: false });
 }
 
 export function AuthStack() {
@@ -107,6 +117,36 @@ export function AuthStack() {
           name={name}
           component={component}
           options={{ headerShown: false }}
+        />
+      ))}
+    </Stack.Navigator>
+  );
+}
+
+export function OtherStack() {
+  const screens = [
+    { name: "FAQ", component: FAQScreen, header: false, page_title: "FAQ" },
+    { name: "Privacy", component: PrivacyPolicyScreen, header: true, page_title: "Privacy Policy" },
+    { name: "Terms", component: TermsOfServiceScreen, header: false, page_title: "Terms of Service" },
+    { name: "Earning", component: EarningScreen, header: true, page_title: "Earning" },
+    { name: "Preferences", component: PreferencesScreen, header: true, page_title: "Preferences" },
+    { name: "CurrencySelection", component: CurrencyScreen, header: true, page_title: "Currency Selection" },
+    { name: "LanguageSelection", component: LanguageScreen, header: true, page_title: "Language Selection" },
+    { name: "AccountSettingOptions", component: AccountSettingOptionScreen, header: true, page_title: "Accounts" },
+  ];
+
+
+  return (
+    <Stack.Navigator>
+      {screens.map(({ name, component, header, page_title }) => (
+        <Stack.Screen
+          key={name}
+          name={name}
+          component={component}
+          options={{
+            headerShown: header,
+            ...(header ? getHeaderOptions(page_title, true, true) : {})
+          }}
         />
       ))}
     </Stack.Navigator>

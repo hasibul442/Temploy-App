@@ -1,0 +1,432 @@
+import React from "react";
+import {
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
+import { Colors } from "../../../utils/constants/Color";
+import { CommonStyles } from "../../../utils/styles/CommonStyle";
+import IncomeData from "../../../utils/data/IncomeData";
+import ExpenseData from "../../../utils/data/ExpenseData";
+
+function EarningScreen() {
+
+const incomeData = IncomeData
+const expenseData =  ExpenseData
+
+  const TransactionItem = ({ item, type }) => (
+    <View style={styles.transactionItem}>
+      <View style={styles.transactionLeft}>
+        <View style={styles.transactionInfo}>
+          <Text style={styles.transactionTitle}>
+            {item.title.length > 40
+              ? item.title.substring(0, 40) + "..."
+              : item.title}
+          </Text>
+          <Text style={styles.transactionDate}>{item.date}</Text>
+          <Text style={styles.transactionStatus}>{item.status}</Text>
+        </View>
+      </View>
+      <View style={styles.transactionRight}>
+        <Text
+          style={[
+            styles.transactionAmount,
+            { color: type === "income" ? "#10B981" : "#EF4444" },
+          ]}
+        >
+          {type === "income" ? "+" : "-"}${item.amount}
+        </Text>
+      </View>
+    </View>
+  );
+
+  return (
+    <SafeAreaProvider>
+      <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
+        <ScrollView
+          style={styles.container}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 100 }}
+        >
+          <View style={styles.headerSection}>
+            <View style={styles.balanceSection}>
+              <Text style={styles.balanceLabel}>Current Balance</Text>
+              <Text style={styles.balanceAmount}>$ 12,345.67</Text>
+            </View>
+          </View>
+
+          {/* Income/Expense Summary Card */}
+          <View style={styles.summaryCard}>
+            <View style={styles.summaryItem}>
+              <View
+                style={[
+                  styles.summaryIconContainer,
+                  { backgroundColor: "#DCFCE7" },
+                ]}
+              >
+                <FontAwesome6
+                  name="arrow-down"
+                  size={16}
+                  color="#10B981"
+                  iconStyle="solid"
+                />
+              </View>
+              <Text style={styles.summaryLabel}>Income</Text>
+              <Text style={[styles.summaryAmount, { color: "#10B981" }]}>
+                $ 840.00
+              </Text>
+            </View>
+
+            <View style={styles.summaryDivider} />
+
+            <View style={styles.summaryItem}>
+              <View
+                style={[
+                  styles.summaryIconContainer,
+                  { backgroundColor: "#FEE2E2" },
+                ]}
+              >
+                <FontAwesome6
+                  name="arrow-up"
+                  size={16}
+                  color="#EF4444"
+                  iconStyle="solid"
+                />
+              </View>
+              <Text style={styles.summaryLabel}>Withdrawals</Text>
+              <Text style={[styles.summaryAmount, { color: "#EF4444" }]}>
+                $ 350.00
+              </Text>
+              {/* <TouchableOpacity style={styles.addButton}>
+                <Text style={styles.addButtonText}>+ Add Expense</Text>
+              </TouchableOpacity> */}
+            </View>
+          </View>
+
+          {/* Level Section */}
+          <View style={styles.levelSection}>
+            <View style={styles.levelHeader}>
+              <View style={styles.levelLeft}>
+                <View style={styles.levelIcon}>
+                  <FontAwesome6
+                    name="trophy"
+                    size={18}
+                    color="#F59E0B"
+                    iconStyle="solid"
+                  />
+                </View>
+                <View>
+                  <Text style={styles.levelTitle}>Level 2</Text>
+                  <Text style={styles.levelSubtitle}>Professional Tasker</Text>
+                </View>
+              </View>
+              <TouchableOpacity>
+                <Text style={styles.viewDetailsText}>View Details</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.levelContent}>
+              <Text style={styles.levelLabel}>Progress to Level 3</Text>
+              <Text style={styles.levelPoints}>350 / 1000 XP</Text>
+            </View>
+            <View style={styles.levelProgress}>
+              <View style={[styles.levelProgressFill, { width: "35%" }]} />
+            </View>
+            <View style={styles.levelBenefits}>
+              <Text style={styles.benefitsTitle}>Level Benefits:</Text>
+              <View style={styles.benefitItem}>
+                <FontAwesome6
+                  name="check"
+                  size={12}
+                  color="#10B981"
+                  iconStyle="solid"
+                />
+                <Text style={styles.benefitText}>Priority task matching</Text>
+              </View>
+              <View style={styles.benefitItem}>
+                <FontAwesome6
+                  name="check"
+                  size={12}
+                  color="#10B981"
+                  iconStyle="solid"
+                />
+                <Text style={styles.benefitText}>Lower service fees</Text>
+              </View>
+              <View style={styles.benefitItem}>
+                <FontAwesome6
+                  name="check"
+                  size={12}
+                  color="#10B981"
+                  iconStyle="solid"
+                />
+                <Text style={styles.benefitText}>Badge on profile</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Order Section */}
+          <View style={styles.section}>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Complete Orders</Text>
+              <TouchableOpacity>
+                <Text style={styles.seeAllText}>See all</Text>
+              </TouchableOpacity>
+            </View>
+            {incomeData.map((item) => (
+              <TransactionItem key={item.id} item={item} type="income" />
+            ))}
+          </View>
+
+          {/* Withdrawal Section */}
+          <View style={styles.section}>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Withdrawal</Text>
+              <TouchableOpacity>
+                <Text style={styles.seeAllText}>See all</Text>
+              </TouchableOpacity>
+            </View>
+            {expenseData.map((item) => (
+              <TransactionItem key={item.id} item={item} type="withdrawal" />
+            ))}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F3F4F6",
+  },
+  headerSection: {
+    backgroundColor: Colors.success_2,
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+
+  balanceSection: {
+    alignItems: "center",
+  },
+
+  balanceLabel: {
+    paddingTop: 20,
+    fontSize: 14,
+    color: "rgba(255,255,255,0.8)",
+    marginBottom: 8,
+  },
+  balanceAmount: {
+    fontSize: 36,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 16,
+  },
+  summaryCard: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    marginHorizontal: 20,
+    marginTop: -25,
+    borderRadius: 16,
+    padding: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  summaryItem: {
+    flex: 1,
+    alignItems: "center",
+  },
+  summaryIconContainer: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  summaryLabel: {
+    fontSize: 14,
+    color: "#6B7280",
+    marginBottom: 4,
+  },
+  summaryAmount: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 12,
+  },
+  summaryDivider: {
+    width: 1,
+    backgroundColor: "#E5E7EB",
+    marginHorizontal: 16,
+  },
+  section: {
+    marginTop: 24,
+    paddingHorizontal: 20,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#1F2937",
+  },
+  seeAllText: {
+    fontSize: 14,
+    color: "#6B7280",
+  },
+  transactionItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  transactionLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  transactionInfo: {
+    gap: 4,
+  },
+  transactionTitle: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#1F2937",
+  },
+  transactionDate: {
+    fontSize: 10,
+    color: "#9CA3AF",
+  },
+  transactionStatus: {
+    fontSize: 10,
+    color: Colors.success,
+    fontWeight: "700",
+  },
+  transactionRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+  },
+  transactionAmount: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  // Level Section Styles
+  levelSection: {
+    marginTop: 24,
+    marginHorizontal: 20,
+    marginBottom: 30,
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  levelHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  levelLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  levelIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "#FEF3C7",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  levelTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#1F2937",
+  },
+  levelSubtitle: {
+    fontSize: 12,
+    color: "#6B7280",
+    marginTop: 2,
+  },
+  viewDetailsText: {
+    fontSize: 14,
+    color: Colors.success_2,
+    fontWeight: "500",
+  },
+  levelContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  levelLabel: {
+    fontSize: 14,
+    color: "#6B7280",
+  },
+  levelPoints: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#1F2937",
+  },
+  levelProgress: {
+    height: 10,
+    backgroundColor: "#E5E7EB",
+    borderRadius: 5,
+    overflow: "hidden",
+    marginBottom: 16,
+  },
+  levelProgressFill: {
+    height: "100%",
+    backgroundColor: "#F59E0B",
+    borderRadius: 5,
+  },
+  levelBenefits: {
+    backgroundColor: "#F9FAFB",
+    borderRadius: 10,
+    padding: 12,
+  },
+  benefitsTitle: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#374151",
+    marginBottom: 8,
+  },
+  benefitItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 6,
+  },
+  benefitText: {
+    fontSize: 13,
+    color: "#6B7280",
+  },
+});
+
+export default EarningScreen;
