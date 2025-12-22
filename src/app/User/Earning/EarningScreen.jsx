@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import FontAwesome6 from "@expo/vector-icons/fontawesome6";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Colors } from "../../../utils/constants/Color";
 import { CommonStyles } from "../../../utils/styles/CommonStyle";
 import IncomeData from "../../../utils/data/IncomeData";
