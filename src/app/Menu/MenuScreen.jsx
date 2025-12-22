@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Image,
   ScrollView,
@@ -14,20 +13,7 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import LogoutButton from "../../components/LogoutButton";
 import { useSelector } from "react-redux";
-
-function MenuItem({ icon, title, onPress, showChevron }) {
-  return (
-    <TouchableOpacity style={styles.menuItem} onPress={onPress}>
-      <View style={styles.menuItemLeft}>
-        {icon}
-        <Text style={styles.menuItemText}>{title}</Text>
-      </View>
-      {showChevron && (
-        <Ionicons name="chevron-forward" size={20} color={Colors.dark} />
-      )}
-    </TouchableOpacity>
-  );
-}
+import MenuItem from "../../utils/helper/MenuItem";
 
 function WorkerMenuOption() {
   const navigation = useNavigation();
@@ -44,7 +30,7 @@ function WorkerMenuOption() {
         icon={<Ionicons name="heart-outline" size={24} color={Colors.dark} />}
         title="My Jobs"
         showChevron={true}
-        onPress={() => {}}
+        onPress={() => { }}
       />
       <MenuItem
         icon={<Ionicons name="cash-outline" size={24} color={Colors.dark} />}
@@ -57,7 +43,7 @@ function WorkerMenuOption() {
           <Ionicons name="paper-plane-outline" size={24} color={Colors.dark} />
         }
         title="Invite friends"
-        onPress={() => {}}
+        onPress={() => { }}
         showChevron={false}
       />
 
@@ -98,7 +84,7 @@ function WorkerMenuOption() {
         }
         title="Support"
         showChevron={true}
-        onPress={() => {}}
+        onPress={() => { }}
       />
       <MenuItem
         icon={
@@ -137,12 +123,13 @@ function WorkerMenuOption() {
 }
 
 function MenuScreen() {
+  const navigation = useNavigation();
   const { user } = useSelector((state) => state.auth);
   return (
     <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
-      <View style={styles.container}>
+      <View style={CommonStyles.container}>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.notificationButton}>
+          <TouchableOpacity style={styles.notificationButton} onPress={() => navigation.navigate("OtherPages", { screen: "Notification" })}>
             <Ionicons
               name="notifications-outline"
               size={28}
@@ -178,7 +165,7 @@ function MenuScreen() {
 
         {/* Scrollable Content */}
         <ScrollView
-          style={styles.scrollContent}
+          style={CommonStyles.scrollContent}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
         >
@@ -194,13 +181,6 @@ function MenuScreen() {
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
-  scrollContent: {
-    flex: 1,
-  },
   header: {
     flexDirection: "row",
     justifyContent: "flex-end",
@@ -247,21 +227,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: Colors.white,
   },
-  sellerModeCard: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: Colors.light_gray,
-    marginHorizontal: 20,
-    marginVertical: 15,
-    padding: 18,
-    borderRadius: 12,
-  },
-  sellerModeText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: Colors.dark,
-  },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "700",
@@ -269,25 +234,6 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 15,
     marginLeft: 20,
-  },
-  menuItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 18,
-    paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.light_gray,
-  },
-  menuItemLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 15,
-  },
-  menuItemText: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: Colors.dark,
   },
   logoutContainer: {
     marginTop: 30,

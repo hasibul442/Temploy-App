@@ -12,6 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../utils/constants/Color';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Language from '../../utils/data/Language';
+import { CommonStyles } from '../../utils/styles/CommonStyle';
 
 function LanguageScreen() {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
@@ -60,7 +61,7 @@ function LanguageScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={CommonStyles.container}>
       {/* Search Bar */}
       <View style={styles.searchContainer}>
         <View style={styles.searchBar}>
@@ -68,13 +69,13 @@ function LanguageScreen() {
           <TextInput
             style={styles.searchInput}
             placeholder="Search language..."
-            placeholderTextColor="#999"
+            placeholderTextColor={Colors.gray_500}
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
           {searchQuery.length > 0 && (
             <TouchableOpacity onPress={() => setSearchQuery('')}>
-              <Ionicons name="close-circle" size={20} color="#999" />
+              <Ionicons name="close-circle" size={20} color={Colors.gray_500} />
             </TouchableOpacity>
           )}
         </View>
@@ -97,7 +98,7 @@ function LanguageScreen() {
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Ionicons name="search-outline" size={48} color="#ccc" />
+            <Ionicons name="search-outline" size={48} color={Colors.gray_100} />
             <Text style={styles.emptyText}>No languages found</Text>
           </View>
         }
@@ -107,10 +108,6 @@ function LanguageScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
   searchContainer: {
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -118,7 +115,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: Colors.gray_50,
     borderRadius: 12,
     paddingHorizontal: 12,
     height: 48,
@@ -137,7 +134,7 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 14,
-    color: '#666',
+    color: Colors.gray_600,
     lineHeight: 20,
   },
   listContainer: {
@@ -154,7 +151,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   selectedItem: {
-    backgroundColor: '#F0F8F4',
+    backgroundColor: Colors.light_gray,
   },
   languageInfo: {
     flexDirection: 'row',
@@ -165,7 +162,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: Colors.gray_50,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 14,
@@ -187,11 +184,11 @@ const styles = StyleSheet.create({
   },
   languageName: {
     fontSize: 14,
-    color: '#666',
+    color: Colors.gray_600,
   },
   separator: {
     height: 1,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: Colors.gray_100,
   },
   emptyContainer: {
     alignItems: 'center',
@@ -200,7 +197,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#999',
+    color: Colors.gray_500,
     marginTop: 12,
   },
 });
