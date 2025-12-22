@@ -68,9 +68,45 @@ export const CommonStyles = StyleSheet.create({
     zIndex: 0,
   },
 
+  // Common Containers
   safeArea: {
     flex: 1,
     backgroundColor: Colors.success_2,
-    overflow : "hidden"
+    overflow: "hidden",
+  },
+
+  container: {
+    flex: 1,
+    backgroundColor: Colors.white,
+  },
+
+  container_2: {
+    flex: 1,
+    backgroundColor: Colors.white,
+  },
+
+  scrollContent: {
+    flex: 1,
+  },
+
+  header_1: {
+    marginBottom: 24,
+  },
+
+  headerTitle_1: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.white,
+    backgroundColor: Colors.success_2,
+    marginBottom: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+
+  introText: {
+    fontSize: 14,
+    color: "#555",
+    lineHeight: 22,
+    marginBottom: 10,
   },
 });

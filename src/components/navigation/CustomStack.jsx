@@ -18,6 +18,7 @@ import TermsOfServiceScreen from "../../app/Other/TermsOfServiceScreen";
 import CurrencyScreen from "../../app/Settings/CurrencyScreen";
 import LanguageScreen from "../../app/Settings/LanguageScreen";
 import EarningScreen from "../../app/User/Earning/EarningScreen";
+import NotificationScreen from "../../app/User/NotificationScreen";
 import ProfileScreen from "../../app/User/Profile/ProfileScreen";
 import WelcomeScreen from "../../app/WelcomeScreen";
 import { Colors } from "../../utils/constants/Color";
@@ -133,6 +134,7 @@ export function OtherStack() {
     { name: "CurrencySelection", component: CurrencyScreen, header: true, page_title: "Currency Selection" },
     { name: "LanguageSelection", component: LanguageScreen, header: true, page_title: "Language Selection" },
     { name: "AccountSettingOptions", component: AccountSettingOptionScreen, header: true, page_title: "Accounts" },
+    { name: "Notification", component: NotificationScreen, header: true, page_title: "Notifications" }
   ];
 
 

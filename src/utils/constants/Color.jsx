@@ -15,6 +15,14 @@ export const Colors = {
   white: '#FFFFFF',
   black: '#000000',
 
+  gray_50: '#F5F5F5',
+  gray_100: '#F0F0F0',
+  gray_400: '#999999',
+  gray_500: '#888888',
+  gray_600: '#666666',
+  gray_700: '#555555',
+  gray_800: '#333333',
+
   green_dark: '#071E07',
   green_pantone: '#002B2A',
   green_pakistan: '#0D330E',

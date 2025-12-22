@@ -10,14 +10,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../../utils/constants/Color';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CommonStyles } from '../../utils/styles/CommonStyle';
 
 const CURRENCY_API_URL = 'https://raw.githubusercontent.com/fawazahmed0/exchange-api/main/other/Common-Currency.json';
 
 function CurrencyScreen() {
-  const navigation = useNavigation();
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [searchQuery, setSearchQuery] = useState('');
   const [currencies, setCurrencies] = useState([]);
@@ -111,7 +110,7 @@ function CurrencyScreen() {
     if (error) {
       return (
         <View style={styles.errorContainer}>
-          <Ionicons name="cloud-offline-outline" size={48} color="#ccc" />
+          <Ionicons name="cloud-offline-outline" size={48} color={Colors.gray_100} />
           <Text style={styles.errorText}>{error}</Text>
           <TouchableOpacity style={styles.retryButton} onPress={fetchCurrencies}>
             <Text style={styles.retryButtonText}>Try Again</Text>
@@ -130,7 +129,7 @@ function CurrencyScreen() {
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Ionicons name="search-outline" size={48} color="#ccc" />
+            <Ionicons name="search-outline" size={48} color={Colors.gray_100} />
             <Text style={styles.emptyText}>No currencies found</Text>
           </View>
         }
@@ -139,7 +138,7 @@ function CurrencyScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={CommonStyles.container}>
       {/* Search Bar */}
       <View style={styles.searchContainer}>
         <View style={styles.searchBar}>
@@ -147,13 +146,13 @@ function CurrencyScreen() {
           <TextInput
             style={styles.searchInput}
             placeholder="Search currency..."
-            placeholderTextColor="#999"
+            placeholderTextColor={Colors.gray_500}
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
           {searchQuery.length > 0 && (
             <TouchableOpacity onPress={() => setSearchQuery('')}>
-              <Ionicons name="close-circle" size={20} color="#999" />
+              <Ionicons name="close-circle" size={20} color={Colors.gray_500} />
             </TouchableOpacity>
           )}
         </View>
@@ -173,10 +172,6 @@ function CurrencyScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -184,7 +179,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
+    borderBottomColor: Colors.gray_100,
   },
   backButton: {
     padding: 8,
@@ -205,7 +200,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: Colors.gray_50,
     borderRadius: 12,
     paddingHorizontal: 12,
     height: 48,
@@ -224,7 +219,7 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 14,
-    color: '#666',
+    color: Colors.gray_600,
     lineHeight: 20,
   },
   listContainer: {
@@ -241,7 +236,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   selectedItem: {
-    backgroundColor: '#F0F8F4',
+    backgroundColor: Colors.light_gray,
   },
   currencyInfo: {
     flexDirection: 'row',
@@ -252,7 +247,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: Colors.gray_50,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 14,
@@ -276,11 +271,11 @@ const styles = StyleSheet.create({
   },
   currencyName: {
     fontSize: 14,
-    color: '#666',
+    color: Colors.gray_600,
   },
   separator: {
     height: 1,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: Colors.gray_100,
   },
   emptyContainer: {
     alignItems: 'center',
@@ -289,7 +284,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#999',
+    color: Colors.gray_400,
     marginTop: 12,
   },
   loadingContainer: {
@@ -300,7 +295,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 16,
-    color: '#666',
+    color: Colors.gray_600,
     marginTop: 12,
   },
   errorContainer: {
@@ -312,7 +307,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
-    color: '#666',
+    color: Colors.gray_600,
     marginTop: 12,
     textAlign: 'center',
   },
