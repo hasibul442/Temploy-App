@@ -8,7 +8,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../utils/constants/Color';
 import { CommonStyles } from '../../utils/styles/CommonStyle';
-import EvilIcons from '@expo/vector-icons/evil-icons';
+import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Notifications from '../../utils/data/Notifications';
 
 function NotificationScreen() {
