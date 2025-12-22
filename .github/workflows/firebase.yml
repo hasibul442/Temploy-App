@@ -12,6 +12,7 @@
           - main
           - dev
           - staging
+          - expo
         default: expo-test
  
  jobs:
