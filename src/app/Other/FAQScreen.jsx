@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import FontAwesome6 from "@expo/vector-icons/fontawesome6";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { Colors } from "../../utils/constants/Color";
 import FAQData from "../../utils/data/FAQData";
