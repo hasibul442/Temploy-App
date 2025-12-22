@@ -16,7 +16,6 @@ import {
   AuthStack,
   OtherStack,
 } from "./CustomStack";
-import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
 import { checkAuthStatus } from "../../slices/authSlice";
 import LoadingScreen from "../LoadingScreen";
