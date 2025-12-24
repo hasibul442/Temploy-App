@@ -21,6 +21,8 @@ import EarningScreen from "../../app/User/Earning/EarningScreen";
 import NotificationScreen from "../../app/User/NotificationScreen";
 import ProfileScreen from "../../app/User/Profile/ProfileScreen";
 import WelcomeScreen from "../../app/WelcomeScreen";
+import JobsDetailsScreen from "../../app/Jobs/JobsDetailsScreen";
+import JobsScreens from "../../app/Jobs/JobsScreens";
 import { Colors } from "../../utils/constants/Color";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -134,7 +136,9 @@ export function OtherStack() {
     { name: "CurrencySelection", component: CurrencyScreen, header: true, page_title: "Currency Selection" },
     { name: "LanguageSelection", component: LanguageScreen, header: true, page_title: "Language Selection" },
     { name: "AccountSettingOptions", component: AccountSettingOptionScreen, header: true, page_title: "Accounts" },
-    { name: "Notification", component: NotificationScreen, header: true, page_title: "Notifications" }
+    { name: "Notification", component: NotificationScreen, header: true, page_title: "Notifications" },
+    { name: "Jobs", component: JobsScreens, header: true, page_title: "Available Jobs" },
+    { name: "JobsDetails", component: JobsDetailsScreen, header: false, page_title: "Job Details" }
   ];
 
 
