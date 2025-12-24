@@ -125,7 +125,7 @@ function MenuScreen() {
                 }}
               >
                 <Text style={CommonStyles.title_16_bold}> Hot Jobs</Text>
-                <TouchableOpacity onPress={() => alert("See All Pressed")}>
+                <TouchableOpacity onPress={() => navigation.navigate("OtherPages", { screen: "Jobs" })}>
                   <Text style={CommonStyles.button_text_12}>See All</Text>
                 </TouchableOpacity>
               </View>
