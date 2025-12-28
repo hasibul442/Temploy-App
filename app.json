@@ -3,14 +3,22 @@
     "name": "temploy",
     "slug": "temploy",
     "version": "1.0.0",
-    "android" : {
-      "package": "com.temploy"
+    "icon": "./src/assets/logo/logo_color.png",
+    "android": {
+      "package": "com.temploy",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/logo/logo_color.png",
+        "backgroundColor": "#FFFFFF"
+      }
     },
     "extra": {
       "eas": {
         "projectId": "49a294b6-ed63-442f-b04c-ab53e3969150"
       }
     },
-    "owner": "hasibulhasan442"
+    "owner": "hasibulhasan442",
+    "ios": {
+      "bundleIdentifier": "com.temploy"
+    }
   }
 }
