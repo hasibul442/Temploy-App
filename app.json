@@ -1,8 +1,10 @@
 {
   "expo": {
     "name": "temploy",
+    "description": "An app to connect employers with temporary workers easily and efficiently.",
     "slug": "temploy",
     "version": "1.0.0",
+    "owner": "hasibulhasan442",
     "icon": "./src/assets/logo/logo_color.png",
     "android": {
       "package": "com.temploy",
@@ -16,7 +18,6 @@
         "projectId": "49a294b6-ed63-442f-b04c-ab53e3969150"
       }
     },
-    "owner": "hasibulhasan442",
     "ios": {
       "bundleIdentifier": "com.temploy"
     }
