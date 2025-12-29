@@ -13,8 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../utils/constants/Color';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CommonStyles } from '../../utils/styles/CommonStyle';
-
-const CURRENCY_API_URL = 'https://raw.githubusercontent.com/fawazahmed0/exchange-api/main/other/Common-Currency.json';
+import { getData } from '../../utils/helper/HttpHelper';
 
 function CurrencyScreen() {
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
@@ -27,23 +26,9 @@ function CurrencyScreen() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(CURRENCY_API_URL);
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch currencies');
-      }
-      const data = await response.json();
-      console.log('Fetching currencies from:', data);
-      // Transform the object into an array
-      const currencyList = Object.entries(data).map(([code, details]) => ({
-        code: details.code,
-        name: details.name,
-        symbol: details.symbol_native,
-        symbol_display: details.symbol,
-        decimal_digits: details.decimal_digits,
-      }));
-
-      setCurrencies(currencyList);
+      await getData("/api/v1/currency", {}, false).then((response) => {
+        setCurrencies(response?.data);
+      });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -80,12 +65,9 @@ function CurrencyScreen() {
         activeOpacity={0.7}
       >
         <View style={styles.currencyInfo}>
-          <View style={styles.symbolContainer}>
-            <Text style={styles.currencySymbol}>{item.symbol}</Text>
-          </View>
           <View style={styles.currencyDetails}>
             <Text style={[styles.currencyCode, isSelected && styles.selectedText]}>
-              {item.code}
+              {item.code} ({item.symbol})
             </Text>
             <Text style={styles.currencyName}>{item.name}</Text>
           </View>
@@ -243,20 +225,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  symbolContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: Colors.gray_50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 14,
-  },
-  currencySymbol: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.dark,
-  },
+
   currencyDetails: {
     flex: 1,
   },
