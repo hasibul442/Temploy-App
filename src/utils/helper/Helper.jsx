@@ -14,5 +14,5 @@ export function convertTimeStampToTimeAgo(timestamp) {
 
 
 export function stripHtmlTags(html) {
-    return html.replaceAll(/<[^>]*>/, '');
+    return html.replaceAll(/<[^>]*>/g, '');
 }
