@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Image,
   ScrollView,
@@ -22,6 +28,7 @@ import { getData } from "../../utils/helper/HttpHelper";
 import LogoutButton from "../../components/LogoutButton";
 import JobsData from "../../utils/data/JobsData";
 import JobCard from "../../components/Card/JobCard";
+import LogoHeader from "../../components/Header/LogoHeader";
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -58,11 +65,10 @@ function HomeScreen() {
     fetchCategories();
   }, []);
 
-
-
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
+        <LogoHeader />
         <SafeAreaView style={[style.homescreen_container]} edges={["top"]}>
           {/* Scrollable content */}
           <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
@@ -127,7 +133,11 @@ function HomeScreen() {
                 }}
               >
                 <Text style={CommonStyles.title_16_bold}> Recent Jobs</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("OtherPages", { screen: "Jobs" })}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("OtherPages", { screen: "Jobs" })
+                  }
+                >
                   <Text style={CommonStyles.button_text_12}>See All</Text>
                 </TouchableOpacity>
               </View>
@@ -138,8 +148,13 @@ function HomeScreen() {
                 ))}
               </View>
 
-              <TouchableOpacity onPress={() => navigation.navigate("OtherPages", { screen: "Jobs" })} style={{ alignSelf: "center", marginTop: 10, marginBottom: 10 }}>
-                  <Text style={CommonStyles.button_text_12}>See More</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("OtherPages", { screen: "Jobs" })
+                }
+                style={{ alignSelf: "center", marginTop: 10, marginBottom: 10 }}
+              >
+                <Text style={CommonStyles.button_text_12}>See More</Text>
               </TouchableOpacity>
             </View>
 

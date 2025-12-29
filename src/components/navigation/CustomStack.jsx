@@ -61,7 +61,7 @@ export function HomeStack() {
       <Stack.Screen
         name="HomeMain"
         component={HomeScreen}
-        options={getHeaderOptions("Home", false, true)}
+        options={getHeaderOptions("Home", false, false)}
       />
       <Stack.Screen
         name="Details"
@@ -92,7 +92,7 @@ export function MessageStack() {
 }
 
 export function OfferStack() {
-  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", true, false));
+  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", true, true));
 }
 
 export function MenuStack() {
