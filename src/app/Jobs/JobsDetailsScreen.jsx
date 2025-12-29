@@ -11,12 +11,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 // import RenderHtml from "react-native-render-html";
 import { Colors } from "../../utils/constants/Color";
 import { convertTimeStampToTimeAgo } from "../../utils/helper/Helper";
-import { useNavigation } from "@react-navigation/native";
 import JobsData from "../../utils/data/JobsData";
+import HeaderWithBackButton from "../../components/Header/HeaderWithBackButton";
 
 function JobsDetailsScreen({ route }) {
-    console.log(route);
-  const navigation = useNavigation();
   const jobdata = JobsData
   const { jobId } = route?.params || {};
   const [saved, setSaved] = useState(false);
@@ -24,20 +22,12 @@ function JobsDetailsScreen({ route }) {
   // Find the job from JobsData using jobId (index)
   const job = jobdata.find(j => j._id === jobId);
 
-  console.log("Job Data:", job);
-
   // If job not found, show error
   if (!job) {
     return (
       <SafeAreaView style={styles.container} edges={["top"]}>
         <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Ionicons name="arrow-back" size={24} color={Colors.gray_800} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Job Details</Text>
+          <HeaderWithBackButton title="Job Details" />
           <View style={{ width: 40 }} />
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -52,13 +42,7 @@ function JobsDetailsScreen({ route }) {
     <SafeAreaView style={styles.container} edges={["top"]}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color={Colors.white} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Job Details</Text>
+        <HeaderWithBackButton title="Job Details" />
         <TouchableOpacity
           style={styles.saveButton}
           onPress={() => setSaved(!saved)}
@@ -260,18 +244,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     backgroundColor: Colors.success_2,
     borderBottomColor: Colors.success_2,
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: Colors.white,
   },
   saveButton: {
     width: 40,
@@ -479,7 +451,7 @@ const styles = StyleSheet.create({
   },
   bottomBar: {
     position: "absolute",
-    bottom: 0,
+    bottom: 50,
     left: 0,
     right: 0,
     flexDirection: "row",
