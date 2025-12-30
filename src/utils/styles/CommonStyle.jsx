@@ -85,6 +85,11 @@ export const CommonStyles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
 
+  container_3: {
+    flex: 1,
+    backgroundColor: Colors.gray_50,
+  },
+
   scrollContent: {
     flex: 1,
   },
@@ -108,5 +113,30 @@ export const CommonStyles = StyleSheet.create({
     color: "#555",
     lineHeight: 22,
     marginBottom: 10,
+  },
+
+  scrollView: {
+    flex: 1,
+  },
+
+  title_dark_20: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: Colors.dark,
+    lineHeight: 30,
+    marginBottom: 16,
+  },
+
+  form_label: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: Colors.gray_800,
+    marginBottom: 8,
+  },
+
+  divider: {
+    height: 1,
+    backgroundColor: Colors.gray_100,
+    marginVertical: 20,
   },
 });
