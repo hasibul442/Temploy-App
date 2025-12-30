@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Image,
   ScrollView,
@@ -18,13 +24,16 @@ import BottomSheet, {
 import CategoryButton from "../../components/CategoryButton";
 import OfferCarousel from "../../components/Sliders/OfferCarousel";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
-import HotJobSlider from "../../components/Sliders/HotJobSlider";
 import { getData } from "../../utils/helper/HttpHelper";
 import LogoutButton from "../../components/LogoutButton";
+import JobsData from "../../utils/data/JobsData";
+import JobCard from "../../components/Card/JobCard";
+import LogoHeader from "../../components/Header/LogoHeader";
 
-function MenuScreen() {
+function HomeScreen() {
   const navigation = useNavigation();
   const [categories, setCategories] = useState([]);
+  const jobdata = JobsData;
 
   // :point_down: Move BottomSheet ref to screen level
   const BottomSheetRef = useRef(null);
@@ -56,11 +65,10 @@ function MenuScreen() {
     fetchCategories();
   }, []);
 
-
-
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
+        <LogoHeader />
         <SafeAreaView style={[style.homescreen_container]} edges={["top"]}>
           {/* Scrollable content */}
           <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
@@ -124,31 +132,33 @@ function MenuScreen() {
                   marginBottom: 10,
                 }}
               >
-                <Text style={CommonStyles.title_16_bold}> Hot Jobs</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("OtherPages", { screen: "Jobs" })}>
+                <Text style={CommonStyles.title_16_bold}> Recent Jobs</Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("OtherPages", { screen: "Jobs" })
+                  }
+                >
                   <Text style={CommonStyles.button_text_12}>See All</Text>
                 </TouchableOpacity>
               </View>
 
               <View>
-                <HotJobSlider />
+                {jobdata.slice(0, 10).map((job, index) => (
+                  <JobCard key={index} job={job} />
+                ))}
               </View>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("OtherPages", { screen: "Jobs" })
+                }
+                style={{ alignSelf: "center", marginTop: 10, marginBottom: 10 }}
+              >
+                <Text style={CommonStyles.button_text_12}>See More</Text>
+              </TouchableOpacity>
             </View>
 
-            {/* Navigation Button */}
-            <TouchableOpacity
-              style={style.details_button}
-              onPress={() => navigation.navigate("Details")}
-            >
-              <Text style={style.details_button_text}>Go to Details</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={style.details_button}
-              onPress={() => navigation.navigate("Profile")}
-            >
-              <Text style={style.details_button_text}>Go to Profile</Text>
-            </TouchableOpacity>
-
+            {/* Navigation Button For test*/}
             <TouchableOpacity
               style={style.details_button}
               onPress={() => navigation.navigate("Login")}
@@ -278,4 +288,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default MenuScreen;
+export default HomeScreen;

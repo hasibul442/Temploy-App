@@ -8,57 +8,54 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import RenderHtml from "react-native-render-html";
 import { Colors } from "../../utils/constants/Color";
 import { convertTimeStampToTimeAgo } from "../../utils/helper/Helper";
-import { useNavigation } from "@react-navigation/native";
 import JobsData from "../../utils/data/JobsData";
+import HeaderWithBackButton from "../../components/Header/HeaderWithBackButton";
+import { useNavigation } from "@react-navigation/native";
+import JobDescription from "../../components/JobDescription";
+import SkillTag from "../../components/Card/Tag/SkillTag";
+import { CommonStyles } from "../../utils/styles/CommonStyle";
+import { HeaderStyles } from "../../utils/styles/HeaderStyle";
 
 function JobsDetailsScreen({ route }) {
-    console.log(route);
-  const navigation = useNavigation();
-  const jobdata = JobsData
+  const jobdata = JobsData;
   const { jobId } = route?.params || {};
   const [saved, setSaved] = useState(false);
+  const navigation = useNavigation();
 
   // Find the job from JobsData using jobId (index)
-  const job = jobdata.find(j => j._id === jobId);
-
-  console.log("Job Data:", job);
+  const job = jobdata.find((j) => j._id === jobId);
 
   // If job not found, show error
   if (!job) {
     return (
-      <SafeAreaView style={styles.container} edges={["top"]}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Ionicons name="arrow-back" size={24} color={Colors.gray_800} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Job Details</Text>
+      <SafeAreaView style={CommonStyles.container} edges={["top"]}>
+        <View style={HeaderStyles.header}>
+          <HeaderWithBackButton title="Job Details" />
           <View style={{ width: 40 }} />
         </View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Ionicons name="alert-circle-outline" size={60} color={Colors.gray_400} />
-          <Text style={{ fontSize: 16, color: Colors.gray_600, marginTop: 12 }}>Job not found</Text>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Ionicons
+            name="alert-circle-outline"
+            size={60}
+            color={Colors.gray_400}
+          />
+          <Text style={{ fontSize: 16, color: Colors.gray_600, marginTop: 12 }}>
+            Job not found
+          </Text>
         </View>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <SafeAreaView style={CommonStyles.container} edges={["top"]}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color={Colors.white} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Job Details</Text>
+      <View style={HeaderStyles.header}>
+        <HeaderWithBackButton title="Job Details" />
         <TouchableOpacity
           style={styles.saveButton}
           onPress={() => setSaved(!saved)}
@@ -72,7 +69,7 @@ function JobsDetailsScreen({ route }) {
       </View>
 
       <ScrollView
-        style={styles.scrollView}
+        style={CommonStyles.scrollView}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
@@ -82,7 +79,7 @@ function JobsDetailsScreen({ route }) {
         </Text>
 
         {/* Title */}
-        <Text style={styles.title}>{job.title}</Text>
+        <Text style={CommonStyles.title_dark_20}>{job.title}</Text>
 
         {/* Job Meta Card */}
         <View style={styles.metaCard}>
@@ -147,12 +144,7 @@ function JobsDetailsScreen({ route }) {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Job Description</Text>
           <View style={styles.descriptionContainer}>
-            {/* <RenderHtml
-              contentWidth={width - 64}
-              source={{ html: job.description }}
-              tagsStyles={tagsStyles}
-            /> */}
-            {job.description}
+           <JobDescription description={job.description} />
           </View>
         </View>
 
@@ -175,15 +167,9 @@ function JobsDetailsScreen({ route }) {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Required Skills</Text>
           <View style={styles.skillsContainer}>
-            <View style={styles.skillTag}>
-              <Text style={styles.skillText}>Professional</Text>
-            </View>
-            <View style={styles.skillTag}>
-              <Text style={styles.skillText}>Experienced</Text>
-            </View>
-            <View style={styles.skillTag}>
-              <Text style={styles.skillText}>{job.duration}</Text>
-            </View>
+            {job?.required_skills.map((skill) => (
+              <SkillTag key={skill._id} skill={skill.name} />
+            ))}
           </View>
         </View>
 
@@ -229,17 +215,22 @@ function JobsDetailsScreen({ route }) {
 
       {/* Bottom Action Bar */}
       <View style={styles.bottomBar}>
+        <TouchableOpacity style={styles.applyButton} onPress={() =>
+          navigation.navigate("OtherPages", {
+            screen: "Proposal",
+            params: { jobId: job._id },
+          })
+        }>
+          <Text style={styles.applyButtonText}>Apply Now</Text>
+          <Ionicons name="arrow-forward" size={18} color={Colors.white} />
+        </TouchableOpacity>
         <TouchableOpacity style={styles.messageButton}>
           <Ionicons
             name="chatbubble-outline"
             size={20}
             color={Colors.primary_2}
           />
-          <Text style={styles.messageButtonText}>Message</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.applyButton}>
-          <Text style={styles.applyButtonText}>Apply Now</Text>
-          <Ionicons name="arrow-forward" size={18} color={Colors.white} />
+          <Text style={styles.messageButtonText}>Save job</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -247,41 +238,12 @@ function JobsDetailsScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    backgroundColor: Colors.success_2,
-    borderBottomColor: Colors.success_2,
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: Colors.white,
-  },
   saveButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-  },
-  scrollView: {
-    flex: 1,
   },
   scrollContent: {
     padding: 16,
@@ -290,13 +252,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: Colors.gray_500,
     marginBottom: 8,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: Colors.gray_800,
-    lineHeight: 30,
-    marginBottom: 16,
   },
   metaCard: {
     flexDirection: "row",
@@ -397,20 +352,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
-  skillTag: {
-    backgroundColor: Colors.primary_1 + "20",
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginRight: 10,
-    marginBottom: 10,
-  },
-  skillText: {
-    fontSize: 13,
-    color: Colors.primary_2,
-    fontWeight: "500",
-    textTransform: "capitalize",
-  },
   clientCard: {
     backgroundColor: Colors.gray_50,
     borderRadius: 12,
@@ -479,7 +420,7 @@ const styles = StyleSheet.create({
   },
   bottomBar: {
     position: "absolute",
-    bottom: 0,
+    bottom: 50,
     left: 0,
     right: 0,
     flexDirection: "row",
@@ -503,7 +444,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray_50,
     borderRadius: 12,
     paddingVertical: 14,
-    marginRight: 12,
+
     borderWidth: 1,
     borderColor: Colors.primary_2,
   },
@@ -514,11 +455,12 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   applyButton: {
-    flex: 2,
+    marginRight: 12,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.primary_1,
+    backgroundColor: Colors.success_2,
     borderRadius: 12,
     paddingVertical: 14,
   },
