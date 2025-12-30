@@ -1,10 +1,12 @@
 import React from 'react'
+import { useWindowDimensions } from 'react-native';
 import RenderHTML from 'react-native-render-html'
 
-function JobDescription({description}) {
+function JobDescription({ description }) {
+  const { width } = useWindowDimensions();
   return (
     <>
-    <RenderHTML source={{ html: description }} />
+      <RenderHTML contentWidth={width} source={{ html: description }} />
     </>
   )
 }
