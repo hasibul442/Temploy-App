@@ -138,7 +138,7 @@ export function OtherStack() {
     { name: "LanguageSelection", component: LanguageScreen, header: true, page_title: "Language Selection" },
     { name: "AccountSettingOptions", component: AccountSettingOptionScreen, header: true, page_title: "Accounts" },
     { name: "Notification", component: NotificationScreen, header: true, page_title: "Notifications" },
-    { name: "Jobs", component: JobsScreens, header: true, page_title: "Available Jobs" },
+    { name: "Jobs", component: JobsScreens, header: false, page_title: "Available Jobs" },
     { name: "JobsDetails", component: JobsDetailsScreen, header: false, page_title: "Job Details" },
     { name: "Proposal", component: SubmitProposalScreen, header: false, page_title: "Submit Proposal" }
   ];
