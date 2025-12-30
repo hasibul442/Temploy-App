@@ -43,11 +43,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingVertical: 18,
-    borderBottomWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     backgroundColor: Colors.success_2,
-    borderBottomColor: Colors.success_2,
   },
 });
 
