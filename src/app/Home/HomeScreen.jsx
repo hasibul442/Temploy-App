@@ -29,6 +29,7 @@ import LogoutButton from "../../components/LogoutButton";
 import JobsData from "../../utils/data/JobsData";
 import JobCard from "../../components/Card/JobCard";
 import LogoHeader from "../../components/Header/LogoHeader";
+import { StatusBar } from "react-native";
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -66,128 +67,136 @@ function HomeScreen() {
   }, []);
 
   return (
-    <SafeAreaProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <LogoHeader />
-        <SafeAreaView style={[style.homescreen_container]} edges={["top"]}>
-          {/* Scrollable content */}
-          <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-            {/* Banner Section */}
-            <View style={style.banner_container}>
-              <Image
-                source={require("../../assets/image/banner_1.jpg")}
-                style={style.banner_image}
-              />
-            </View>
+    <>
+      <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
+        <GestureHandlerRootView style={{ ...CommonStyles.container }}>
+          <StatusBar barStyle="light-content" backgroundColor={Colors.success_2} />
+          <LogoHeader />
+          <View style={{ flex: 1, paddingHorizontal: 10 }}>
+            <ScrollView
+              contentContainerStyle={{ paddingBottom: 100 }}
+              style={{ flex: 1 }}
+              showsVerticalScrollIndicator={false}
+              bounces={true}
+              nestedScrollEnabled={true}
+            >
+              {/* Banner Section */}
+              <View style={style.banner_container}>
+                <Image
+                  source={require("../../assets/image/banner_1.jpg")}
+                  style={style.banner_image}
+                />
+              </View>
 
-            {/* Categories */}
-            <View style={style.category_block}>
-              {categories.slice(0, 7).map((item, index) => (
-                <CategoryButton key={item._id} item={item} />
-              ))}
+              {/* Categories */}
+              <View style={style.category_block}>
+                {categories.slice(0, 7).map((item, index) => (
+                  <CategoryButton key={item._id} item={item} />
+                ))}
 
-              {/* More Button */}
-              <View style={style.category_buttons}>
-                <TouchableOpacity
-                  onPress={openSheet}
-                  style={style.category_button_item}
+                {/* More Button */}
+                <View style={style.category_buttons}>
+                  <TouchableOpacity
+                    onPress={openSheet}
+                    style={style.category_button_item}
+                  >
+                    <Image
+                      source={{
+                        uri: "https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/svg/all-services.svg",
+                      }}
+                      style={{
+                        width: 36,
+                        height: 36,
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <Text style={style.category_button_item_text}>More</Text>
+                </View>
+              </View>
+
+              {/* Promo Section */}
+              <View>
+                <OfferCarousel />
+              </View>
+
+              <View style={style.statsRow}>
+                <View style={style.statBox}>
+                  <Text style={style.statTitle}>New Jobs</Text>
+                  <Text style={style.statValue}>747</Text>
+                </View>
+                <View style={[style.statBox, { marginLeft: 10 }]}>
+                  <Text style={style.statTitle}>Live Job</Text>
+                  <Text style={style.statValue}>7574</Text>
+                </View>
+              </View>
+
+              {/* Trending Section */}
+              <View style={style.trending_section}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: 10,
+                  }}
                 >
-                  <Image
-                    source={{
-                      uri: "https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/svg/all-services.svg",
-                    }}
-                    style={{
-                      width: 36,
-                      height: 36,
-                    }}
-                  />
-                </TouchableOpacity>
-                <Text style={style.category_button_item_text}>More</Text>
-              </View>
-            </View>
+                  <Text style={CommonStyles.title_16_bold}> Recent Jobs</Text>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("OtherPages", { screen: "Jobs" })
+                    }
+                  >
+                    <Text style={CommonStyles.button_text_12}>See All</Text>
+                  </TouchableOpacity>
+                </View>
 
-            {/* Promo Section */}
-            <View>
-              <OfferCarousel />
-            </View>
+                <View>
+                  {jobdata.slice(0, 10).map((job, index) => (
+                    <JobCard key={index} job={job} />
+                  ))}
+                </View>
 
-            <View style={style.statsRow}>
-              <View style={style.statBox}>
-                <Text style={style.statTitle}>New Jobs</Text>
-                <Text style={style.statValue}>747</Text>
-              </View>
-              <View style={[style.statBox, { marginLeft: 10 }]}>
-                <Text style={style.statTitle}>Live Job</Text>
-                <Text style={style.statValue}>7574</Text>
-              </View>
-            </View>
-
-            {/* Trending Section */}
-            <View style={style.trending_section}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: 10,
-                }}
-              >
-                <Text style={CommonStyles.title_16_bold}> Recent Jobs</Text>
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate("OtherPages", { screen: "Jobs" })
                   }
+                  style={{ alignSelf: "center", marginTop: 10, marginBottom: 10 }}
                 >
-                  <Text style={CommonStyles.button_text_12}>See All</Text>
+                  <Text style={CommonStyles.button_text_12}>See More</Text>
                 </TouchableOpacity>
               </View>
 
-              <View>
-                {jobdata.slice(0, 10).map((job, index) => (
-                  <JobCard key={index} job={job} />
-                ))}
-              </View>
-
+              {/* Navigation Button For test*/}
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("OtherPages", { screen: "Jobs" })
-                }
-                style={{ alignSelf: "center", marginTop: 10, marginBottom: 10 }}
+                style={style.details_button}
+                onPress={() => navigation.navigate("Login")}
               >
-                <Text style={CommonStyles.button_text_12}>See More</Text>
+                <Text style={style.details_button_text}>Go to Login</Text>
               </TouchableOpacity>
-            </View>
 
-            {/* Navigation Button For test*/}
-            <TouchableOpacity
-              style={style.details_button}
-              onPress={() => navigation.navigate("Login")}
+              <LogoutButton />
+            </ScrollView>
+
+            {/* :point_down: BOTTOM SHEET OUTSIDE SCROLLVIEW */}
+            <BottomSheet
+              ref={BottomSheetRef}
+              snapPoints={snapPoints}
+              enablePanDownToClose
+              index={-1}
+              backdropComponent={backDrop}
             >
-              <Text style={style.details_button_text}>Go to Login</Text>
-            </TouchableOpacity>
-
-            <LogoutButton />
-          </ScrollView>
-
-          {/* :point_down: BOTTOM SHEET OUTSIDE SCROLLVIEW */}
-          <BottomSheet
-            ref={BottomSheetRef}
-            snapPoints={snapPoints}
-            enablePanDownToClose
-            index={-1}
-            backdropComponent={backDrop}
-          >
-            <BottomSheetView style={{ padding: 15 }}>
-              <View style={style.category_block}>
-                {categories.map((item, index) => (
-                  <CategoryButton key={item._id} item={item} />
-                ))}
-              </View>
-            </BottomSheetView>
-          </BottomSheet>
-        </SafeAreaView>
-      </GestureHandlerRootView>
-    </SafeAreaProvider>
+              <BottomSheetView style={{ padding: 15 }}>
+                <View style={{marginBottom: 100, ...style.category_block }}>
+                  {categories.map((item, index) => (
+                    <CategoryButton key={item._id} item={item} />
+                  ))}
+                </View>
+              </BottomSheetView>
+            </BottomSheet>
+          </View>
+        </GestureHandlerRootView>
+      </SafeAreaView>
+    </>
   );
 }
 
