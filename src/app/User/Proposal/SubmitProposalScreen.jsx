@@ -82,8 +82,9 @@ function SubmitProposalScreen({ route }) {
   }, []);
 
   return (
-    <SafeAreaView style={CommonStyles.container_3} edges={["top"]}>
-      {/* Header */}
+    <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
+      <View style={CommonStyles.container_3}>
+        {/* Header */}
       <View style={HeaderStyles.header}>
         <HeaderWithBackButton title="Submit Proposal" />
         <View style={{ width: 40 }} />
@@ -343,6 +344,7 @@ function SubmitProposalScreen({ route }) {
           </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
+      </View>
     </SafeAreaView>
   );
 }
