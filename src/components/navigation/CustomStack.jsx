@@ -95,7 +95,7 @@ export function MessageStack() {
 }
 
 export function OfferStack() {
-  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", true, true));
+  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", false, false));
 }
 
 export function MenuStack() {

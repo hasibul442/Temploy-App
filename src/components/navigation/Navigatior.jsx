@@ -109,17 +109,18 @@ export default function Navigator() {
         },
       })}
     >
-      <Tab.Screen
-        name="Home"
-        component={HomeStack}
-        options={{ title: "Home" }}
-      />
+      
       <Tab.Screen name="Offer" component={OfferStack} />
 
       <Tab.Screen
         name="Orders"
         component={OrderStack}
         options={{ title: "Orders" }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeStack}
+        options={{ title: "Home" }}
       />
       <Tab.Screen name="Message" component={MessageStack} />
       <Tab.Screen name="Menu" component={MenuStack} />

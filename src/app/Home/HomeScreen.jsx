@@ -118,6 +118,23 @@ function HomeScreen() {
 
               {/* Promo Section */}
               <View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text style={CommonStyles.title_18_bold}>Exclusive Offers </Text>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("OtherPages", { screen: "Jobs" })
+                    }
+                  >
+                    <Text style={CommonStyles.button_text_12}>See All</Text>
+                  </TouchableOpacity>
+                </View>
                 <OfferCarousel />
               </View>
 
