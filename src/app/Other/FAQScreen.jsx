@@ -11,10 +11,14 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { Colors } from "../../utils/constants/Color";
 import FAQData from "../../utils/data/FAQData";
+import { HeaderStyles } from "../../utils/styles/HeaderStyle";
+import HeaderWithBackButton from "../../components/Header/HeaderWithBackButton";
+import { useSystemNavigateSpace } from "../../utils/helper/Helper";
 
 const faqSections = FAQData;
 function FAQScreen() {
   const [expandedId, setExpandedId] = useState(null);
+  const bottomPadding = useSystemNavigateSpace(80);
 
   const toggleExpand = (id) => {
     setExpandedId(expandedId === id ? null : id);
@@ -48,38 +52,39 @@ function FAQScreen() {
   }
 
   return (
-      <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
-        <ScrollView
-          style={CommonStyles.container_2}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 80 }}
-        >
-          <View style={CommonStyles.header_1}>
-            <Text style={CommonStyles.headerTitle_1}>Frequently Asked Questions</Text>
-            <Text style={styles.headerSubtitle}>
-              Find answers to common questions about Temploy
-            </Text>
-          </View>
+    <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
+      <View style={HeaderStyles.header}>
+        <HeaderWithBackButton title="Frequently Asked Questions" />
+        <View style={{ width: 40 }} />
+      </View>
+      <ScrollView
+        style={CommonStyles.container_2}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: bottomPadding }}
+      >
+        <Text style={styles.headerSubtitle}>
+          Find answers to common questions about Temploy
+        </Text>
 
-          {faqSections.map((section) => (
-            <View key={section.id} style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>{section.title}</Text>
-              <View style={styles.faqContainer}>
-                {section.data.map((item) => (
-                  <FAQItem key={item.id} item={item} />
-                ))}
-              </View>
+        {faqSections.map((section) => (
+          <View key={section.id} style={styles.sectionContainer}>
+            <Text style={styles.sectionTitle}>{section.title}</Text>
+            <View style={styles.faqContainer}>
+              {section.data.map((item) => (
+                <FAQItem key={item.id} item={item} />
+              ))}
             </View>
-          ))}
-
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>Still have questions?</Text>
-            <TouchableOpacity style={styles.contactButton}>
-              <Text style={styles.contactButtonText}>Contact Support</Text>
-            </TouchableOpacity>
           </View>
-        </ScrollView>
-      </SafeAreaView>
+        ))}
+
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Still have questions?</Text>
+          <TouchableOpacity style={styles.contactButton}>
+            <Text style={styles.contactButtonText}>Contact Support</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -89,6 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.green_pantone,
     paddingHorizontal: 16,
+    paddingVertical: 8,
   },
   sectionContainer: {
     marginBottom: 24,
@@ -139,8 +145,8 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: "center",
-    paddingVertical: 20,
-    marginBottom: 30,
+    // paddingVertical: 20,
+    // marginBottom: 30,
   },
   footerText: {
     fontSize: 16,
