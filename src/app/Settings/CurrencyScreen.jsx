@@ -14,10 +14,14 @@ import { Colors } from '../../utils/constants/Color';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CommonStyles } from '../../utils/styles/CommonStyle';
 import { getData } from '../../utils/helper/HttpHelper';
+import HeaderWithBackButton from '../../components/Header/HeaderWithBackButton';
+import { HeaderStyles } from '../../utils/styles/HeaderStyle';
+import { useSystemNavigateSpace } from '../../utils/helper/Helper';
 
 function CurrencyScreen() {
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [searchQuery, setSearchQuery] = useState('');
+  const bottomPadding = useSystemNavigateSpace(40);
   const [currencies, setCurrencies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -106,7 +110,10 @@ function CurrencyScreen() {
         data={filteredCurrencies}
         keyExtractor={(item) => item.code}
         renderItem={renderCurrencyItem}
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={{
+          ...styles.listContainer,
+          paddingBottom: bottomPadding
+        }}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={
@@ -120,35 +127,41 @@ function CurrencyScreen() {
   };
 
   return (
-    <SafeAreaView style={CommonStyles.container}>
-      {/* Search Bar */}
-      <View style={styles.searchContainer}>
-        <View style={styles.searchBar}>
-          <Ionicons name="search" size={20} color={Colors.dark_gray} style={styles.searchIcon} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search currency..."
-            placeholderTextColor={Colors.gray_500}
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-          />
-          {searchQuery.length > 0 && (
-            <TouchableOpacity onPress={() => setSearchQuery('')}>
-              <Ionicons name="close-circle" size={20} color={Colors.gray_500} />
-            </TouchableOpacity>
-          )}
+    <SafeAreaView style={CommonStyles.safeArea}>
+      <View style={CommonStyles.container}>
+        {/* Search Bar */}
+        <View style={HeaderStyles.header}>
+          <HeaderWithBackButton title="Currency Selection" />
+          <View style={{ width: 40 }} />
         </View>
-      </View>
+        <View style={styles.searchContainer}>
+          <View style={styles.searchBar}>
+            <Ionicons name="search" size={20} color={Colors.dark_gray} style={styles.searchIcon} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search currency..."
+              placeholderTextColor={Colors.gray_500}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+            />
+            {searchQuery.length > 0 && (
+              <TouchableOpacity onPress={() => setSearchQuery('')}>
+                <Ionicons name="close-circle" size={20} color={Colors.gray_500} />
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
 
-      {/* Current Selection Info */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoText}>
-          Select the currency you'd like to use for payments and transactions
-        </Text>
-      </View>
+        {/* Current Selection Info */}
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoText}>
+            Select the currency you'd like to use for payments and transactions
+          </Text>
+        </View>
 
-      {/* Currency List */}
-      {renderContent()}
+        {/* Currency List */}
+        {renderContent()}
+      </View>
     </SafeAreaView>
   );
 }
@@ -206,7 +219,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 20,
   },
   currencyItem: {
     flexDirection: 'row',
