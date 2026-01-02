@@ -139,4 +139,20 @@ export const CommonStyles = StyleSheet.create({
     backgroundColor: Colors.gray_100,
     marginVertical: 20,
   },
+
+  status_color_pending: {
+    color: Colors.warning,
+  },
+
+  status_color_completed: {
+    color: Colors.success,
+  },
+
+  status_color_canceled: {
+    color: Colors.danger,
+  },
+
+  status_color_failed: {
+    color: Colors.danger,
+  },
 });
