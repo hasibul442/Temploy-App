@@ -3,12 +3,10 @@ import ExpenseData from '../../../utils/data/ExpenseData'
 import { HeaderStyles } from '../../../utils/styles/HeaderStyle'
 import { CommonStyles } from '../../../utils/styles/CommonStyle'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
-import { View } from 'react-native'
-import { ScrollView } from 'react-native'
 import { useSystemNavigateSpace } from '../../../utils/helper/Helper'
 import TransactionCard from '../../../components/Card/TransactionCard'
 import HeaderWithBackButton from '../../../components/Header/HeaderWithBackButton'
-import { StyleSheet } from 'react-native'
+import { View, ScrollView, StyleSheet } from 'react-native'
 
 function WithdrawHistoryScreen() {
   const withdrawal = ExpenseData
