@@ -9,6 +9,11 @@ export const CommonStyles = StyleSheet.create({
     fontWeight: "700",
     color: Colors.dark,
   },
+  title_18_bold: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: Colors.dark,
+  },
   text_12_regular: {
     fontSize: 12,
     fontWeight: "400",

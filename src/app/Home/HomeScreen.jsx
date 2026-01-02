@@ -132,6 +132,15 @@ function HomeScreen() {
                 </View>
               </View>
 
+              {/* Create Job Button */}
+
+              <TouchableOpacity
+                style={style.create_job_button}
+                onPress={() => navigation.navigate("CreateJob")}
+              >
+                <Text style={style.create_job_button_text}>Post your Job</Text>
+              </TouchableOpacity>
+
               {/* Trending Section */}
               <View style={style.trending_section}>
                 <View
@@ -142,7 +151,7 @@ function HomeScreen() {
                     marginBottom: 10,
                   }}
                 >
-                  <Text style={CommonStyles.title_16_bold}> Recent Jobs</Text>
+                  <Text style={CommonStyles.title_18_bold}> Recent Jobs</Text>
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("OtherPages", { screen: "Jobs" })
@@ -188,7 +197,7 @@ function HomeScreen() {
               backdropComponent={backDrop}
             >
               <BottomSheetView style={{ padding: 15 }}>
-                <View style={{marginBottom: 100, ...style.category_block }}>
+                <View style={{ marginBottom: 100, ...style.category_block }}>
                   {categories.map((item, index) => (
                     <CategoryButton key={item._id} item={item} />
                   ))}
@@ -296,6 +305,19 @@ const style = StyleSheet.create({
     fontWeight: "700",
     marginTop: 6,
     color: Colors.dark_gray,
+  },
+  create_job_button: {
+    width: "100%",
+    backgroundColor: Colors.success_2,
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  create_job_button_text: {
+    color: Colors.light,
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 
