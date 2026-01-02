@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ScrollView,
   Text,
@@ -12,45 +11,30 @@ import { Colors } from "../../../utils/constants/Color";
 import { CommonStyles } from "../../../utils/styles/CommonStyle";
 import IncomeData from "../../../utils/data/IncomeData";
 import ExpenseData from "../../../utils/data/ExpenseData";
+import TransactionCard from "../../../components/Card/TransactionCard";
+import HeaderWithBackButton from "../../../components/Header/HeaderWithBackButton";
+import { HeaderStyles } from "../../../utils/styles/HeaderStyle";
+import { useSystemNavigateSpace } from "../../../utils/helper/Helper";
+import { useNavigation } from "@react-navigation/native";
 
 function EarningScreen() {
 
-const incomeData = IncomeData
-const expenseData =  ExpenseData
+  const incomeData = IncomeData
+  const expenseData = ExpenseData
 
-  const TransactionItem = ({ item, type }) => (
-    <View style={styles.transactionItem}>
-      <View style={styles.transactionLeft}>
-        <View style={styles.transactionInfo}>
-          <Text style={styles.transactionTitle}>
-            {item.title.length > 40
-              ? item.title.substring(0, 40) + "..."
-              : item.title}
-          </Text>
-          <Text style={styles.transactionDate}>{item.date}</Text>
-          <Text style={styles.transactionStatus}>{item.status}</Text>
-        </View>
-      </View>
-      <View style={styles.transactionRight}>
-        <Text
-          style={[
-            styles.transactionAmount,
-            { color: type === "income" ? "#10B981" : "#EF4444" },
-          ]}
-        >
-          {type === "income" ? "+" : "-"}${item.amount}
-        </Text>
-      </View>
-    </View>
-  );
+  const navigation = useNavigation();
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
+        <View style={HeaderStyles.header}>
+          <HeaderWithBackButton title="Balance Summary" />
+          <View style={{ width: 40 }} />
+        </View>
         <ScrollView
-          style={styles.container}
+          style={CommonStyles.container_3}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 100 }}
+          contentContainerStyle={{ paddingBottom: useSystemNavigateSpace(60) }}
         >
           <View style={styles.headerSection}>
             <View style={styles.balanceSection}>
@@ -171,12 +155,12 @@ const expenseData =  ExpenseData
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Complete Orders</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => { navigation.navigate("OtherPages", { screen: "EarningHistory" }) }}>
                 <Text style={styles.seeAllText}>See all</Text>
               </TouchableOpacity>
             </View>
-            {incomeData.map((item) => (
-              <TransactionItem key={item.id} item={item} type="income" />
+            {incomeData.slice(0, 5).map((item) => (
+              <TransactionCard key={item.id} item={item} type="income" />
             ))}
           </View>
 
@@ -184,12 +168,14 @@ const expenseData =  ExpenseData
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Withdrawal</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() =>
+                navigation.navigate("OtherPages", { screen: "WithdrawHistory" })
+              }>
                 <Text style={styles.seeAllText}>See all</Text>
               </TouchableOpacity>
             </View>
-            {expenseData.map((item) => (
-              <TransactionItem key={item.id} item={item} type="withdrawal" />
+            {expenseData.slice(0, 5).map((item) => (
+              <TransactionCard key={item.id} item={item} type="withdrawal" />
             ))}
           </View>
         </ScrollView>
@@ -199,10 +185,6 @@ const expenseData =  ExpenseData
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F3F4F6",
-  },
   headerSection: {
     backgroundColor: Colors.success_2,
     paddingHorizontal: 20,
@@ -285,51 +267,6 @@ const styles = StyleSheet.create({
   seeAllText: {
     fontSize: 14,
     color: "#6B7280",
-  },
-  transactionItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-    elevation: 2,
-  },
-  transactionLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  transactionInfo: {
-    gap: 4,
-  },
-  transactionTitle: {
-    fontSize: 12,
-    fontWeight: "600",
-    color: "#1F2937",
-  },
-  transactionDate: {
-    fontSize: 10,
-    color: "#9CA3AF",
-  },
-  transactionStatus: {
-    fontSize: 10,
-    color: Colors.success,
-    fontWeight: "700",
-  },
-  transactionRight: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 16,
-  },
-  transactionAmount: {
-    fontSize: 16,
-    fontWeight: "bold",
   },
   // Level Section Styles
   levelSection: {
