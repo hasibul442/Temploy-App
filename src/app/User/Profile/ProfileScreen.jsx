@@ -5,16 +5,9 @@ import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { CommonStyles } from "../../../utils/styles/CommonStyle";
 import { useNavigation } from "@react-navigation/native";
 import CardWithCircleProgress from "../../../components/Card/CardWithCircleProgress";
+import EarningCard from "../../../components/Card/EarningCard";
 
 const { width } = Dimensions.get('window');
-
-const EarningCard = ({ title, value, color }) => (
-  <View style={styles.earningCard}>
-    <Text style={[styles.earningValue, { color: color || '#333' }]}>{value}</Text>
-    <Text style={styles.earningTitle}>{title}</Text>
-  </View>
-);
-
 function ProfileScreen() {
   const navigation = useNavigation();
 
@@ -204,29 +197,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
-  earningCard: {
-    width: '48%',
-    backgroundColor: '#FAFAFA',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
-    minHeight: 100,
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  earningValue: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  earningTitle: {
-    fontSize: 13,
-    color: '#666',
-  },
+
 
   // --- Standards Section Styles ---
   standardsMaintainTitle: {
