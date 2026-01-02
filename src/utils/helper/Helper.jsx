@@ -1,3 +1,5 @@
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 export function convertTimeStampToTimeAgo(timestamp) {
   const now = new Date();
   const posted = new Date(timestamp);
@@ -14,5 +16,11 @@ export function convertTimeStampToTimeAgo(timestamp) {
 
 
 export function stripHtmlTags(html) {
-    return html.replaceAll(/<[^>]*>/g, '');
+  return html.replaceAll(/<[^>]*>/g, '');
+}
+
+// Custom hook - must be called at the top level of a component
+export function useSystemNavigateSpace(value = 0) {
+  const insets = useSafeAreaInsets();
+  return insets.bottom + value;
 }
