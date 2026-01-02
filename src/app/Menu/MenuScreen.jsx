@@ -14,6 +14,7 @@ import { CommonStyles } from "../../utils/styles/CommonStyle";
 import LogoutButton from "../../components/LogoutButton";
 import { useSelector } from "react-redux";
 import MenuItem from "../../utils/helper/MenuItem";
+import { useSystemNavigateSpace } from "../../utils/helper/Helper";
 
 function WorkerMenuOption() {
   const navigation = useNavigation();
@@ -124,6 +125,7 @@ function WorkerMenuOption() {
 
 function MenuScreen() {
   const navigation = useNavigation();
+  const bottomPadding = useSystemNavigateSpace(40);
   const { user } = useSelector((state) => state.auth);
   return (
     <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
@@ -167,7 +169,8 @@ function MenuScreen() {
         <ScrollView
           style={CommonStyles.scrollContent}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 100 }}
+          // contentContainerStyle={{ paddingBottom: 100 }}
+          contentContainerStyle={{ paddingBottom: bottomPadding }}
         >
           <WorkerMenuOption />
 
