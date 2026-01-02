@@ -171,19 +171,11 @@ function HomeScreen() {
                   onPress={() =>
                     navigation.navigate("OtherPages", { screen: "Jobs" })
                   }
-                  style={{ alignSelf: "center", marginTop: 10, marginBottom: 10 }}
+                  style={{ alignSelf: "center", marginTop: 6, marginBottom: 6 }}
                 >
-                  <Text style={CommonStyles.button_text_12}>See More</Text>
+                  <Text style={CommonStyles.button_text_14}>See More</Text>
                 </TouchableOpacity>
               </View>
-
-              {/* Navigation Button For test*/}
-              <TouchableOpacity
-                style={style.details_button}
-                onPress={() => navigation.navigate("Login")}
-              >
-                <Text style={style.details_button_text}>Go to Login</Text>
-              </TouchableOpacity>
 
               <LogoutButton />
             </ScrollView>
@@ -215,7 +207,7 @@ const style = StyleSheet.create({
   homescreen_container: {
     flex: 1,
     backgroundColor: Colors.light,
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
   },
 
   banner_container: {

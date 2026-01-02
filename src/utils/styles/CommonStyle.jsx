@@ -29,6 +29,11 @@ export const CommonStyles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "600",
   },
+  button_text_14: {
+    color: Colors.primary_2,
+    fontSize: 14,
+    fontWeight: "600",
+  },
   // --- Decorative Circles ---
 
   circleTopLeft: {
