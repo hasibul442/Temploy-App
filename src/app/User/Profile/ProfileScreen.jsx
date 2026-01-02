@@ -3,47 +3,27 @@ import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Dimensions
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { CommonStyles } from "../../../utils/styles/CommonStyle";
+import { useNavigation } from "@react-navigation/native";
+import CardWithCircleProgress from "../../../components/Card/CardWithCircleProgress";
 
 const { width } = Dimensions.get('window');
 
 const EarningCard = ({ title, value, color }) => (
   <View style={styles.earningCard}>
-    <Text style={[styles.earningValue, { color: color || '#333' }]}>• {value}</Text>
+    <Text style={[styles.earningValue, { color: color || '#333' }]}>{value}</Text>
     <Text style={styles.earningTitle}>{title}</Text>
   </View>
 );
 
-const StandardCard = ({ title, percentage, description, color }) => {
-  const radius = 25; // Radius of the circle
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (percentage / 100) * circumference;
-
-  return (
-    <View style={styles.standardCard}>
-      <View style={styles.circularProgressContainer}>
-        <View style={[styles.circularProgressRing, { borderColor: color || '#4CAF50' }]}>
-          <Text style={styles.circularProgressText}>{percentage}%</Text>
-        </View>
-      </View>
-
-      <View style={styles.standardDetails}>
-        <Text style={styles.standardTitle}>{title}</Text>
-        <Text style={[styles.standardDescription, { color: color || '#4CAF50' }]}>
-          {description}
-        </Text>
-      </View>
-    </View>
-  );
-};
-
-
 function ProfileScreen() {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
-      <ScrollView 
-        style={styles.container} 
+      <ScrollView
+        style={styles.container}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollViewContent} 
+        contentContainerStyle={styles.scrollViewContent}
       >
         <View style={styles.headerBlock}>
           <View style={styles.headerTopRow}>
@@ -54,26 +34,26 @@ function ProfileScreen() {
             <AntDesign name="more" size={24} color="white" />
           </View>
           <Text style={styles.userName}>Hi Hasibul Hasan</Text>
-          <Text style={styles.userDetails}>Bangladesh - Seller Level 1</Text>
+          <Text style={styles.userDetails}>Bangladesh - Seller Level 2</Text>
         </View>
 
         <View style={styles.progressCard}>
-          <AntDesign name="star" size={16} color="#FFC107" style={styles.progressStarIcon}/>
+          <AntDesign name="star" size={16} color="#FFC107" style={styles.progressStarIcon} />
           <View style={styles.progressBarContainer}>
             <View style={styles.progressBarFill} />
           </View>
-          <Text style={styles.progressText}>70% to Level 2</Text>
-          <MaterialIcons name="arrow-forward-ios" size={18} color="#9E9E9E"/>
+          <Text style={styles.progressText}>70% to Level 3</Text>
+          <MaterialIcons name="arrow-forward-ios" size={18} color="#9E9E9E" />
         </View>
 
         <View style={styles.contentCardBlock}>
           <View style={styles.earningHeader}>
             <Text style={styles.sectionTitle}>Your Earning</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => { navigation.navigate("OtherPages", { screen: "Earnings" }) }}>
               <Text style={styles.seeMoreLink}>See more</Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={styles.earningGrid}>
             <EarningCard title="Personal balance" value="$ 1670" color="#4CAF50" />
             <EarningCard title="Earning in October" value="$ 700" color="#FF9800" />
@@ -82,30 +62,30 @@ function ProfileScreen() {
           </View>
 
           <Text style={styles.standardsMaintainTitle}>Standards to maintain</Text>
-          
-          <StandardCard 
-            title="Response rate" 
-            percentage={80} 
-            description="Increase 12% from previous month" 
-            color="#4CAF50" 
-          />
-          <StandardCard 
-            title="Order completion" 
-            percentage={78} 
-            description="Increase 7% from previous month" 
-            color="#4CAF50" 
-          />
-          <StandardCard 
-            title="Order completion" 
-            percentage={50} 
-            description="Increase 7% from previous month" 
+
+          <CardWithCircleProgress
+            title="Response rate"
+            percentage={80}
+            description="Increase 12% from previous month"
             color="#4CAF50"
           />
-          <StandardCard 
-            title="Order completion" 
-            percentage={30} 
-            description="Increase 7% from previous month" 
-            color="#4CAF50" 
+          <CardWithCircleProgress
+            title="Order completion"
+            percentage={78}
+            description="Increase 7% from previous month"
+            color="#4CAF50"
+          />
+          <CardWithCircleProgress
+            title="Order completion"
+            percentage={50}
+            description="Increase 7% from previous month"
+            color="#4CAF50"
+          />
+          <CardWithCircleProgress
+            title="Order completion"
+            percentage={30}
+            description="Increase 7% from previous month"
+            color="#4CAF50"
           />
 
         </View>
@@ -117,18 +97,18 @@ function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white', 
+    backgroundColor: 'white',
   },
   scrollViewContent: {
     paddingBottom: 80, // Space for the bottom navigation bar
   },
-  
+
   // --- BLOCK 1: Header (Green) ---
   headerBlock: {
     backgroundColor: '#4CAF50', // Main Green color
     padding: 20,
-    paddingTop: 10, 
-    minHeight: 200, 
+    paddingTop: 10,
+    minHeight: 200,
     borderBottomLeftRadius: 30, // Subtle curve, though mostly hidden by progress card
     borderBottomRightRadius: 30, // Subtle curve
   },
@@ -155,7 +135,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#D4E8D4', // Lighter green text
   },
-  
+
   // --- OVERLAPPING PROGRESS CARD ---
   progressCard: {
     flexDirection: 'row',
@@ -165,7 +145,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginHorizontal: 20,
     marginTop: -35, // Pulls the card up into the header
-    zIndex: 2, 
+    zIndex: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
@@ -184,7 +164,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   progressBarFill: {
-    width: '70%', 
+    width: '70%',
     height: '100%',
     backgroundColor: '#FF9800', // Orange color
   },
@@ -198,16 +178,16 @@ const styles = StyleSheet.create({
   contentCardBlock: {
     backgroundColor: 'white',
     padding: 20,
-    paddingTop: 10, 
+    paddingTop: 10,
     flex: 1,
   },
-  
+
   // --- Earning Section Styles ---
   earningHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 15, 
+    marginTop: 15,
     marginBottom: 15,
   },
   sectionTitle: {
@@ -225,18 +205,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   earningCard: {
-    width: '48%', 
-    backgroundColor: '#FAFAFA', 
+    width: '48%',
+    backgroundColor: '#FAFAFA',
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
     minHeight: 100,
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 }, 
-    shadowOpacity: 0.08, 
-    shadowRadius: 4, 
-    elevation: 3, 
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 3,
   },
   earningValue: {
     fontSize: 18,
@@ -247,7 +227,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#666',
   },
-  
+
   // --- Standards Section Styles ---
   standardsMaintainTitle: {
     fontSize: 18,
@@ -256,53 +236,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 15,
   },
-  standardCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FAFAFA',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 }, 
-    shadowOpacity: 0.05, 
-    shadowRadius: 3, 
-    elevation: 2, 
-  },
-  circularProgressContainer: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    marginRight: 15,
-  },
-  circularProgressRing: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    borderWidth: 2,
-    borderColor: '#E0E0E0', // Default light grey for the ring
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  circularProgressText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#4CAF50', // Green color
-  },
-  standardDetails: {
-    flex: 1,
-  },
-  standardTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  standardDescription: {
-    fontSize: 13,
-  },
+
 });
 
 export default ProfileScreen;
