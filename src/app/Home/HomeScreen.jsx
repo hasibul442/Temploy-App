@@ -14,7 +14,7 @@ import {
   View,
 } from "react-native";
 import { Colors } from "../../utils/constants/Color";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet, {
@@ -30,6 +30,7 @@ import JobsData from "../../utils/data/JobsData";
 import JobCard from "../../components/Card/JobCard";
 import LogoHeader from "../../components/Header/LogoHeader";
 import { StatusBar } from "react-native";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -81,12 +82,12 @@ function HomeScreen() {
               nestedScrollEnabled={true}
             >
               {/* Banner Section */}
-              <View style={style.banner_container}>
+              {/* <View style={style.banner_container}>
                 <Image
                   source={require("../../assets/image/banner_1.jpg")}
                   style={style.banner_image}
                 />
-              </View>
+              </View> */}
 
               {/* Categories */}
               <View style={style.category_block}>
@@ -100,7 +101,7 @@ function HomeScreen() {
                     onPress={openSheet}
                     style={style.category_button_item}
                   >
-                    <Image
+                    {/* <Image
                       source={{
                         uri: "https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/svg/all-services.svg",
                       }}
@@ -108,7 +109,8 @@ function HomeScreen() {
                         width: 36,
                         height: 36,
                       }}
-                    />
+                    /> */}
+                    <AntDesign name="appstore" size={30} color={Colors.success_2} />
                   </TouchableOpacity>
                   <Text style={style.category_button_item_text}>More</Text>
                 </View>
@@ -229,7 +231,7 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
     rowGap: 10,
     columnGap: 5,
-    marginTop: 10,
+    marginTop: 20,
   },
 
   category_buttons: {
@@ -279,7 +281,7 @@ const style = StyleSheet.create({
   },
   statBox: {
     flex: 1,
-    height: 200,
+    height: 120,
     backgroundColor: Colors.light_3,
     borderRadius: 10,
     justifyContent: "center",
