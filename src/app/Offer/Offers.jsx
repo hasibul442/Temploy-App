@@ -17,35 +17,43 @@ import HeaderWithBackButton from "../../components/Header/HeaderWithBackButton";
 const promosData = [
   {
     id: 1,
-    code: "HELLOPATHAO",
-    category: "Food",
+    code: "NEWHIRE50",
+    category: "Jobs",
     description:
-      "50% Discount on your food order (up to BDT 100) for minimum order of BDT 199 (selected restaurants)",
-    validTill: "February 28, 2026",
+      "50% off on service fee for your first job posting (up to BDT 500). Valid for new employers only.",
+    validTill: "March 31, 2026",
   },
   {
     id: 2,
-    code: "TREAT150",
-    category: "Food",
+    code: "FREELANCE20",
+    category: "Freelancer",
     description:
-      "10% Discount on your food order (up to BDT 150) for minimum order of BDT 399 (Available between 07:00 AM - 11:55 PM) (selected restaurants)",
-    validTill: "January 05, 2026",
+      "20% discount on platform commission for your next 5 completed projects. Minimum earnings of BDT 1000 required.",
+    validTill: "February 15, 2026",
   },
   {
     id: 3,
-    code: "NORTHEND",
-    category: "Food",
+    code: "PREMIUM30",
+    category: "Subscription",
     description:
-      "10% Discount on your food order (up to BDT 150) for minimum order of BDT 399 (selected restaurants)",
-    validTill: "January 05, 2026",
+      "30% off on Premium membership for 3 months. Get priority job listings, verified badge, and unlimited proposals.",
+    validTill: "January 31, 2026",
   },
   {
     id: 4,
-    code: "10BFC",
-    category: "Food",
+    code: "REFERRAL100",
+    category: "Referral",
     description:
-      "10% Discount on your food order (up to BDT 150) for minimum order of BDT 399 (selected restaurants)",
-    validTill: "January 05, 2026",
+      "Earn BDT 100 for every friend you refer who completes their first job. No limit on referrals!",
+    validTill: "December 31, 2026",
+  },
+  {
+    id: 5,
+    code: "QUICKHIRE",
+    category: "Jobs",
+    description:
+      "Post urgent jobs with 2x visibility boost. Free for your first 3 urgent job postings.",
+    validTill: "February 28, 2026",
   },
 ];
 
@@ -60,9 +68,6 @@ const PromoCard = ({ promo }) => {
       </View>
       <Text style={styles.promoDescription}>{promo.description}</Text>
       <Text style={styles.validTill}>Valid till {promo.validTill}</Text>
-      <TouchableOpacity style={styles.addPromoButton}>
-        <Text style={styles.addPromoText}>Add promo</Text>
-      </TouchableOpacity>
     </View>
   );
 };
