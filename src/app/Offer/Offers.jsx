@@ -12,6 +12,7 @@ import { Colors } from "../../utils/constants/Color";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { HeaderStyles } from "../../utils/styles/HeaderStyle";
 import HeaderWithBackButton from "../../components/Header/HeaderWithBackButton";
+import { useSystemNavigateSpace } from "../../utils/helper/Helper";
 
 // Sample promo data
 const promosData = [
@@ -83,9 +84,9 @@ function Offers() {
       </View>
       {/* Content */}
       <ScrollView
-        style={styles.scrollView}
+        style={CommonStyles.container_2}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{ paddingBottom: useSystemNavigateSpace(80) }}
       >
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionEmoji}>🎁</Text>
