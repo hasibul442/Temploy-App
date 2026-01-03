@@ -34,6 +34,12 @@ function WorkerMenuOption() {
         onPress={() => { }}
       />
       <MenuItem
+        icon={<Ionicons name="pricetag" size={24} color={Colors.dark} />}
+        title="My Offers"
+        showChevron={true}
+        onPress={() => navigation.navigate("OtherPages", { screen: "MyOffer" })}
+      />
+      <MenuItem
         icon={<Ionicons name="cash-outline" size={24} color={Colors.dark} />}
         title="Earnings"
         showChevron={true}

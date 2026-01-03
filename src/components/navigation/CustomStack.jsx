@@ -137,6 +137,7 @@ export function OtherStack() {
     { name: "Terms", component: TermsOfServiceScreen, header: false, page_title: "Terms of Service" },
     { name: "Earning", component: EarningScreen, header: false, page_title: "Earning" },
     { name: "Preferences", component: PreferencesScreen, header: true, page_title: "Preferences" },
+    { name: "MyOffer", component: Offers, header: false, page_title: "My Offers" },
     { name: "CurrencySelection", component: CurrencyScreen, header: false, page_title: "Currency Selection" },
     { name: "LanguageSelection", component: LanguageScreen, header: false, page_title: "Language Selection" },
     { name: "AccountSettingOptions", component: AccountSettingOptionScreen, header: true, page_title: "Accounts" },
