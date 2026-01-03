@@ -28,6 +28,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SubmitProposalScreen from "../../app/User/Proposal/SubmitProposalScreen";
 import WithdrawHistoryScreen from "../../app/User/Withdraw/WithdrawHistoryScreen";
 import OrderHistoryScreen from "../../app/User/Order/OrderHistoryScreen";
+import CreateJobScreen from "../../app/Jobs/CreateJobScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -142,6 +143,7 @@ export function OtherStack() {
     { name: "Notification", component: NotificationScreen, header: true, page_title: "Notifications" },
     { name: "Jobs", component: JobsScreens, header: false, page_title: "Available Jobs" },
     { name: "JobsDetails", component: JobsDetailsScreen, header: false, page_title: "Job Details" },
+    { name: "JobPost", component: CreateJobScreen, header: false, page_title: "Create Job" },
     { name: "Proposal", component: SubmitProposalScreen, header: false, page_title: "Submit Proposal" },
     { name: "WithdrawHistory", component: WithdrawHistoryScreen, header: false, page_title: "Withdrawals History" },
     { name: "EarningHistory", component: OrderHistoryScreen, header: false, page_title: "Earning History" }

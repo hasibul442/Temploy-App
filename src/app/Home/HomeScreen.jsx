@@ -144,8 +144,8 @@ function HomeScreen() {
                   <Text style={style.statValue}>747</Text>
                 </View>
                 <View style={[style.statBox, { marginLeft: 10 }]}>
-                  <Text style={style.statTitle}>Live Job</Text>
-                  <Text style={style.statValue}>7574</Text>
+                  <Text style={style.statTitle}>Job Category</Text>
+                  <Text style={style.statValue}>14</Text>
                 </View>
               </View>
 
@@ -153,7 +153,9 @@ function HomeScreen() {
 
               <TouchableOpacity
                 style={style.create_job_button}
-                onPress={() => navigation.navigate("CreateJob")}
+                onPress={() =>
+                  navigation.navigate("OtherPages", { screen: "JobPost" })
+                }
               >
                 <Text style={style.create_job_button_text}>Post your Job</Text>
               </TouchableOpacity>
