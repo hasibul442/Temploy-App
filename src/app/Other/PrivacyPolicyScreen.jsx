@@ -4,9 +4,14 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { CommonStyles } from '../../utils/styles/CommonStyle';
 import PolicyData from '../../utils/data/PolicyData';
 import { Colors } from '../../utils/constants/Color';
+import { HeaderStyles } from '../../utils/styles/HeaderStyle';
+import HeaderWithBackButton from '../../components/Header/HeaderWithBackButton';
+import { useSystemNavigateSpace } from '../../utils/helper/Helper';
 
 function PrivacyPolicyScreen() {
   const policySections = PolicyData
+  const bottomPadding = useSystemNavigateSpace(40);
+
   const SectionItem = ({ section }) => {
     return (
       <View style={styles.sectionContainer}>
@@ -27,9 +32,13 @@ function PrivacyPolicyScreen() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={CommonStyles.safeArea} edges={['top']}>
-        <ScrollView style={CommonStyles.container_2} 
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        <View style={HeaderStyles.header}>
+          <HeaderWithBackButton title="Privacy Policy" />
+          <View style={{ width: 40 }} />
+        </View>
+        <ScrollView style={CommonStyles.container_2}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: bottomPadding }}
         >
           <View style={styles.introContainer}>
             <Text style={CommonStyles.introText}>
@@ -101,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderRadius: 10,
     marginBottom: 16,
-      marginHorizontal: 10,
+    marginHorizontal: 10,
     padding: 16,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 1 },

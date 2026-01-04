@@ -51,7 +51,7 @@ function SubmitProposalScreen({ route }) {
       const bid = parseFloat(value) || 0;
       const fee = bid * 0.1;
       const receive = bid - fee;
-    setServiceFee(-fee);
+      setServiceFee(-fee);
       setYouWillReceive(receive);
     }
   };
@@ -82,217 +82,218 @@ function SubmitProposalScreen({ route }) {
   }, []);
 
   return (
-    <SafeAreaView style={CommonStyles.container_3} edges={["top"]}>
-      {/* Header */}
-      <View style={HeaderStyles.header}>
-        <HeaderWithBackButton title="Submit Proposal" />
-        <View style={{ width: 40 }} />
-      </View>
-
-      <KeyboardAwareScrollView
-        style={CommonStyles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        enableOnAndroid={true}
-        extraScrollHeight={20}
-      >
-        {/* Job Details Section */}
-        {job && (
-          <View style={styles.jobDetailsSection}>
-            <Text style={styles.mainSectionTitle}>Job Details</Text>
-            <View style={styles.jobDetailsCard}>
-              <Text style={CommonStyles.title_dark_20} numberOfLines={3}>
-                {job.title}
-              </Text>
-              <View style={styles.jobMetaRow}>
-                <View style={styles.jobMetaItem}>
-                  <Ionicons
-                    name="time-outline"
-                    size={18}
-                    color={Colors.primary_1}
-                  />
-                  <Text style={styles.jobMetaText}>{job.duration}</Text>
-                </View>
-              </View>
-              <JobDescription description={job.description} />
-            </View>
-          </View>
-        )}
-
-        {/* Terms Section */}
-        <View style={styles.termsSection}>
-          <Text style={styles.mainSectionTitle}>Terms</Text>
-
-          {/* Bid Amount */}
-          <View style={styles.termsCard}>
-            <Text style={styles.termsLabel}>
-              How much do you want to bid for this project?
-            </Text>
-            <Text style={styles.termsSubLabel}>
-              This includes all milestones, and is the amount your client will
-              see
-            </Text>
-
-            <View style={styles.bidInputContainer}>
-              <Text style={CommonStyles.form_label}>Bid</Text>
-              <View style={styles.inputWrapper}>
-                <Text style={styles.inputPrefix}>$</Text>
-                <TextInput
-                  style={[
-                    styles.input,
-                    styles.bidInput,
-                    errors.bidAmount && styles.inputError,
-                  ]}
-                  placeholder="0.00"
-                  placeholderTextColor={Colors.gray_400}
-                  keyboardType="decimal-pad"
-                  value={bidAmount}
-                  onChangeText={handleBidAmount}
-                />
-              </View>
-            </View>
-            {errors.bidAmount && (
-              <Text style={styles.errorText}>{errors.bidAmount}</Text>
-            )}
-
-            <View style={CommonStyles.divider} />
-
-            <View style={styles.bidInputContainer}>
-              <Text style={CommonStyles.form_label}>
-                10% Temploy Service Fee
-              </Text>
-               <Text style={styles.feeDescription}>
-                This helps us run the platform and provide services like payment
-                protection and customer support.
-              </Text>
-              <View style={styles.inputWrapper}>
-                <Text style={styles.inputPrefix}>$</Text>
-                <TextInput
-                  style={[
-                    styles.input,
-                    styles.bidInput,
-                    errors.bidAmount && styles.inputError,
-                  ]}
-                  placeholder="0.00"
-                  placeholderTextColor={Colors.gray_400}
-                  keyboardType="decimal-pad"
-                  value={serviceFee.toFixed(2)}
-                  onChangeText={handleBidAmount}
-                  editable={false}
-                />
-              </View>
-            </View>
-
-            <View style={CommonStyles.divider} />
-
-            <View style={styles.bidInputContainer}>
-              <Text style={CommonStyles.form_label}>You'll Receive</Text>
-              <View style={styles.inputWrapper}>
-                <Text style={styles.inputPrefix}>$</Text>
-                <TextInput
-                  style={[
-                    styles.input,
-                    styles.bidInput,
-                    errors.bidAmount && styles.inputError,
-                  ]}
-                  placeholder="0.00"
-                  placeholderTextColor={Colors.gray_400}
-                  keyboardType="decimal-pad"
-                  value={youWillReceive.toFixed(2)}
-                  onChangeText={handleBidAmount}
-                  editable={false}
-                />
-              </View>
-            </View>
-            {errors.bidAmount && (
-              <Text style={styles.errorText}>{errors.bidAmount}</Text>
-            )}
-          </View>
+    <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
+      <View style={CommonStyles.container}>
+        {/* Header */}
+        <View style={HeaderStyles.header}>
+          <HeaderWithBackButton title="Submit Proposal" />
+          <View style={{ width: 40 }} />
         </View>
 
-        {/* Additional Details Section */}
-        <View style={styles.additionalDetailsSection}>
-          <Text style={styles.mainSectionTitle}>Additional Details</Text>
-
-          {/* Cover Letter */}
-          <View style={styles.additionalCard}>
-            <View style={styles.coverLetterHeader}>
-              <Text style={styles.fieldLabel}>Proposal Note</Text>
-              <Text style={styles.requiredBadge}>Required</Text>
-            </View>
-            <Text style={styles.fieldDescription}>
-              Introduce yourself and explain why you're the best fit for this
-              job
-            </Text>
-
-            <View style={styles.coverLetterContainer}>
-              <TextInput
-                style={[
-                  styles.input,
-                  styles.coverLetterInput,
-                  errors.coverLetter && styles.inputError,
-                ]}
-                placeholder="Dear hiring manager,&#10;&#10;I am writing to express my interest in your project. With my experience in..."
-                placeholderTextColor={Colors.gray_400}
-                multiline
-                numberOfLines={10}
-                textAlignVertical="top"
-                value={coverLetter}
-                onChangeText={setCoverLetter}
-              />
-              <View style={styles.characterCount}>
-                <Ionicons
-                  name={
-                    coverLetter.length >= 50
-                      ? "checkmark-circle"
-                      : "information-circle-outline"
-                  }
-                  size={14}
-                  color={
-                    coverLetter.length >= 50 ? Colors.success : Colors.gray_400
-                  }
-                />
-                <Text
-                  style={[
-                    styles.characterCountText,
-                    coverLetter.length >= 50 && styles.characterCountValid,
-                  ]}
-                >
-                  {coverLetter.length} characters (minimum 50)
+        <KeyboardAwareScrollView
+          style={CommonStyles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          enableOnAndroid={true}
+          extraScrollHeight={20}
+        >
+          {/* Job Details Section */}
+          {job && (
+            <View style={styles.jobDetailsSection}>
+              <Text style={styles.mainSectionTitle}>Job Details</Text>
+              <View style={styles.jobDetailsCard}>
+                <Text style={CommonStyles.title_dark_20} numberOfLines={3}>
+                  {job.title}
                 </Text>
+                <View style={styles.jobMetaRow}>
+                  <View style={styles.jobMetaItem}>
+                    <Ionicons
+                      name="time-outline"
+                      size={18}
+                      color={Colors.primary_1}
+                    />
+                    <Text style={styles.jobMetaText}>{job.duration}</Text>
+                  </View>
+                </View>
+                <JobDescription description={job.description} />
               </View>
             </View>
-            {errors.coverLetter && (
-              <Text style={styles.errorText}>{errors.coverLetter}</Text>
-            )}
+          )}
 
-            <CoverLetterTips />
+          {/* Terms Section */}
+          <View style={styles.termsSection}>
+            <Text style={styles.mainSectionTitle}>Terms</Text>
+
+            {/* Bid Amount */}
+            <View style={styles.termsCard}>
+              <Text style={styles.termsLabel}>
+                How much do you want to bid for this project?
+              </Text>
+              <Text style={styles.termsSubLabel}>
+                This includes all milestones, and is the amount your client will
+                see
+              </Text>
+
+              <View style={styles.bidInputContainer}>
+                <Text style={CommonStyles.form_label}>Bid</Text>
+                <View style={styles.inputWrapper}>
+                  <Text style={styles.inputPrefix}>$</Text>
+                  <TextInput
+                    style={[
+                      styles.input,
+                      styles.bidInput,
+                      errors.bidAmount && styles.inputError,
+                    ]}
+                    placeholder="0.00"
+                    placeholderTextColor={Colors.gray_400}
+                    keyboardType="decimal-pad"
+                    value={bidAmount}
+                    onChangeText={handleBidAmount}
+                  />
+                </View>
+              </View>
+              {errors.bidAmount && (
+                <Text style={styles.errorText}>{errors.bidAmount}</Text>
+              )}
+
+              <View style={CommonStyles.divider} />
+
+              <View style={styles.bidInputContainer}>
+                <Text style={CommonStyles.form_label}>
+                  10% Temploy Service Fee
+                </Text>
+                <Text style={styles.feeDescription}>
+                  This helps us run the platform and provide services like payment
+                  protection and customer support.
+                </Text>
+                <View style={styles.inputWrapper}>
+                  <Text style={styles.inputPrefix}>$</Text>
+                  <TextInput
+                    style={[
+                      styles.input,
+                      styles.bidInput,
+                      errors.bidAmount && styles.inputError,
+                    ]}
+                    placeholder="0.00"
+                    placeholderTextColor={Colors.gray_400}
+                    keyboardType="decimal-pad"
+                    value={serviceFee.toFixed(2)}
+                    onChangeText={handleBidAmount}
+                    editable={false}
+                  />
+                </View>
+              </View>
+
+              <View style={CommonStyles.divider} />
+
+              <View style={styles.bidInputContainer}>
+                <Text style={CommonStyles.form_label}>You'll Receive</Text>
+                <View style={styles.inputWrapper}>
+                  <Text style={styles.inputPrefix}>$</Text>
+                  <TextInput
+                    style={[
+                      styles.input,
+                      styles.bidInput,
+                      errors.bidAmount && styles.inputError,
+                    ]}
+                    placeholder="0.00"
+                    placeholderTextColor={Colors.gray_400}
+                    keyboardType="decimal-pad"
+                    value={youWillReceive.toFixed(2)}
+                    onChangeText={handleBidAmount}
+                    editable={false}
+                  />
+                </View>
+              </View>
+              {errors.bidAmount && (
+                <Text style={styles.errorText}>{errors.bidAmount}</Text>
+              )}
+            </View>
           </View>
 
-          {/* Attachments */}
-          <View style={styles.additionalCard}>
-            <View style={styles.attachmentHeader}>
-              <Text style={styles.fieldLabel}>Attachments</Text>
-              <Text style={styles.optionalBadge}>Optional</Text>
+          {/* Additional Details Section */}
+          <View style={styles.additionalDetailsSection}>
+            <Text style={styles.mainSectionTitle}>Additional Details</Text>
+
+            {/* Cover Letter */}
+            <View style={[styles.additionalCard, { marginBottom: 24 }]}>
+              <View style={styles.coverLetterHeader}>
+                <Text style={styles.fieldLabel}>Proposal Note</Text>
+                <Text style={styles.requiredBadge}>Required</Text>
+              </View>
+              <Text style={styles.fieldDescription}>
+                Introduce yourself and explain why you're the best fit for this
+                job
+              </Text>
+
+              <View style={styles.coverLetterContainer}>
+                <TextInput
+                  style={[
+                    styles.input,
+                    styles.coverLetterInput,
+                    errors.coverLetter && styles.inputError,
+                  ]}
+                  placeholder="Dear hiring manager,&#10;&#10;I am writing to express my interest in your project. With my experience in..."
+                  placeholderTextColor={Colors.gray_400}
+                  multiline
+                  numberOfLines={10}
+                  textAlignVertical="top"
+                  value={coverLetter}
+                  onChangeText={setCoverLetter}
+                />
+                <View style={styles.characterCount}>
+                  <Ionicons
+                    name={
+                      coverLetter.length >= 50
+                        ? "checkmark-circle"
+                        : "information-circle-outline"
+                    }
+                    size={14}
+                    color={
+                      coverLetter.length >= 50 ? Colors.success : Colors.gray_400
+                    }
+                  />
+                  <Text
+                    style={[
+                      styles.characterCountText,
+                      coverLetter.length >= 50 && styles.characterCountValid,
+                    ]}
+                  >
+                    {coverLetter.length} characters (minimum 50)
+                  </Text>
+                </View>
+              </View>
+              {errors.coverLetter && (
+                <Text style={styles.errorText}>{errors.coverLetter}</Text>
+              )}
+
+              <CoverLetterTips />
             </View>
-            <Text style={styles.fieldDescription}>
-              Showcase your work or add files that support your proposal
-            </Text>
 
-            <TouchableOpacity
-              style={styles.addAttachmentButton}
-              onPress={handleAddAttachment}
-            >
-              <Ionicons
-                name="cloud-upload-outline"
-                size={24}
-                color={Colors.primary_1}
-              />
-              <Text style={styles.addAttachmentText}>Upload File</Text>
-              <Text style={styles.attachmentLimit}>Max 25MB</Text>
-            </TouchableOpacity>
+            {/* Attachments */}
+            <View style={styles.additionalCard}>
+              <View style={styles.attachmentHeader}>
+                <Text style={styles.fieldLabel}>Attachments</Text>
+                <Text style={styles.optionalBadge}>Optional</Text>
+              </View>
+              <Text style={styles.fieldDescription}>
+                Showcase your work or add files that support your proposal
+              </Text>
 
-            {attachments.length > 0 && (
+              <TouchableOpacity
+                style={styles.addAttachmentButton}
+                onPress={handleAddAttachment}
+              >
+                <Ionicons
+                  name="cloud-upload-outline"
+                  size={24}
+                  color={Colors.primary_1}
+                />
+                <Text style={styles.addAttachmentText}>Upload File</Text>
+                <Text style={styles.attachmentLimit}>Max 25MB</Text>
+              </TouchableOpacity>
+
+              {attachments.length > 0 && (
               <View style={styles.attachmentsList}>
                 {attachments.map((attachment, index) => (
                   <View key={index} style={styles.attachmentItem}>
@@ -321,28 +322,29 @@ function SubmitProposalScreen({ route }) {
                 ))}
               </View>
             )}
+            </View>
           </View>
-        </View>
 
-        {/* Terms Agreement Notice */}
-        <TermCard text="By submitting this proposal, you agree to Temploy's Terms of Service and acknowledge that you have read the job description carefully." />
-        <View style={styles.bottomBar}>
-          <TouchableOpacity
-            style={styles.cancelButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={styles.cancelButtonText}>Cancel</Text>
-          </TouchableOpacity>
+          {/* Terms Agreement Notice */}
+          <TermCard text="By submitting this proposal, you agree to Temploy's Terms of Service and acknowledge that you have read the job description carefully." />
+          <View style={styles.bottomBar}>
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={() => navigation.goBack()}
+            >
+              <Text style={styles.cancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.submitButton}
-            onPress={handleSubmitProposal}
-          >
-            <Text style={styles.submitButtonText}>Submit Proposal</Text>
-            <Ionicons name="arrow-forward" size={20} color={Colors.white} />
-          </TouchableOpacity>
-        </View>
-      </KeyboardAwareScrollView>
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={handleSubmitProposal}
+            >
+              <Text style={styles.submitButtonText}>Submit Proposal</Text>
+              <Ionicons name="arrow-forward" size={20} color={Colors.white} />
+            </TouchableOpacity>
+          </View>
+        </KeyboardAwareScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -470,7 +472,6 @@ const styles = StyleSheet.create({
   },
   additionalCard: {
     paddingHorizontal: 16,
-    marginBottom: 24,
   },
   coverLetterHeader: {
     flexDirection: "row",
@@ -558,6 +559,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.gray_100,
     borderStyle: "dashed",
     backgroundColor: Colors.gray_50,
+
   },
   addAttachmentText: {
     fontSize: 15,
@@ -593,20 +595,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 12,
     paddingHorizontal: 16,
-    paddingTop: 12,
-    borderTopWidth: 1,
-    borderTopColor: Colors.gray_100,
-    ...Platform.select({
-      ios: {
-        shadowColor: Colors.black,
-        shadowOffset: { width: 0, height: -2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 8,
-      },
-    }),
+    paddingTop: 10,
+    paddingBottom: 20
   },
   cancelButton: {
     flex: 1,
@@ -630,7 +620,7 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingVertical: 14,
     borderRadius: 12,
-    backgroundColor: Colors.primary_1,
+    backgroundColor: Colors.success_2,
   },
   submitButtonText: {
     fontSize: 16,

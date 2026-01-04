@@ -4,6 +4,9 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { CommonStyles } from '../../utils/styles/CommonStyle';
 import Terms from '../../utils/data/Terms';
 import { Colors } from '../../utils/constants/Color';
+import { HeaderStyles } from '../../utils/styles/HeaderStyle';
+import HeaderWithBackButton from '../../components/Header/HeaderWithBackButton';
+import { useSystemNavigateSpace } from '../../utils/helper/Helper';
 
 const termsSections = Terms;
 
@@ -28,9 +31,14 @@ function TermsOfServiceScreen() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={CommonStyles.safeArea} edges={['top']}>
-        <ScrollView style={CommonStyles.container_2} showsVerticalScrollIndicator={false}>
+        <View style={HeaderStyles.header}>
+          <HeaderWithBackButton title="Terms of Service" />
+          <View style={{ width: 40 }} />
+        </View>
+        <ScrollView style={[CommonStyles.container_2]} showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: useSystemNavigateSpace(70) }}
+        >
           <View style={CommonStyles.header_1}>
-            <Text style={CommonStyles.headerTitle_1}>Terms of Service</Text>
             <Text style={styles.lastUpdated}>Last Updated: December 2024</Text>
           </View>
 
@@ -67,11 +75,11 @@ function TermsOfServiceScreen() {
 }
 
 const styles = StyleSheet.create({
-
   lastUpdated: {
     fontSize: 13,
     color: Colors.gray_500,
     fontStyle: 'italic',
+    marginHorizontal: 10,
   },
   introContainer: {
     backgroundColor: Colors.white,
@@ -99,7 +107,7 @@ const styles = StyleSheet.create({
   sectionContainer: {
     backgroundColor: Colors.white,
     borderRadius: 10,
-    marginBottom: 16,
+    marginHorizontal: 10,
     padding: 16,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 1 },
@@ -128,12 +136,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
     color: Colors.gray_700,
-    marginBottom: 8,
+    // marginBottom: 8,
   },
   footer: {
     alignItems: 'center',
-    paddingVertical: 20,
-    marginBottom: 30,
+    // marginBottom: 30,
+    marginHorizontal: 10,
   },
   footerText: {
     fontSize: 14,

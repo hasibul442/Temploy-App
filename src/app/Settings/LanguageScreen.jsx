@@ -1,5 +1,5 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,26 +8,52 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../utils/constants/Color';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Language from '../../utils/data/Language';
 import { CommonStyles } from '../../utils/styles/CommonStyle';
+import { useSystemNavigateSpace } from '../../utils/helper/Helper';
+import HeaderWithBackButton from '../../components/Header/HeaderWithBackButton';
+import { HeaderStyles } from '../../utils/styles/HeaderStyle';
+import { getData } from '../../utils/helper/HttpHelper';
 
 function LanguageScreen() {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [searchQuery, setSearchQuery] = useState('');
+  const bottomPadding = useSystemNavigateSpace(40);
+  const [languages, setLanguages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchLanguages = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      await getData("/api/v1/languages", {}, false).then((response) => {
+        setLanguages(response?.data);
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchLanguages();
+  }, []);
 
   const filteredLanguages = useMemo(() => {
-    if (!searchQuery.trim()) return Language;
+    if (!searchQuery.trim()) return languages;
     const query = searchQuery.toLowerCase();
-    return Language.filter(
+    return languages.filter(
       (language) =>
         language.code.toLowerCase().includes(query) ||
         language.name.toLowerCase().includes(query) ||
         language.nativeName.toLowerCase().includes(query)
     );
-  }, [searchQuery]);
+  }, [searchQuery, languages]);
 
   const handleLanguageSelect = (code) => {
     setSelectedLanguage(code);
@@ -44,7 +70,10 @@ function LanguageScreen() {
       >
         <View style={styles.languageInfo}>
           <View style={styles.flagContainer}>
-            <Text style={styles.languageFlag}>{item.flag}</Text>
+            <View style={styles.languageFlag}>
+              <FontAwesome name="flag" size={24} color={Colors.success_2} />
+            </View>
+
           </View>
           <View style={styles.languageDetails}>
             <Text style={[styles.languageCode, isSelected && styles.selectedText]}>
@@ -61,48 +90,56 @@ function LanguageScreen() {
   };
 
   return (
-    <SafeAreaView style={CommonStyles.container}>
-      {/* Search Bar */}
-      <View style={styles.searchContainer}>
-        <View style={styles.searchBar}>
-          <Ionicons name="search" size={20} color={Colors.dark_gray} style={styles.searchIcon} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search language..."
-            placeholderTextColor={Colors.gray_500}
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-          />
-          {searchQuery.length > 0 && (
-            <TouchableOpacity onPress={() => setSearchQuery('')}>
-              <Ionicons name="close-circle" size={20} color={Colors.gray_500} />
-            </TouchableOpacity>
-          )}
+    <SafeAreaView style={CommonStyles.safeArea}>
+      <View style={CommonStyles.container}>
+        <View style={HeaderStyles.header}>
+          <HeaderWithBackButton title="Language Selection" />
+          <View style={{ width: 40 }} />
         </View>
-      </View>
-
-      {/* Current Selection Info */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoText}>
-          Select the language you'd like to use for the app
-        </Text>
-      </View>
-
-      {/* Language List */}
-      <FlatList
-        data={filteredLanguages}
-        keyExtractor={(item) => item.code}
-        renderItem={renderLanguageItem}
-        contentContainerStyle={styles.listContainer}
-        showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        ListEmptyComponent={
-          <View style={styles.emptyContainer}>
-            <Ionicons name="search-outline" size={48} color={Colors.gray_100} />
-            <Text style={styles.emptyText}>No languages found</Text>
+        <View style={styles.searchContainer}>
+          <View style={styles.searchBar}>
+            <Ionicons name="search" size={20} color={Colors.dark_gray} style={styles.searchIcon} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search language..."
+              placeholderTextColor={Colors.gray_500}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+            />
+            {searchQuery.length > 0 && (
+              <TouchableOpacity onPress={() => setSearchQuery('')}>
+                <Ionicons name="close-circle" size={20} color={Colors.gray_500} />
+              </TouchableOpacity>
+            )}
           </View>
-        }
-      />
+        </View>
+
+        {/* Current Selection Info */}
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoText}>
+            Select the language you'd like to use for the app
+          </Text>
+        </View>
+
+        {/* Language List */}
+        <FlatList
+          data={filteredLanguages}
+          keyExtractor={(item) => item.code}
+          renderItem={renderLanguageItem}
+          contentContainerStyle={{
+            ...styles.listContainer,
+            paddingBottom: bottomPadding
+          }}
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ListEmptyComponent={
+            <View style={styles.emptyContainer}>
+              <Ionicons name="search-outline" size={48} color={Colors.gray_100} />
+              <Text style={styles.emptyText}>No languages found</Text>
+            </View>
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -139,7 +176,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 20,
   },
   languageItem: {
     flexDirection: 'row',

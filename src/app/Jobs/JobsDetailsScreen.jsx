@@ -52,186 +52,185 @@ function JobsDetailsScreen({ route }) {
   }
 
   return (
-    <SafeAreaView style={CommonStyles.container} edges={["top"]}>
-      {/* Header */}
-      <View style={HeaderStyles.header}>
-        <HeaderWithBackButton title="Job Details" />
-        <TouchableOpacity
-          style={styles.saveButton}
-          onPress={() => setSaved(!saved)}
-        >
-          <Ionicons
-            name={saved ? "heart" : "heart-outline"}
-            size={24}
-            color={saved ? Colors.white : Colors.white}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView
-        style={CommonStyles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* Posted Time */}
-        <Text style={styles.postedTime}>
-          {convertTimeStampToTimeAgo(job?.created_at)}
-        </Text>
-
-        {/* Title */}
-        <Text style={CommonStyles.title_dark_20}>{job.title}</Text>
-
-        {/* Job Meta Card */}
-        <View style={styles.metaCard}>
-          <View style={styles.metaItem}>
-            <Ionicons name="cash-outline" size={22} color={Colors.primary_1} />
-            <View style={styles.metaTextContainer}>
-              <Text style={styles.metaLabel}>Budget</Text>
-              <Text style={styles.metaValue}>
-                $ {job.budget.toLocaleString()}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.metaDivider} />
-          <View style={styles.metaItem}>
-            <Ionicons name="time-outline" size={22} color={Colors.primary_1} />
-            <View style={styles.metaTextContainer}>
-              <Text style={styles.metaLabel}>Duration</Text>
-              <Text style={styles.metaValue}>{job.duration}</Text>
-            </View>
-          </View>
-          <View style={styles.metaDivider} />
-          <View style={styles.metaItem}>
-            <Ionicons
-              name="briefcase-outline"
-              size={22}
-              color={Colors.primary_1}
-            />
-            <View style={styles.metaTextContainer}>
-              <Text style={styles.metaLabel}>Type</Text>
-              <Text style={styles.metaValue}>
-                {job.job_type === "fixed" ? "Fixed" : "Hourly"}
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Status Badge */}
-        <View style={styles.statusContainer}>
-          <View
-            style={[
-              styles.statusBadge,
-              {
-                backgroundColor:
-                  job.status === "open" ? Colors.success : Colors.gray_500,
-              },
-            ]}
+    <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
+      <View style={CommonStyles.container}>
+        {/* Header */}
+        <View style={HeaderStyles.header}>
+          <HeaderWithBackButton title="Job Details" />
+          <TouchableOpacity
+            style={styles.saveButton}
+            onPress={() => setSaved(!saved)}
           >
-            <Ionicons name="ellipse" size={8} color={Colors.white} />
-            <Text style={styles.statusText}>{job.status.toUpperCase()}</Text>
-          </View>
-          <View style={styles.verifiedBadge}>
             <Ionicons
-              name="checkmark-circle"
-              size={16}
-              color={Colors.success}
+              name={saved ? "heart" : "heart-outline"}
+              size={24}
+              color={saved ? Colors.white : Colors.white}
             />
-            <Text style={styles.verifiedText}>Payment Verified</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
-        {/* Description Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Job Description</Text>
-          <View style={styles.descriptionContainer}>
-           <JobDescription description={job.description} />
-          </View>
-        </View>
+        <ScrollView
+          style={CommonStyles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Posted Time */}
+          <Text style={styles.postedTime}>
+            {convertTimeStampToTimeAgo(job?.created_at)}
+          </Text>
 
-        {/* Location Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Location</Text>
-          <View style={styles.locationCard}>
-            <Ionicons name="location" size={24} color={Colors.primary_1} />
-            <View style={styles.locationTextContainer}>
-              <Text style={styles.locationAddress}>{job.location.address}</Text>
-              <Text style={styles.locationCity}>
-                {job.location.city}, {job.location.state},{" "}
-                {job.location.country}
-              </Text>
+          {/* Title */}
+          <Text style={CommonStyles.title_dark_20}>{job.title}</Text>
+
+          {/* Job Meta Card */}
+          <View style={styles.metaCard}>
+            <View style={styles.metaItem}>
+              <Ionicons name="cash-outline" size={22} color={Colors.primary_1} />
+              <View style={styles.metaTextContainer}>
+                <Text style={styles.metaLabel}>Budget</Text>
+                <Text style={styles.metaValue}>
+                  $ {job.budget.toLocaleString()}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.metaDivider} />
+            <View style={styles.metaItem}>
+              <Ionicons name="time-outline" size={22} color={Colors.primary_1} />
+              <View style={styles.metaTextContainer}>
+                <Text style={styles.metaLabel}>Duration</Text>
+                <Text style={styles.metaValue}>{job.duration}</Text>
+              </View>
+            </View>
+            <View style={styles.metaDivider} />
+            <View style={styles.metaItem}>
+              <Ionicons
+                name="briefcase-outline"
+                size={22}
+                color={Colors.primary_1}
+              />
+              <View style={styles.metaTextContainer}>
+                <Text style={styles.metaLabel}>Type</Text>
+                <Text style={styles.metaValue}>
+                  {job.job_type === "fixed" ? "Fixed" : "Hourly"}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        {/* Skills Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Required Skills</Text>
-          <View style={styles.skillsContainer}>
-            {job?.required_skills.map((skill) => (
-              <SkillTag key={skill._id} skill={skill.name} />
-            ))}
+          {/* Status Badge */}
+          <View style={styles.statusContainer}>
+            <View
+              style={[
+                styles.statusBadge,
+                {
+                  backgroundColor:
+                    job.status === "open" ? Colors.success : Colors.gray_500,
+                },
+              ]}
+            >
+              <Ionicons name="ellipse" size={8} color={Colors.white} />
+              <Text style={styles.statusText}>{job.status.toUpperCase()}</Text>
+            </View>
+            <View style={styles.verifiedBadge}>
+              <Ionicons
+                name="checkmark-circle"
+                size={16}
+                color={Colors.success}
+              />
+              <Text style={styles.verifiedText}>Payment Verified</Text>
+            </View>
           </View>
-        </View>
 
-        {/* About Client Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>About the Client</Text>
-          <View style={styles.clientCard}>
-            <View style={styles.clientInfo}>
-              <View style={styles.clientAvatar}>
-                <Ionicons name="person" size={24} color={Colors.gray_500} />
+          {/* Description Section */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Job Description</Text>
+            <View style={styles.descriptionContainer}>
+              <JobDescription description={job.description} />
+            </View>
+          </View>
+
+          {/* Location Section */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Location</Text>
+            <View style={styles.locationCard}>
+              <Ionicons name="location" size={24} color={Colors.primary_1} />
+              <View style={styles.locationTextContainer}>
+                <Text style={styles.locationAddress}>{job.location.address}</Text>
+                <Text style={styles.locationCity}>
+                  {job.location.city}, {job.location.state},{" "}
+                  {job.location.country}
+                </Text>
               </View>
-              <View style={styles.clientTextContainer}>
-                <Text style={styles.clientName}>Verified Client</Text>
-                <View style={styles.clientMeta}>
-                  <Ionicons name="star" size={14} color={Colors.warning} />
-                  <Text style={styles.clientRating}>4.8</Text>
-                  <Text style={styles.clientJobs}>(25 jobs posted)</Text>
+            </View>
+          </View>
+
+          {/* Skills Section */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Required Skills</Text>
+            <View style={styles.skillsContainer}>
+              {job?.required_skills.map((skill) => (
+                <SkillTag key={skill._id} skill={skill.name} />
+              ))}
+            </View>
+          </View>
+
+          {/* About Client Section */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>About the Client</Text>
+            <View style={styles.clientCard}>
+              <View style={styles.clientInfo}>
+                <View style={styles.clientAvatar}>
+                  <Ionicons name="person" size={24} color={Colors.gray_500} />
+                </View>
+                <View style={styles.clientTextContainer}>
+                  <Text style={styles.clientName}>Verified Client</Text>
+                  <View style={styles.clientMeta}>
+                    <Ionicons name="star" size={14} color={Colors.warning} />
+                    <Text style={styles.clientRating}>4.8</Text>
+                    <Text style={styles.clientJobs}>(25 jobs posted)</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.clientStats}>
+                <View style={styles.clientStatItem}>
+                  <Text style={styles.clientStatValue}>98%</Text>
+                  <Text style={styles.clientStatLabel}>Hire Rate</Text>
+                </View>
+                <View style={styles.clientStatDivider} />
+                <View style={styles.clientStatItem}>
+                  <Text style={styles.clientStatValue}>$12K+</Text>
+                  <Text style={styles.clientStatLabel}>Total Spent</Text>
+                </View>
+                <View style={styles.clientStatDivider} />
+                <View style={styles.clientStatItem}>
+                  <Text style={styles.clientStatValue}>BD</Text>
+                  <Text style={styles.clientStatLabel}>Location</Text>
                 </View>
               </View>
             </View>
-            <View style={styles.clientStats}>
-              <View style={styles.clientStatItem}>
-                <Text style={styles.clientStatValue}>98%</Text>
-                <Text style={styles.clientStatLabel}>Hire Rate</Text>
-              </View>
-              <View style={styles.clientStatDivider} />
-              <View style={styles.clientStatItem}>
-                <Text style={styles.clientStatValue}>$12K+</Text>
-                <Text style={styles.clientStatLabel}>Total Spent</Text>
-              </View>
-              <View style={styles.clientStatDivider} />
-              <View style={styles.clientStatItem}>
-                <Text style={styles.clientStatValue}>BD</Text>
-                <Text style={styles.clientStatLabel}>Location</Text>
-              </View>
-            </View>
           </View>
+
+          {/* Bottom Action Bar */}
+        <View style={styles.bottomBar}>
+          <TouchableOpacity style={styles.applyButton} onPress={() =>
+            navigation.navigate("OtherPages", {
+              screen: "Proposal",
+              params: { jobId: job._id },
+            })
+          }>
+            <Text style={styles.applyButtonText}>Apply Now</Text>
+            <Ionicons name="arrow-forward" size={18} color={Colors.white} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.messageButton}>
+            <Ionicons
+              name="chatbubble-outline"
+              size={20}
+              color={Colors.primary_2}
+            />
+            <Text style={styles.messageButtonText}>Save job</Text>
+          </TouchableOpacity>
         </View>
-
-        {/* Spacer for bottom button */}
-        <View style={{ height: 100 }} />
-      </ScrollView>
-
-      {/* Bottom Action Bar */}
-      <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.applyButton} onPress={() =>
-          navigation.navigate("OtherPages", {
-            screen: "Proposal",
-            params: { jobId: job._id },
-          })
-        }>
-          <Text style={styles.applyButtonText}>Apply Now</Text>
-          <Ionicons name="arrow-forward" size={18} color={Colors.white} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.messageButton}>
-          <Ionicons
-            name="chatbubble-outline"
-            size={20}
-            color={Colors.primary_2}
-          />
-          <Text style={styles.messageButtonText}>Save job</Text>
-        </TouchableOpacity>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -247,6 +246,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 16,
+    paddingBottom: 100,
   },
   postedTime: {
     fontSize: 13,
@@ -416,25 +416,11 @@ const styles = StyleSheet.create({
   },
   clientStatDivider: {
     width: 1,
-    backgroundColor: Colors.gray_200,
+    backgroundColor: Colors.gray_100,
   },
   bottomBar: {
-    position: "absolute",
-    bottom: 50,
-    left: 0,
-    right: 0,
     flexDirection: "row",
-    backgroundColor: Colors.white,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    paddingBottom: 24,
-    borderTopWidth: 1,
-    borderTopColor: Colors.gray_100,
-    shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 8,
+    paddingBottom: 20,
   },
   messageButton: {
     flex: 1,

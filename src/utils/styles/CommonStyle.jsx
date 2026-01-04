@@ -9,6 +9,11 @@ export const CommonStyles = StyleSheet.create({
     fontWeight: "700",
     color: Colors.dark,
   },
+  title_18_bold: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: Colors.dark,
+  },
   text_12_regular: {
     fontSize: 12,
     fontWeight: "400",
@@ -22,6 +27,11 @@ export const CommonStyles = StyleSheet.create({
   button_text_12: {
     color: Colors.primary_2,
     fontSize: 12,
+    fontWeight: "600",
+  },
+  button_text_14: {
+    color: Colors.primary_2,
+    fontSize: 14,
     fontWeight: "600",
   },
   // --- Decorative Circles ---
@@ -138,5 +148,21 @@ export const CommonStyles = StyleSheet.create({
     height: 1,
     backgroundColor: Colors.gray_100,
     marginVertical: 20,
+  },
+
+  status_color_pending: {
+    color: Colors.warning,
+  },
+
+  status_color_completed: {
+    color: Colors.success,
+  },
+
+  status_color_canceled: {
+    color: Colors.danger,
+  },
+
+  status_color_failed: {
+    color: Colors.danger,
   },
 });

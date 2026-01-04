@@ -26,6 +26,9 @@ import JobsScreens from "../../app/Jobs/JobsScreens";
 import { Colors } from "../../utils/constants/Color";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SubmitProposalScreen from "../../app/User/Proposal/SubmitProposalScreen";
+import WithdrawHistoryScreen from "../../app/User/Withdraw/WithdrawHistoryScreen";
+import OrderHistoryScreen from "../../app/User/Order/OrderHistoryScreen";
+import CreateJobScreen from "../../app/Jobs/CreateJobScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -93,7 +96,7 @@ export function MessageStack() {
 }
 
 export function OfferStack() {
-  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", true, true));
+  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", false, false));
 }
 
 export function MenuStack() {
@@ -130,17 +133,22 @@ export function AuthStack() {
 export function OtherStack() {
   const screens = [
     { name: "FAQ", component: FAQScreen, header: false, page_title: "FAQ" },
-    { name: "Privacy", component: PrivacyPolicyScreen, header: true, page_title: "Privacy Policy" },
+    { name: "Privacy", component: PrivacyPolicyScreen, header: false, page_title: "Privacy Policy" },
     { name: "Terms", component: TermsOfServiceScreen, header: false, page_title: "Terms of Service" },
-    { name: "Earning", component: EarningScreen, header: true, page_title: "Earning" },
+    { name: "Earning", component: EarningScreen, header: false, page_title: "Earning" },
     { name: "Preferences", component: PreferencesScreen, header: true, page_title: "Preferences" },
-    { name: "CurrencySelection", component: CurrencyScreen, header: true, page_title: "Currency Selection" },
-    { name: "LanguageSelection", component: LanguageScreen, header: true, page_title: "Language Selection" },
+    { name: "MyOffer", component: Offers, header: false, page_title: "My Offers" },
+    { name: "CurrencySelection", component: CurrencyScreen, header: false, page_title: "Currency Selection" },
+    { name: "LanguageSelection", component: LanguageScreen, header: false, page_title: "Language Selection" },
     { name: "AccountSettingOptions", component: AccountSettingOptionScreen, header: true, page_title: "Accounts" },
     { name: "Notification", component: NotificationScreen, header: true, page_title: "Notifications" },
-    { name: "Jobs", component: JobsScreens, header: true, page_title: "Available Jobs" },
+    { name: "Jobs", component: JobsScreens, header: false, page_title: "Available Jobs" },
     { name: "JobsDetails", component: JobsDetailsScreen, header: false, page_title: "Job Details" },
-    { name: "Proposal", component: SubmitProposalScreen, header: false, page_title: "Submit Proposal" }
+    { name: "JobPost", component: CreateJobScreen, header: false, page_title: "Create Job" },
+    { name: "Proposal", component: SubmitProposalScreen, header: false, page_title: "Submit Proposal" },
+    { name: "WithdrawHistory", component: WithdrawHistoryScreen, header: false, page_title: "Withdrawals History" },
+    { name: "EarningHistory", component: OrderHistoryScreen, header: false, page_title: "Earning History" }
+
   ];
 
 

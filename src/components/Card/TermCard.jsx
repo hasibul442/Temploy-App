@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
         gap: 12,
         padding: 16,
         marginHorizontal: 16,
-        marginTop: 8,
         backgroundColor: Colors.light_3,
         borderRadius: 8,
         borderWidth: 1,
