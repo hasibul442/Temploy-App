@@ -295,7 +295,7 @@ const style = StyleSheet.create({
   },
   statBox: {
     flex: 1,
-    height: 120,
+    height: 80,
     backgroundColor: Colors.light_3,
     borderRadius: 10,
     justifyContent: "center",

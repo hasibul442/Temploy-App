@@ -4,6 +4,7 @@ import { useSharedValue } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
 import PromoData from "../../utils/data/PromoData";
 import { getData } from "../../utils/helper/HttpHelper";
+import OfferCarouselSkeleton from "../Skeleton/OfferCarouselSkeleton";
 
 function OfferCarousel() {
   const width = Dimensions.get("window").width - 20;
@@ -11,20 +12,27 @@ function OfferCarousel() {
   const ref = useRef(null);
   const progress = useSharedValue(0);
   const [promodata, setPromodata] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const getOfferData = async() => {
+  const getOfferData = async () => {
     try {
       await getData("/api/v1/banners", {}, false).then((response) => {
         setPromodata(response);
+        setLoading(false);
       });
     } catch (error) {
       console.error("Error fetching offer data:", error);
+      setLoading(false);
     }
   }
 
   useEffect(() => {
     getOfferData();
   }, []);
+
+  if (loading) {
+    return <OfferCarouselSkeleton />;
+  }
 
   return (
     <>
