@@ -123,7 +123,7 @@ function HomeScreen() {
                   <Text style={CommonStyles.title_18_bold}>Exclusive Offers </Text>
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("OtherPages", { screen: "Jobs" })
+                      navigation.navigate("OtherPages", { screen: "JobsList" })
                     }
                   >
                     <Text style={CommonStyles.button_text_12}>See All</Text>
@@ -167,7 +167,7 @@ function HomeScreen() {
                   <Text style={CommonStyles.title_18_bold}> Recent Jobs</Text>
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("OtherPages", { screen: "Jobs" })
+                      navigation.navigate("OtherPages", { screen: "JobsList" })
                     }
                   >
                     <Text style={CommonStyles.button_text_12}>See All</Text>
@@ -182,7 +182,7 @@ function HomeScreen() {
 
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate("OtherPages", { screen: "Jobs" })
+                    navigation.navigate("OtherPages", { screen: "JobsList" })
                   }
                   style={{ alignSelf: "center", marginTop: 6, marginBottom: 6 }}
                 >
@@ -190,7 +190,23 @@ function HomeScreen() {
                 </TouchableOpacity>
               </View>
 
-              <LogoutButton />
+              <View>
+
+                <View style={style.trainingCard}>
+                  <Text style={style.trainingTitle}>Enhance Your Skills</Text>
+                  <Text style={style.trainingDescription}>
+                    Join our professional training programs to boost your career
+                  </Text>
+                  <TouchableOpacity
+                    style={style.trainingButton}
+                    onPress={() =>
+                      navigation.navigate("OtherPages", { screen: "Training" })
+                    }
+                  >
+                    <Text style={style.trainingButtonText}>Browse Training</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </ScrollView>
 
             {/* :point_down: BOTTOM SHEET OUTSIDE SCROLLVIEW */}
@@ -300,6 +316,13 @@ const style = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+    // Shadow for iOS
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    // Shadow for Android
+    elevation: 3,
   },
   statTitle: {
     fontSize: 14,
@@ -323,6 +346,44 @@ const style = StyleSheet.create({
     color: Colors.light,
     fontWeight: "bold",
     fontSize: 16,
+  },
+  trainingCard: {
+    marginTop: 15,
+    marginBottom: 30,
+    backgroundColor: Colors.light_3,
+    borderRadius: 10,
+    padding: 20,
+    // Shadow for iOS
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    // Shadow for Android
+    elevation: 3,
+  },
+  trainingTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: Colors.dark,
+    marginBottom: 8,
+  },
+  trainingDescription: {
+    fontSize: 14,
+    color: Colors.dark_gray,
+    marginBottom: 15,
+    lineHeight: 20,
+  },
+  trainingButton: {
+    backgroundColor: Colors.success_2,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    alignSelf: "flex-start",
+  },
+  trainingButtonText: {
+    color: Colors.light,
+    fontWeight: "600",
+    fontSize: 14,
   },
 });
 

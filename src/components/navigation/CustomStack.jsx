@@ -97,8 +97,8 @@ export function MessageStack() {
   );
 }
 
-export function OfferStack() {
-  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", false, false));
+export function JobListStack() {
+  return createSimpleStack("Jobs", JobsScreens, getHeaderOptions("Available Jobs", false, false));
 }
 
 export function MenuStack() {
@@ -144,7 +144,7 @@ export function OtherStack() {
     { name: "LanguageSelection", component: LanguageScreen, header: false, page_title: "Language Selection" },
     { name: "AccountSettingOptions", component: AccountSettingOptionScreen, header: true, page_title: "Accounts" },
     { name: "Notification", component: NotificationScreen, header: true, page_title: "Notifications" },
-    { name: "Jobs", component: JobsScreens, header: false, page_title: "Available Jobs" },
+    { name: "JobsList", component: JobsScreens, header: false, page_title: "Available Jobs" },
     { name: "JobsDetails", component: JobsDetailsScreen, header: false, page_title: "Job Details" },
     { name: "JobPost", component: CreateJobScreen, header: false, page_title: "Create Job" },
     { name: "Proposal", component: SubmitProposalScreen, header: false, page_title: "Submit Proposal" },

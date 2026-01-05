@@ -10,11 +10,11 @@ import {
   OrderStack,
   HomeStack,
   MessageStack,
-  OfferStack,
   MenuStack,
   ProfileStack,
   AuthStack,
   OtherStack,
+  JobListStack,
 } from "./CustomStack";
 import { StyleSheet } from "react-native";
 import { checkAuthStatus } from "../../slices/authSlice";
@@ -96,9 +96,9 @@ export default function Navigator() {
           } else if (route.name === "Menu") {
             iconName = "grid-outline";
           } else if (route.name === "Message") {
-            iconName = "mail-unread-outline";
-          } else if (route.name === "Offer") {
-            iconName = "pricetag";
+            iconName = "chatbubbles-outline";
+          } else if (route.name === "Jobs") {
+            iconName = "briefcase-outline";
           } else {
             iconName = none;
           }
@@ -110,7 +110,7 @@ export default function Navigator() {
       })}
     >
       
-      <Tab.Screen name="Offer" component={OfferStack} />
+      <Tab.Screen name="Jobs" component={JobListStack} />
 
       <Tab.Screen
         name="Orders"
