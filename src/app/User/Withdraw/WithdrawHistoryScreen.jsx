@@ -7,9 +7,11 @@ import { useSystemNavigateSpace } from '../../../utils/helper/Helper'
 import TransactionCard from '../../../components/Card/TransactionCard'
 import HeaderWithBackButton from '../../../components/Header/HeaderWithBackButton'
 import { View, ScrollView, StyleSheet } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 function WithdrawHistoryScreen() {
   const withdrawal = ExpenseData
+  const navigation = useNavigation()
   return (
     <>
       <SafeAreaProvider>
@@ -26,7 +28,10 @@ function WithdrawHistoryScreen() {
           >
             <View style={styles.section}>
               {withdrawal.map((item) => (
-              <TransactionCard key={item.id} item={item} type="withdrawal" />
+              <TransactionCard key={item.id} item={item} type="withdrawal" onPress={() => navigation.navigate('OtherPages', { 
+                  screen: 'WithdrawDetail',
+                  params: { id: item.id }
+                })} />
             ))}
             </View>
           </ScrollView>

@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../../utils/constants/Color'
 import { CommonStyles } from '../../utils/styles/CommonStyle'
 
-function TransactionCard({ item, type }) {
+function TransactionCard({ item, type, onPress }) {
   const getStatusStyle = (status) => {
     switch (status) {
       case 'pending':
@@ -21,7 +21,7 @@ function TransactionCard({ item, type }) {
 
   return (
     <>
-      <View style={styles.transactionItem}>
+      <TouchableOpacity style={styles.transactionItem} onPress={onPress}>
         <View style={styles.transactionLeft}>
           <View style={styles.transactionInfo}>
             <Text style={styles.transactionTitle}>
@@ -43,7 +43,7 @@ function TransactionCard({ item, type }) {
             {type === "income" ? "+" : "-"}${item.amount}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </>
   )
 }

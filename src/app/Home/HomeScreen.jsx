@@ -6,12 +6,12 @@ import React, {
   useState,
 } from "react";
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  StatusBar
 } from "react-native";
 import { Colors } from "../../utils/constants/Color";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -29,12 +29,13 @@ import LogoutButton from "../../components/LogoutButton";
 import JobsData from "../../utils/data/JobsData";
 import JobCard from "../../components/Card/JobCard";
 import LogoHeader from "../../components/Header/LogoHeader";
-import { StatusBar } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
+import CategoryButtonSkeleton from "../../components/Skeleton/CategoryButtonSkeleton";
 
 function HomeScreen() {
   const navigation = useNavigation();
   const [categories, setCategories] = useState([]);
+  const [catloading, setCatLoading] = useState(true);
   const jobdata = JobsData;
 
   // :point_down: Move BottomSheet ref to screen level
@@ -57,6 +58,7 @@ function HomeScreen() {
     try {
       await getData("/api/v1/categories", {}, false).then((response) => {
         setCategories(response?.data);
+        setCatLoading(false);
       });
     } catch (error) {
       console.error("Error fetching offer data:", error);
@@ -82,38 +84,30 @@ function HomeScreen() {
               nestedScrollEnabled={true}
             >
               {/* Banner Section */}
-              {/* <View style={style.banner_container}>
-                <Image
-                  source={require("../../assets/image/banner_1.jpg")}
-                  style={style.banner_image}
-                />
-              </View> */}
 
               {/* Categories */}
               <View style={style.category_block}>
-                {categories.slice(0, 7).map((item, index) => (
-                  <CategoryButton key={item._id} item={item} />
-                ))}
+                {catloading ? (
+                  Array.from({ length: 8 }).map((_, index) => (
+                    <CategoryButtonSkeleton key={index} />
+                  ))
+                ) : (
+                  <>
+                    {categories.slice(0, 7).map((item) => (
+                      <CategoryButton key={item._id} item={item} />
+                    ))}
 
-                {/* More Button */}
-                <View style={style.category_buttons}>
-                  <TouchableOpacity
-                    onPress={openSheet}
-                    style={style.category_button_item}
-                  >
-                    {/* <Image
-                      source={{
-                        uri: "https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/svg/all-services.svg",
-                      }}
-                      style={{
-                        width: 36,
-                        height: 36,
-                      }}
-                    /> */}
-                    <AntDesign name="appstore" size={30} color={Colors.success_2} />
-                  </TouchableOpacity>
-                  <Text style={style.category_button_item_text}>More</Text>
-                </View>
+                    <View style={style.category_buttons}>
+                      <TouchableOpacity
+                        onPress={openSheet}
+                        style={style.category_button_item}
+                      >
+                        <AntDesign name="appstore" size={30} color={Colors.success_2} />
+                      </TouchableOpacity>
+                      <Text style={style.category_button_item_text}>More</Text>
+                    </View>
+                  </>
+                )}
               </View>
 
               {/* Promo Section */}
