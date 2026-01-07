@@ -51,6 +51,10 @@ export function getStatusText(status) {
         return 'Completed'
       case 'failed':
         return 'Failed'
+      case 'in-progress':
+        return 'In Progress'
+      case 'not-started':
+        return 'Not Started'
       case 'canceled':
         return 'Canceled'
       default:
@@ -86,7 +90,7 @@ export function getStatusText(status) {
     }
   }
 
-    export function getIconForStatus(status) {
+  export function getIconForStatus(status) {
     switch (status) {
       case 'completed':
         return 'checkmark-circle'
@@ -98,3 +102,16 @@ export function getStatusText(status) {
         return 'ellipse-outline'
     }
   }
+
+    export function getLevelColor(level) {
+      switch (level) {
+        case 'Beginner':
+          return Colors.success;
+        case 'Intermediate':
+          return Colors.warning;
+        case 'Advanced':
+          return Colors.danger;
+        default:
+          return Colors.gray_400;
+      }
+    };

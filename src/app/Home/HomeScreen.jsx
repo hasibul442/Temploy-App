@@ -200,7 +200,7 @@ function HomeScreen() {
                   <TouchableOpacity
                     style={style.trainingButton}
                     onPress={() =>
-                      navigation.navigate("OtherPages", { screen: "Training" })
+                      navigation.navigate("OtherPages", { screen: "TrainingList" })
                     }
                   >
                     <Text style={style.trainingButtonText}>Browse Training</Text>

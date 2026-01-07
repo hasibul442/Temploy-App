@@ -31,6 +31,8 @@ import OrderHistoryScreen from "../../app/User/Order/OrderHistoryScreen";
 import CreateJobScreen from "../../app/Jobs/CreateJobScreen";
 import WithdrawDetailScreen from "../../app/User/Withdraw/WithdrawDetailScreen";
 import OrderDetailScreen from "../../app/User/Order/OrderDetailScreen";
+import TrainingListScreen from "../../app/User/Training/TrainingListScreen";
+import TrainingDetailScreen from "../../app/User/Training/TrainingDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -152,6 +154,8 @@ export function OtherStack() {
     { name: "WithdrawDetail", component: WithdrawDetailScreen, header: false, page_title: "Withdrawal Details" },
     { name: "EarningHistory", component: OrderHistoryScreen, header: false, page_title: "Earning History" },
     { name: "OrderDetails", component: OrderDetailScreen, header: false, page_title: "Earning Details" },
+    { name: "TrainingList", component: TrainingListScreen, header: false, page_title: "Training List" },
+    { name: "TrainingDetails", component: TrainingDetailScreen, header: false, page_title: "Training Details" },
 
   ];
 

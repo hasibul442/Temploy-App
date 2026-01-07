@@ -9,7 +9,7 @@ import {
 import { Colors } from "../../utils/constants/Color";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import LogoutButton from "../../components/LogoutButton";
 import { useSelector } from "react-redux";
@@ -41,7 +41,7 @@ function WorkerMenuOption() {
       />
       <MenuItem
         icon={<Ionicons name="cash-outline" size={24} color={Colors.dark} />}
-        title="Earnings"
+        title="My Earnings"
         showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "Earning" })}
       />
@@ -50,6 +50,12 @@ function WorkerMenuOption() {
         title="Withdraw"
         showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "WithdrawHistory" })}
+      />
+      <MenuItem
+        icon={<MaterialIcons name="ondemand-video" size={24} color={Colors.dark} />}
+        title="My Trainings"
+        showChevron={true}
+        onPress={() => navigation.navigate("OtherPages", { screen: "TrainingList" })}
       />
       <MenuItem
         icon={
