@@ -13,10 +13,6 @@ export const ButtonStyle = StyleSheet.create({
     justifyContent: "center",
     marginTop: 18,
     marginBottom: 18,
-    shadowColor: Colors.success_2,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
     elevation: 10,
   },
   signInButtonText: {
@@ -51,10 +47,6 @@ export const ButtonStyle = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     marginBottom: 60,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
     elevation: 8,
   },
   signUpButtonText: {

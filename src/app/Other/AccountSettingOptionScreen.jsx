@@ -12,8 +12,10 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { Colors } from "../../utils/constants/Color";
 import MenuItem from "../../utils/helper/MenuItem";
+import { useNavigation } from "@react-navigation/native";
 
 function AccountSettingOptionScreen() {
+  const navigation = useNavigation();
   const menuItems = [
     {
       id: 1,
@@ -42,6 +44,7 @@ function AccountSettingOptionScreen() {
       id: 4,
       title: "KYC Verification",
       icon: <Ionicons name="language-outline" size={20} color={Colors.dark} />,
+      onPress: () => navigation.navigate("OtherPages", { screen: "Kyc" }),
     },
     // { id: 5, title: "Appearance", icon: "color-palette-outline" },
     {
@@ -98,7 +101,7 @@ function AccountSettingOptionScreen() {
                   key={item.id}
                   icon={item.icon}
                   title={item.title}
-                  onPress={item.onPress}
+                  onPress={item?.onPress}
                   showChevron={true}
                 />
               ))}

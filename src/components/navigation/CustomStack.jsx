@@ -33,6 +33,7 @@ import WithdrawDetailScreen from "../../app/User/Withdraw/WithdrawDetailScreen";
 import OrderDetailScreen from "../../app/User/Order/OrderDetailScreen";
 import TrainingListScreen from "../../app/User/Training/TrainingListScreen";
 import TrainingDetailScreen from "../../app/User/Training/TrainingDetailScreen";
+import KycScreen from "../../app/Settings/Kyc/KycScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -156,6 +157,7 @@ export function OtherStack() {
     { name: "OrderDetails", component: OrderDetailScreen, header: false, page_title: "Earning Details" },
     { name: "TrainingList", component: TrainingListScreen, header: false, page_title: "Training List" },
     { name: "TrainingDetails", component: TrainingDetailScreen, header: false, page_title: "Training Details" },
+    { name: "Kyc", component: KycScreen, header: false, page_title: "KYC" },
 
   ];
 
