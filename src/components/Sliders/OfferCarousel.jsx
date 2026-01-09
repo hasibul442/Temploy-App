@@ -47,6 +47,8 @@ function OfferCarousel() {
           pagingEnabled={true}
           snapEnabled={true}
           width={width}
+          autoPlay={true}
+          autoPlayInterval={3000}
           style={{
             width: width,
           }}

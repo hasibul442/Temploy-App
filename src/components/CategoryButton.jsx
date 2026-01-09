@@ -29,13 +29,13 @@ const styles = StyleSheet.create({
   category_buttons: {
     flexBasis: "22%",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 10,
   },
 
   category_button_item: {
-    width: "100%",
-    height: 70,
-    borderRadius: 10,
+    width: 60,
+    height: 60,
+    borderRadius: 50,
     backgroundColor: Colors.light_gray_2,
     justifyContent: "center",
     alignItems: "center",
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   tinyLogo: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
   },
 });
 export default CategoryButton;

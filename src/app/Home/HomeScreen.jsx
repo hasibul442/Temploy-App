@@ -133,13 +133,13 @@ function HomeScreen() {
               </View>
 
               <View style={style.statsRow}>
-                <View style={style.statBox}>
+                <View style={[style.statBox, { backgroundColor: "#F0FFDF" }]}>
                   <Text style={style.statTitle}>New Jobs</Text>
                   <Text style={style.statValue}>747</Text>
                 </View>
-                <View style={[style.statBox, { marginLeft: 10 }]}>
-                  <Text style={style.statTitle}>Job Category</Text>
-                  <Text style={style.statValue}>14</Text>
+                <View style={[style.statBox, { marginLeft: 10, backgroundColor: "#FFFDE1" }]}>
+                  <Text style={[style.statTitle]}>Job Category</Text>
+                  <Text style={[style.statValue]}>14</Text>
                 </View>
               </View>
 
@@ -267,13 +267,13 @@ const style = StyleSheet.create({
   category_buttons: {
     flexBasis: "22%",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 10,
   },
 
   category_button_item: {
-    width: "100%",
-    height: 70,
-    borderRadius: 10,
+    width: 60,
+    height: 60,
+    borderRadius: 50,
     backgroundColor: Colors.light_gray_2,
     justifyContent: "center",
     alignItems: "center",
@@ -312,7 +312,6 @@ const style = StyleSheet.create({
   statBox: {
     flex: 1,
     height: 80,
-    backgroundColor: Colors.light_3,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",

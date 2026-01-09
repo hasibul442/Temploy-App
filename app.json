@@ -3,7 +3,7 @@
     "name": "temploy",
     "description": "An app to connect employers with temporary workers easily and efficiently.",
     "slug": "temploy",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "owner": "hasibulhasan442",
     "icon": "./src/assets/logo/logo_color.png",
     "android": {
