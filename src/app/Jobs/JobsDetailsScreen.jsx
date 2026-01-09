@@ -17,6 +17,7 @@ import JobDescription from "../../components/JobDescription";
 import SkillTag from "../../components/Card/Tag/SkillTag";
 import { CommonStyles } from "../../utils/styles/CommonStyle";
 import { HeaderStyles } from "../../utils/styles/HeaderStyle";
+import PaymentVerified from "../../components/Card/Tag/PaymentVerified";
 
 function JobsDetailsScreen({ route }) {
   const jobdata = JobsData;
@@ -131,14 +132,7 @@ function JobsDetailsScreen({ route }) {
               <Ionicons name="ellipse" size={8} color={Colors.white} />
               <Text style={styles.statusText}>{job.status.toUpperCase()}</Text>
             </View>
-            <View style={styles.verifiedBadge}>
-              <Ionicons
-                name="checkmark-circle"
-                size={16}
-                color={Colors.success}
-              />
-              <Text style={styles.verifiedText}>Payment Verified</Text>
-            </View>
+            <PaymentVerified iconSize={16} textSize={13} />
           </View>
 
           {/* Description Section */}
@@ -302,16 +296,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: Colors.white,
     marginLeft: 6,
-  },
-  verifiedBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  verifiedText: {
-    fontSize: 13,
-    color: Colors.success,
-    fontWeight: "500",
-    marginLeft: 4,
   },
   section: {
     marginBottom: 24,

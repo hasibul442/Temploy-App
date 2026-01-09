@@ -4,6 +4,8 @@ import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { convertTimeStampToTimeAgo, stripHtmlTags } from "../../utils/helper/Helper";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../utils/constants/Color";
+import PaymentVerified from "./Tag/PaymentVerified";
+import Badge from "./Tag/Badge";
 
 function JobCard({ job }) {
   const [saved, setSaved] = useState(false);
@@ -65,15 +67,9 @@ function JobCard({ job }) {
 
         {/* Skills/Tags */}
         <View style={styles.tagsContainer}>
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>Verified</Text>
-          </View>
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>{job.duration}</Text>
-          </View>
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>{job.status}</Text>
-          </View>
+          <Badge text="Verified" fontSize={12} backgroundColor={Colors.gray_50} color={Colors.gray_700} />
+          <Badge text={job.duration} fontSize={12} backgroundColor={Colors.gray_50} color={Colors.gray_700} />
+          <Badge text={job.status} fontSize={12} backgroundColor={Colors.gray_50} color={Colors.gray_700} />
         </View>
 
         {/* Location & Verification */}
@@ -88,14 +84,7 @@ function JobCard({ job }) {
               {job.location.city}, {job.location.country}
             </Text>
           </View>
-          <View style={styles.verifiedRow}>
-            <Ionicons
-              name="checkmark-circle"
-              size={14}
-              color={Colors.success}
-            />
-            <Text style={styles.verifiedText}>Payment verified</Text>
-          </View>
+          <PaymentVerified iconSize={14} textSize={12} />
         </View>
       </TouchableOpacity>
     </>
@@ -162,19 +151,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     marginBottom: 12,
   },
-  tag: {
-    backgroundColor: Colors.gray_50,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 6,
-    marginRight: 8,
-    marginBottom: 6,
-  },
-  tagText: {
-    fontSize: 12,
-    color: Colors.gray_700,
-    textTransform: "capitalize",
-  },
   bottomRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -188,16 +164,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.gray_500,
     marginLeft: 4,
-  },
-  verifiedRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  verifiedText: {
-    fontSize: 12,
-    color: Colors.success,
-    marginLeft: 4,
-    fontWeight: "500",
   },
 });
 
