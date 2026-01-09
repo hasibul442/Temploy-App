@@ -29,6 +29,11 @@ import SubmitProposalScreen from "../../app/User/Proposal/SubmitProposalScreen";
 import WithdrawHistoryScreen from "../../app/User/Withdraw/WithdrawHistoryScreen";
 import OrderHistoryScreen from "../../app/User/Order/OrderHistoryScreen";
 import CreateJobScreen from "../../app/Jobs/CreateJobScreen";
+import WithdrawDetailScreen from "../../app/User/Withdraw/WithdrawDetailScreen";
+import OrderDetailScreen from "../../app/User/Order/OrderDetailScreen";
+import TrainingListScreen from "../../app/User/Training/TrainingListScreen";
+import TrainingDetailScreen from "../../app/User/Training/TrainingDetailScreen";
+import KycScreen from "../../app/Settings/Kyc/KycScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -95,8 +100,8 @@ export function MessageStack() {
   );
 }
 
-export function OfferStack() {
-  return createSimpleStack("Offers", Offers, getHeaderOptions("Offers", false, false));
+export function JobListStack() {
+  return createSimpleStack("Jobs", JobsScreens, getHeaderOptions("Available Jobs", false, false));
 }
 
 export function MenuStack() {
@@ -142,12 +147,17 @@ export function OtherStack() {
     { name: "LanguageSelection", component: LanguageScreen, header: false, page_title: "Language Selection" },
     { name: "AccountSettingOptions", component: AccountSettingOptionScreen, header: true, page_title: "Accounts" },
     { name: "Notification", component: NotificationScreen, header: true, page_title: "Notifications" },
-    { name: "Jobs", component: JobsScreens, header: false, page_title: "Available Jobs" },
+    { name: "JobsList", component: JobsScreens, header: false, page_title: "Available Jobs" },
     { name: "JobsDetails", component: JobsDetailsScreen, header: false, page_title: "Job Details" },
     { name: "JobPost", component: CreateJobScreen, header: false, page_title: "Create Job" },
     { name: "Proposal", component: SubmitProposalScreen, header: false, page_title: "Submit Proposal" },
     { name: "WithdrawHistory", component: WithdrawHistoryScreen, header: false, page_title: "Withdrawals History" },
-    { name: "EarningHistory", component: OrderHistoryScreen, header: false, page_title: "Earning History" }
+    { name: "WithdrawDetail", component: WithdrawDetailScreen, header: false, page_title: "Withdrawal Details" },
+    { name: "EarningHistory", component: OrderHistoryScreen, header: false, page_title: "Earning History" },
+    { name: "OrderDetails", component: OrderDetailScreen, header: false, page_title: "Earning Details" },
+    { name: "TrainingList", component: TrainingListScreen, header: false, page_title: "Training List" },
+    { name: "TrainingDetails", component: TrainingDetailScreen, header: false, page_title: "Training Details" },
+    { name: "Kyc", component: KycScreen, header: false, page_title: "KYC" },
 
   ];
 

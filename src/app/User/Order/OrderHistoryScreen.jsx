@@ -7,9 +7,11 @@ import HeaderWithBackButton from '../../../components/Header/HeaderWithBackButto
 import { CommonStyles } from '../../../utils/styles/CommonStyle'
 import { HeaderStyles } from '../../../utils/styles/HeaderStyle'
 import { useSystemNavigateSpace } from '../../../utils/helper/Helper'
+import { useNavigation } from '@react-navigation/native'
 
 function OrderHistoryScreen() {
   const incomeData = IncomeData
+  const navigation = useNavigation()
   return (
     <>
       <SafeAreaProvider>
@@ -26,7 +28,10 @@ function OrderHistoryScreen() {
           >
             <View style={styles.section}>
               {incomeData.map((item) => (
-                <TransactionCard key={item.id} item={item} type="income" />
+                <TransactionCard key={item.id} item={item} type="income" onPress={() => navigation.navigate('OtherPages', { 
+                  screen: 'OrderDetails',
+                  params: { id: item.id }
+                })}/>
               ))}
             </View>
           </ScrollView>

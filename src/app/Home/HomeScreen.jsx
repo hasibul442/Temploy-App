@@ -6,12 +6,12 @@ import React, {
   useState,
 } from "react";
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  StatusBar
 } from "react-native";
 import { Colors } from "../../utils/constants/Color";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -29,12 +29,13 @@ import LogoutButton from "../../components/LogoutButton";
 import JobsData from "../../utils/data/JobsData";
 import JobCard from "../../components/Card/JobCard";
 import LogoHeader from "../../components/Header/LogoHeader";
-import { StatusBar } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
+import CategoryButtonSkeleton from "../../components/Skeleton/CategoryButtonSkeleton";
 
 function HomeScreen() {
   const navigation = useNavigation();
   const [categories, setCategories] = useState([]);
+  const [catloading, setCatLoading] = useState(true);
   const jobdata = JobsData;
 
   // :point_down: Move BottomSheet ref to screen level
@@ -57,6 +58,7 @@ function HomeScreen() {
     try {
       await getData("/api/v1/categories", {}, false).then((response) => {
         setCategories(response?.data);
+        setCatLoading(false);
       });
     } catch (error) {
       console.error("Error fetching offer data:", error);
@@ -82,38 +84,30 @@ function HomeScreen() {
               nestedScrollEnabled={true}
             >
               {/* Banner Section */}
-              {/* <View style={style.banner_container}>
-                <Image
-                  source={require("../../assets/image/banner_1.jpg")}
-                  style={style.banner_image}
-                />
-              </View> */}
 
               {/* Categories */}
               <View style={style.category_block}>
-                {categories.slice(0, 7).map((item, index) => (
-                  <CategoryButton key={item._id} item={item} />
-                ))}
+                {catloading ? (
+                  Array.from({ length: 8 }).map((_, index) => (
+                    <CategoryButtonSkeleton key={index} />
+                  ))
+                ) : (
+                  <>
+                    {categories.slice(0, 7).map((item) => (
+                      <CategoryButton key={item._id} item={item} />
+                    ))}
 
-                {/* More Button */}
-                <View style={style.category_buttons}>
-                  <TouchableOpacity
-                    onPress={openSheet}
-                    style={style.category_button_item}
-                  >
-                    {/* <Image
-                      source={{
-                        uri: "https://cdn-marketplacexyz.s3.ap-south-1.amazonaws.com/sheba_xyz/images/svg/all-services.svg",
-                      }}
-                      style={{
-                        width: 36,
-                        height: 36,
-                      }}
-                    /> */}
-                    <AntDesign name="appstore" size={30} color={Colors.success_2} />
-                  </TouchableOpacity>
-                  <Text style={style.category_button_item_text}>More</Text>
-                </View>
+                    <View style={style.category_buttons}>
+                      <TouchableOpacity
+                        onPress={openSheet}
+                        style={style.category_button_item}
+                      >
+                        <AntDesign name="appstore" size={30} color={Colors.success_2} />
+                      </TouchableOpacity>
+                      <Text style={style.category_button_item_text}>More</Text>
+                    </View>
+                  </>
+                )}
               </View>
 
               {/* Promo Section */}
@@ -129,7 +123,7 @@ function HomeScreen() {
                   <Text style={CommonStyles.title_18_bold}>Exclusive Offers </Text>
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("OtherPages", { screen: "Jobs" })
+                      navigation.navigate("OtherPages", { screen: "JobsList" })
                     }
                   >
                     <Text style={CommonStyles.button_text_12}>See All</Text>
@@ -173,7 +167,7 @@ function HomeScreen() {
                   <Text style={CommonStyles.title_18_bold}> Recent Jobs</Text>
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("OtherPages", { screen: "Jobs" })
+                      navigation.navigate("OtherPages", { screen: "JobsList" })
                     }
                   >
                     <Text style={CommonStyles.button_text_12}>See All</Text>
@@ -188,7 +182,7 @@ function HomeScreen() {
 
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate("OtherPages", { screen: "Jobs" })
+                    navigation.navigate("OtherPages", { screen: "JobsList" })
                   }
                   style={{ alignSelf: "center", marginTop: 6, marginBottom: 6 }}
                 >
@@ -196,7 +190,23 @@ function HomeScreen() {
                 </TouchableOpacity>
               </View>
 
-              <LogoutButton />
+              <View>
+
+                <View style={style.trainingCard}>
+                  <Text style={style.trainingTitle}>Enhance Your Skills</Text>
+                  <Text style={style.trainingDescription}>
+                    Join our professional training programs to boost your career
+                  </Text>
+                  <TouchableOpacity
+                    style={style.trainingButton}
+                    onPress={() =>
+                      navigation.navigate("OtherPages", { screen: "TrainingList" })
+                    }
+                  >
+                    <Text style={style.trainingButtonText}>Browse Training</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </ScrollView>
 
             {/* :point_down: BOTTOM SHEET OUTSIDE SCROLLVIEW */}
@@ -301,11 +311,18 @@ const style = StyleSheet.create({
   },
   statBox: {
     flex: 1,
-    height: 120,
+    height: 80,
     backgroundColor: Colors.light_3,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+    // Shadow for iOS
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    // Shadow for Android
+    elevation: 3,
   },
   statTitle: {
     fontSize: 14,
@@ -329,6 +346,44 @@ const style = StyleSheet.create({
     color: Colors.light,
     fontWeight: "bold",
     fontSize: 16,
+  },
+  trainingCard: {
+    marginTop: 15,
+    marginBottom: 30,
+    backgroundColor: Colors.light_3,
+    borderRadius: 10,
+    padding: 20,
+    // Shadow for iOS
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    // Shadow for Android
+    elevation: 3,
+  },
+  trainingTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: Colors.dark,
+    marginBottom: 8,
+  },
+  trainingDescription: {
+    fontSize: 14,
+    color: Colors.dark_gray,
+    marginBottom: 15,
+    lineHeight: 20,
+  },
+  trainingButton: {
+    backgroundColor: Colors.success_2,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    alignSelf: "flex-start",
+  },
+  trainingButtonText: {
+    color: Colors.light,
+    fontWeight: "600",
+    fontSize: 14,
   },
 });
 

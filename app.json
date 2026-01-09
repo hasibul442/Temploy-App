@@ -20,6 +20,9 @@
     },
     "ios": {
       "bundleIdentifier": "com.temploy"
-    }
+    },
+    "plugins": [
+      "react-native-video"
+    ]
   }
 }

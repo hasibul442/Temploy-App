@@ -154,13 +154,18 @@ function EarningScreen() {
           {/* Order Section */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>Complete Orders</Text>
+              <Text style={styles.sectionTitle}>My Orders</Text>
               <TouchableOpacity onPress={() => { navigation.navigate("OtherPages", { screen: "EarningHistory" }) }}>
                 <Text style={styles.seeAllText}>See all</Text>
               </TouchableOpacity>
             </View>
             {incomeData.slice(0, 5).map((item) => (
-              <TransactionCard key={item.id} item={item} type="income" />
+              <TransactionCard key={item.id} item={item} type="income" 
+                onPress={() => navigation.navigate('OtherPages', { 
+                  screen: 'OrderDetails',
+                  params: { id: item.id }
+                })}
+              />
             ))}
           </View>
 
@@ -175,7 +180,10 @@ function EarningScreen() {
               </TouchableOpacity>
             </View>
             {expenseData.slice(0, 5).map((item) => (
-              <TransactionCard key={item.id} item={item} type="withdrawal" />
+              <TransactionCard key={item.id} item={item} type="withdrawal" onPress={() => navigation.navigate('OtherPages', { 
+                  screen: 'WithdrawDetail',
+                  params: { id: item.id }
+                })}/>
             ))}
           </View>
         </ScrollView>
