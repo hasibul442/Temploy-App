@@ -30,7 +30,7 @@ function CurrencyScreen() {
     try {
       setLoading(true);
       setError(null);
-      await getData("/api/v1/currency", {}, false).then((response) => {
+      await getData("/api/v1/currency?status=true", {}, false).then((response) => {
         setCurrencies(response?.data);
       });
     } catch (err) {
@@ -71,7 +71,7 @@ function CurrencyScreen() {
         <View style={styles.currencyInfo}>
           <View style={styles.currencyDetails}>
             <Text style={[styles.currencyCode, isSelected && styles.selectedText]}>
-              {item.code} ({item.symbol})
+              {item.code} ({item.symbol_native})
             </Text>
             <Text style={styles.currencyName}>{item.name}</Text>
           </View>

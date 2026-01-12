@@ -31,7 +31,7 @@ function LanguageScreen() {
     try {
       setLoading(true);
       setError(null);
-      await getData("/api/v1/languages", {}, false).then((response) => {
+      await getData("/api/v1/languages?status=true", {}, false).then((response) => {
         setLanguages(response?.data);
       });
     } catch (err) {
