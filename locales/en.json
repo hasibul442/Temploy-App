@@ -1,12 +1,56 @@
 {
-  "welcome": "Welcome",
-  "login": "Login",
-  "exclusive_offers": "Exclusive Offers",
   "Pages_Title": {
     "jobs_list": "Jobs List",
     "job_detail": "Job Detail",
+    "post_a_job": "Post a Job",
     "trainings_list": "Trainings List",
-    "training_detail": "Training Detail"
+    "training_detail": "Training Detail",
+    "preferences": "Preferences",
+    "accounts": "Accounts"
+  },
+  "menu_names": {
+    "my_temploy": "My Temploy",
+    "profile": "Profile",
+    "my_jobs": "My Jobs",
+    "offers": "Offers",
+    "earnings": "Earnings",
+    "withdraw": "Withdraw",
+    "trainings": "Trainings",
+    "settings": "Settings",
+    "preferences": "Preferences",
+    "account": "Account",
+    "resources": "Resources",
+    "support": "Support",
+    "faqs": "FAQs",
+    "terms_of_service": "Terms of Service",
+    "privacy_policy": "Privacy Policy",
+    "invite_friends": "Invite friends",
+    "billing_and_plans": "Billing & Plans",
+    "notifications": "Notifications",
+    "security" : "Security",
+    "language": "Language",
+    "currency": "Currency",
+    "profile_info_update": "Profile Information Update",
+    "skills": "Skills",
+    "contact_information": "Contact Information",
+    "tax_information": "Tax Information",
+    "password_and_security": "Password & Security",
+    "withdrawals_method": "Withdrawals Methods",
+    "account_deletion": "Account Deletion",
+    "kyc_verification": "KYC Verification"
+  },
+  "button": {
+    "see_all": "See All",
+    "see_more": "See More",
+    "more": "More",
+    "post_a_job": "Post a Job",
+    "browse_trainings": "Browse Trainings"
+  },
+  "titles": {
+    "recent_jobs": "Recent Jobs",
+    "exclusive_offers": "Exclusive Offers",
+    "completed_trainings": "Completed Trainings",
+    "enhance_your_skills": "Enhance Your Skills"
   },
   "exit": "Exit"
 }

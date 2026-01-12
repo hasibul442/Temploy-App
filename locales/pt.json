@@ -1,12 +1,55 @@
 {
-    "welcome": "Bienvenue",
-    "login": "Entrar",
-    "exclusive_offers": "Ofertas Exclusivas",
     "Pages_Title": {
         "jobs_list": "Lista de Empregos",
         "job_detail": "Detalhe do Emprego",
         "trainings_list": "Lista de Treinamentos",
-        "training_detail": "Detalhe do Treinamento"
+        "training_detail": "Detalhe do Treinamento",
+        "preferences": "Preferências",
+        "accounts": "Contas"
+    },
+    "menu_names": {
+        "my_temploy": "Meu Temploy",
+        "profile": "Perfil",
+        "my_jobs": "Meus Trabalhos",
+        "offers": "Ofertas",
+        "earnings": "Ganhos",
+        "withdraw": "Retirar",
+        "trainings": "Treinamentos",
+        "settings": "Configurações",
+        "preferences": "Preferências",
+        "account": "Conta",
+        "resources": "Recursos",
+        "support": "Suporte",
+        "faqs": "FAQs",
+        "terms_of_service": "Termos de Serviço",
+        "privacy_policy": "Política de Privacidade",
+        "invite_friends": "Convidar Amigos",
+        "billing_and_plans": "Faturamento e Planos",
+        "notifications": "Notificações",
+        "security": "Segurança",
+        "language": "Idioma",
+        "currency": "Moeda",
+        "profile_info_update": "Atualização de Informações do Perfil",
+        "skills": "Habilidades",
+        "contact_information": "Informações de Contato",
+        "tax_information": "Informações Fiscais",
+        "password_and_security": "Senha e Segurança",
+        "withdrawals_method": "Métodos de Retirada",
+        "account_deletion": "Exclusão de Conta",
+        "kyc_verification": "Verificação KYC"
+    },
+    "button": {
+        "see_all": "Ver Tudo",
+        "see_more": "Ver Mais",
+        "more": "Mais",
+        "post_a_job": "Publicar um Emprego",
+        "browse_trainings": "Navegar por Treinamentos"
+    },
+    "titles": {
+        "recent_jobs": "Empregos Recentes",
+        "exclusive_offers": "Ofertas Exclusivas",
+        "completed_trainings": "Treinamentos Concluídos",
+        "enhance_your_skills": "Aprimore suas Habilidades"
     },
     "exit": "Sair"
 }

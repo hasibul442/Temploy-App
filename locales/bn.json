@@ -1,12 +1,55 @@
 {
-  "welcome": "স্বাগতম",
-  "login": "লগইন",
-  "exclusive_offers": "এক্সক্লুসিভ অফার",
   "Pages_Title": {
     "jobs_list": "জব লিস্ট",
     "job_detail": "জব ডিটেইলস",
     "trainings_list": "ট্রেনিং লিস্ট",
-    "training_detail": "ট্রেনিং ডিটেইলস"
+    "training_detail": "ট্রেনিং ডিটেইলস",
+    "preferences": "প্রেফারেন্সেস",
+    "accounts": "অ্যাকাউন্টস"
+  },
+  "menu_names": {
+    "my_temploy": "আমার টেমপ্লয়",
+    "profile": "প্রোফাইল",
+    "my_jobs": "আমার কাজ",
+    "offers": "অফার",
+    "earnings": "আয়",
+    "withdraw": "উত্তোলন",
+    "trainings": "ট্রেনিংস",
+    "settings": "সেটিংস",
+    "preferences": "প্রেফারেন্সেস",
+    "account": "অ্যাকাউন্ট",
+    "resources": "রিসোর্সেস",
+    "support": "সাপোর্ট",
+    "faqs": "FAQs",
+    "terms_of_service": "Terms of Service",
+    "privacy_policy": "Privacy Policy",
+    "invite_friends": "Invite friends",
+    "billing_and_plans": "বিলিং এবং পরিকল্পনা",
+    "notifications": "নোটিফিকেশন",
+    "security": "সুরক্ষা",
+    "language": "ভাষা",
+    "currency": "মুদ্রা",
+    "profile_info_update": "প্রোফাইল তথ্য আপডেট",
+    "skills": "দক্ষতা",
+    "contact_information": "যোগাযোগের তথ্য",
+    "tax_information": "কর তথ্য",
+    "password_and_security": "পাসওয়ার্ড এবং সুরক্ষা",
+    "withdrawals_method": "উত্তোলনের পদ্ধতি",
+    "account_deletion": "অ্যাকাউন্ট মুছে ফেলা",
+    "kyc_verification": "KYC যাচাইকরণ"
+  },
+  "button": {
+    "see_all": "সব দেখুন",
+    "see_more": "আরও দেখুন",
+    "more": "আরও",
+    "post_a_job": "একটি কাজ পোস্ট করুন",
+    "browse_trainings": "ট্রেনিং ব্রাউজ করুন"
+  },
+  "titles": {
+    "recent_jobs": "সাম্প্রতিক কাজ",
+    "exclusive_offers": "এক্সক্লুসিভ অফার",
+    "completed_trainings": "সম্পন্ন ট্রেনিং",
+    "enhance_your_skills": "আপনার দক্ষতা উন্নত করুন"
   },
   "exit": "প্রস্থান"
 }
