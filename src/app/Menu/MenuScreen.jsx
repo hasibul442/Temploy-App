@@ -15,45 +15,47 @@ import LogoutButton from "../../components/LogoutButton";
 import { useSelector } from "react-redux";
 import MenuItem from "../../utils/helper/MenuItem";
 import { useSystemNavigateSpace } from "../../utils/helper/Helper";
+import { useTranslation } from "react-i18next";
 
 function WorkerMenuOption() {
   const navigation = useNavigation();
+  const { t, i18n } = useTranslation();
   return (
     <>
-      <Text style={styles.sectionTitle}>My Temploy</Text>
+      <Text style={styles.sectionTitle}>{t('menu_names.my_temploy')}</Text>
       <MenuItem
         icon={<FontAwesome name="user-o" size={24} color={Colors.dark} />}
-        title="My Profile"
+        title={t('menu_names.profile')}
         showChevron={true}
         onPress={() => navigation.navigate("Profile")}
       />
       <MenuItem
         icon={<Ionicons name="heart-outline" size={24} color={Colors.dark} />}
-        title="My Jobs"
+        title={t('menu_names.my_jobs')}
         showChevron={true}
         onPress={() => { }}
       />
       <MenuItem
         icon={<Ionicons name="pricetag" size={24} color={Colors.dark} />}
-        title="My Offers"
+        title={t('menu_names.offers')}
         showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "MyOffer" })}
       />
       <MenuItem
         icon={<Ionicons name="cash-outline" size={24} color={Colors.dark} />}
-        title="My Earnings"
+        title={t('menu_names.earnings')}
         showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "Earning" })}
       />
       <MenuItem
         icon={<Ionicons name="cash-outline" size={24} color={Colors.dark} />}
-        title="Withdraw"
+        title={t('menu_names.withdraw')}
         showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "WithdrawHistory" })}
       />
       <MenuItem
         icon={<MaterialIcons name="ondemand-video" size={24} color={Colors.dark} />}
-        title="My Trainings"
+        title={t('menu_names.trainings')}
         showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "TrainingList" })}
       />
@@ -61,19 +63,19 @@ function WorkerMenuOption() {
         icon={
           <Ionicons name="paper-plane-outline" size={24} color={Colors.dark} />
         }
-        title="Invite friends"
+        title={t('menu_names.invite_friends')}
         onPress={() => { }}
         showChevron={false}
       />
 
       {/* Settings Section */}
-      <Text style={styles.sectionTitle}>Settings</Text>
+      <Text style={styles.sectionTitle}>{t('menu_names.settings')}</Text>
 
       <MenuItem
         icon={
           <Ionicons name="settings-outline" size={24} color={Colors.dark} />
         }
-        title="Preferences"
+        title={t('menu_names.preferences')}
         showChevron={true}
         onPress={() =>
           navigation.navigate("OtherPages", { screen: "Preferences" })
@@ -87,7 +89,7 @@ function WorkerMenuOption() {
             color={Colors.dark}
           />
         }
-        title="Account"
+        title={t('menu_names.account')}
         showChevron={true}
         onPress={() =>
           navigation.navigate("OtherPages", { screen: "AccountSettingOptions" })
@@ -95,13 +97,13 @@ function WorkerMenuOption() {
       />
 
       {/* Resources Section */}
-      <Text style={styles.sectionTitle}>Resources</Text>
+      <Text style={styles.sectionTitle}>{t('menu_names.resources')}</Text>
 
       <MenuItem
         icon={
           <Ionicons name="help-circle-outline" size={24} color={Colors.dark} />
         }
-        title="Support"
+        title={t('menu_names.support')}
         showChevron={true}
         onPress={() => { }}
       />
@@ -113,7 +115,7 @@ function WorkerMenuOption() {
             color={Colors.dark}
           />
         }
-        title="Terms of Service"
+        title={t('menu_names.terms_of_service')}
         showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "Terms" })}
       />
@@ -121,7 +123,7 @@ function WorkerMenuOption() {
         icon={
           <Ionicons name="chatbubbles-outline" size={24} color={Colors.dark} />
         }
-        title="FAQ"
+        title={t('menu_names.faqs')}
         showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "FAQ" })}
       />
@@ -133,7 +135,7 @@ function WorkerMenuOption() {
             color={Colors.dark}
           />
         }
-        title="Privacy Policy"
+        title={t('menu_names.privacy_policy')}
         showChevron={true}
         onPress={() => navigation.navigate("OtherPages", { screen: "Privacy" })}
       />
