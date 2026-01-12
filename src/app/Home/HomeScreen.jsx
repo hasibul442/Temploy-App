@@ -106,7 +106,7 @@ function HomeScreen() {
                       >
                         <AntDesign name="appstore" size={30} color={Colors.success_2} />
                       </TouchableOpacity>
-                      <Text style={style.category_button_item_text}>More</Text>
+                      <Text style={style.category_button_item_text}>{t('button.more')}</Text>
                     </View>
                   </>
                 )}
@@ -122,13 +122,13 @@ function HomeScreen() {
                     marginTop: 10,
                   }}
                 >
-                  <Text style={CommonStyles.title_18_bold}>{t('exclusive_offers')}</Text>
+                  <Text style={CommonStyles.title_18_bold}>{t('titles.exclusive_offers')}</Text>
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("OtherPages", { screen: "JobsList" })
                     }
                   >
-                    <Text style={CommonStyles.button_text_12}>See All</Text>
+                    <Text style={CommonStyles.button_text_12}>{t('button.see_all')}</Text>
                   </TouchableOpacity>
                 </View>
                 <OfferCarousel />
@@ -153,7 +153,7 @@ function HomeScreen() {
                   navigation.navigate("OtherPages", { screen: "JobPost" })
                 }
               >
-                <Text style={style.create_job_button_text}>Post your Job</Text>
+                <Text style={style.create_job_button_text}>{t('button.post_a_job')}</Text>
               </TouchableOpacity>
 
               {/* Trending Section */}
@@ -166,13 +166,13 @@ function HomeScreen() {
                     marginBottom: 10,
                   }}
                 >
-                  <Text style={CommonStyles.title_18_bold}> Recent Jobs</Text>
+                  <Text style={CommonStyles.title_18_bold}>{t('titles.recent_jobs')}</Text>
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("OtherPages", { screen: "JobsList" })
                     }
                   >
-                    <Text style={CommonStyles.button_text_12}>See All</Text>
+                    <Text style={CommonStyles.button_text_12}>{t('button.see_all')}</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -188,14 +188,14 @@ function HomeScreen() {
                   }
                   style={{ alignSelf: "center", marginTop: 6, marginBottom: 6 }}
                 >
-                  <Text style={CommonStyles.button_text_14}>See More</Text>
+                  <Text style={CommonStyles.button_text_14}>{t('button.see_more')}</Text>
                 </TouchableOpacity>
               </View>
 
               <View>
 
                 <View style={style.trainingCard}>
-                  <Text style={style.trainingTitle}>Enhance Your Skills</Text>
+                  <Text style={style.trainingTitle}>{t('titles.enhance_your_skills')}</Text>
                   <Text style={style.trainingDescription}>
                     Join our professional training programs to boost your career
                   </Text>
@@ -205,7 +205,7 @@ function HomeScreen() {
                       navigation.navigate("OtherPages", { screen: "TrainingList" })
                     }
                   >
-                    <Text style={style.trainingButtonText}>Browse Training</Text>
+                    <Text style={style.trainingButtonText}>{t('button.browse_trainings')}</Text>
                   </TouchableOpacity>
                 </View>
               </View>
