@@ -1,0 +1,12 @@
+{
+  "welcome": "Welcome",
+  "login": "Login",
+  "exclusive_offers": "Exclusive Offers",
+  "Pages_Title": {
+    "jobs_list": "Jobs List",
+    "job_detail": "Job Detail",
+    "trainings_list": "Trainings List",
+    "training_detail": "Training Detail"
+  },
+  "exit": "Exit"
+}

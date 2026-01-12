@@ -22,7 +22,8 @@
       "bundleIdentifier": "com.temploy"
     },
     "plugins": [
-      "react-native-video"
+      "react-native-video",
+      "expo-localization"
     ]
   }
 }

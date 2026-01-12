@@ -31,8 +31,10 @@ import JobCard from "../../components/Card/JobCard";
 import LogoHeader from "../../components/Header/LogoHeader";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import CategoryButtonSkeleton from "../../components/Skeleton/CategoryButtonSkeleton";
+import { useTranslation } from "react-i18next";
 
 function HomeScreen() {
+  const { t, i18n } = useTranslation();
   const navigation = useNavigation();
   const [categories, setCategories] = useState([]);
   const [catloading, setCatLoading] = useState(true);
@@ -120,7 +122,7 @@ function HomeScreen() {
                     marginTop: 10,
                   }}
                 >
-                  <Text style={CommonStyles.title_18_bold}>Exclusive Offers </Text>
+                  <Text style={CommonStyles.title_18_bold}>{t('exclusive_offers')}</Text>
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("OtherPages", { screen: "JobsList" })

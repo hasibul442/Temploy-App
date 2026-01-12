@@ -8,15 +8,15 @@ import {
   StatusBar,
   Dimensions,
   Modal,
-  Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../../utils/constants/Color';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import HeaderWithBackButton from '../../../components/Header/HeaderWithBackButton';
-import { getLevelColor, getStatusColor, getStatusText } from '../../../utils/helper/Helper';
+import { getStatusColor } from '../../../utils/helper/Helper';
 import Video from 'react-native-video';
+import StatusBadge from '../../../components/StatusBadge';
 
 const { width, height } = Dimensions.get('window');
 
@@ -215,14 +215,12 @@ function TrainingDetailScreen() {
         {/* Training Header */}
         <View style={styles.trainingHeader}>
           <View style={styles.badgeRow}>
-            <View style={[styles.statusBadge, { backgroundColor: getStatusColor(training.status) }]}>
+            <StatusBadge status={training.status} />
+            <StatusBadge level={training.level} />
+
+            {/* <View style={[styles.statusBadge, { backgroundColor: getStatusColor(training.status) }]}>
               <Text style={styles.statusText}>{getStatusText(training.status)}</Text>
-            </View>
-            <View style={[styles.levelBadge, { borderColor: getLevelColor(training.level) }]}>
-              <Text style={[styles.levelText, { color: getLevelColor(training.level) }]}>
-                {training.level}
-              </Text>
-            </View>
+            </View> */}
           </View>
 
           <Text style={styles.title}>{training.title}</Text>
@@ -497,26 +495,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
     marginBottom: 12,
-  },
-  statusBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 12,
-  },
-  statusText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: Colors.white,
-  },
-  levelBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  levelText: {
-    fontSize: 12,
-    fontWeight: '600',
   },
   title: {
     fontSize: 24,

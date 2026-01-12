@@ -11,9 +11,10 @@ import { Colors } from '../../../utils/constants/Color';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import HeaderWithBackButton from '../../../components/Header/HeaderWithBackButton';
-import { getLevelColor, getStatusColor, getStatusText, useSystemNavigateSpace } from '../../../utils/helper/Helper';
+import { getStatusColor, useSystemNavigateSpace } from '../../../utils/helper/Helper';
 import { CommonStyles } from '../../../utils/styles/CommonStyle';
 import { HeaderStyles } from '../../../utils/styles/HeaderStyle';
+import StatusBadge from '../../../components/StatusBadge';
 
 function TrainingListScreen() {
   const navigation = useNavigation();
@@ -108,14 +109,8 @@ function TrainingListScreen() {
     >
       {/* Header */}
       <View style={styles.cardHeader}>
-        <View style={[styles.statusBadge, { backgroundColor: getStatusColor(training.status) }]}>
-          <Text style={styles.statusText}>{getStatusText(training.status)}</Text>
-        </View>
-        <View style={[styles.levelBadge, { borderColor: getLevelColor(training.level) }]}>
-          <Text style={[styles.levelText, { color: getLevelColor(training.level) }]}>
-            {training.level}
-          </Text>
-        </View>
+        <StatusBadge status={training.status} level={null} />
+        <StatusBadge status={null} level={training.level} />
       </View>
 
       {/* Title */}
@@ -298,26 +293,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 12,
-  },
-  statusBadge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  statusText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: Colors.white,
-  },
-  levelBadge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  levelText: {
-    fontSize: 12,
-    fontWeight: '600',
   },
   cardTitle: {
     fontSize: 18,

@@ -1,0 +1,12 @@
+{
+    "welcome": "Bienvenue",
+    "login": "Entrar",
+    "exclusive_offers": "Ofertas Exclusivas",
+    "Pages_Title": {
+        "jobs_list": "Lista de Empregos",
+        "job_detail": "Detalhe do Emprego",
+        "trainings_list": "Lista de Treinamentos",
+        "training_detail": "Detalhe do Treinamento"
+    },
+    "exit": "Sair"
+}

@@ -9,9 +9,10 @@ import {
   TextInput,
 } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18n from '../../i18n/i18n';
 import { Colors } from '../../utils/constants/Color';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Language from '../../utils/data/Language';
 import { CommonStyles } from '../../utils/styles/CommonStyle';
 import { useSystemNavigateSpace } from '../../utils/helper/Helper';
 import HeaderWithBackButton from '../../components/Header/HeaderWithBackButton';
@@ -42,7 +43,19 @@ function LanguageScreen() {
 
   useEffect(() => {
     fetchLanguages();
+    loadSavedLanguage();
   }, []);
+
+  const loadSavedLanguage = async () => {
+    try {
+      const savedLanguage = await AsyncStorage.getItem('appLanguage');
+      if (savedLanguage) {
+        setSelectedLanguage(savedLanguage);
+      }
+    } catch (error) {
+      console.error('Error loading saved language:', error);
+    }
+  };
 
   const filteredLanguages = useMemo(() => {
     if (!searchQuery.trim()) return languages;
@@ -55,9 +68,14 @@ function LanguageScreen() {
     );
   }, [searchQuery, languages]);
 
-  const handleLanguageSelect = (code) => {
+  const handleLanguageSelect = async (code) => {
     setSelectedLanguage(code);
-    // You can add logic here to save the selected language
+    try {
+      await AsyncStorage.setItem('appLanguage', code);
+      i18n.changeLanguage(code);
+    } catch (error) {
+      console.error('Error saving language preference:', error);
+    }
   };
 
   const renderLanguageItem = ({ item }) => {

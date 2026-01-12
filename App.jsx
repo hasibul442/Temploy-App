@@ -6,6 +6,7 @@ import { AlertNotificationRoot } from "react-native-alert-notification";
 import { Platform } from "react-native";
 import { Provider, useSelector } from 'react-redux';
 import { store } from './src/store/store';
+import './src/i18n/i18n';
 
 function AppNavigator() {
   const { isAuthenticated } = useSelector((state) => state.auth);
