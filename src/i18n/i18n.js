@@ -4,7 +4,7 @@ import * as Localization from 'expo-localization';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import translations from '../../locales';
 
-const fallback = { languageTag: 'pt', isRTL: false };
+const fallback = { languageTag: 'en', isRTL: false };
 const { languageTag } =
   Localization.getLocales().length > 0
     ? Localization.getLocales()[0]
@@ -19,7 +19,7 @@ const initI18n = async () => {
     .init({
       compatibilityJSON: 'v3',
       lng: storedLanguage || languageTag,
-      fallbackLng: 'pt',
+      fallbackLng: 'en',
       resources: {
         en: { translation: translations.en },
         bn: { translation: translations.bn },
