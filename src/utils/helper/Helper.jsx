@@ -1,4 +1,5 @@
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Colors } from "../constants/Color";
 
 export function convertTimeStampToTimeAgo(timestamp) {
@@ -115,3 +116,14 @@ export function getStatusText(status) {
           return Colors.gray_400;
       }
     };
+
+// Helper function to get currency symbol from AsyncStorage
+export async function getCurrencySymbol() {
+  try {
+    const symbol = await AsyncStorage.getItem('selectedSymbol');
+    return symbol || '$'; // Default to '$' if not found
+  } catch (error) {
+    console.error('Error loading currency symbol:', error);
+    return '$'; // Return default on error
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,10 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../utils/constants/Color";
-import { convertTimeStampToTimeAgo } from "../../utils/helper/Helper";
+import {
+  convertTimeStampToTimeAgo,
+  getCurrencySymbol,
+} from "../../utils/helper/Helper";
 import JobsData from "../../utils/data/JobsData";
 import HeaderWithBackButton from "../../components/Header/HeaderWithBackButton";
 import { useNavigation } from "@react-navigation/native";
@@ -24,9 +27,14 @@ function JobsDetailsScreen({ route }) {
   const { jobId } = route?.params || {};
   const [saved, setSaved] = useState(false);
   const navigation = useNavigation();
+  const [currencySymbol, setCurrencySymbol] = useState("$");
 
   // Find the job from JobsData using jobId (index)
   const job = jobdata.find((j) => j._id === jobId);
+
+  useEffect(() => {
+    getCurrencySymbol().then(setCurrencySymbol);
+  }, []);
 
   // If job not found, show error
   if (!job) {
@@ -86,17 +94,25 @@ function JobsDetailsScreen({ route }) {
           {/* Job Meta Card */}
           <View style={styles.metaCard}>
             <View style={styles.metaItem}>
-              <Ionicons name="cash-outline" size={22} color={Colors.primary_1} />
+              <Ionicons
+                name="cash-outline"
+                size={22}
+                color={Colors.primary_1}
+              />
               <View style={styles.metaTextContainer}>
                 <Text style={styles.metaLabel}>Budget</Text>
                 <Text style={styles.metaValue}>
-                  $ {job.budget.toLocaleString()}
+                  {currencySymbol} {job.budget.toLocaleString()}
                 </Text>
               </View>
             </View>
             <View style={styles.metaDivider} />
             <View style={styles.metaItem}>
-              <Ionicons name="time-outline" size={22} color={Colors.primary_1} />
+              <Ionicons
+                name="time-outline"
+                size={22}
+                color={Colors.primary_1}
+              />
               <View style={styles.metaTextContainer}>
                 <Text style={styles.metaLabel}>Duration</Text>
                 <Text style={styles.metaValue}>{job.duration}</Text>
@@ -149,7 +165,9 @@ function JobsDetailsScreen({ route }) {
             <View style={styles.locationCard}>
               <Ionicons name="location" size={24} color={Colors.primary_1} />
               <View style={styles.locationTextContainer}>
-                <Text style={styles.locationAddress}>{job.location.address}</Text>
+                <Text style={styles.locationAddress}>
+                  {job.location.address}
+                </Text>
                 <Text style={styles.locationCity}>
                   {job.location.city}, {job.location.state},{" "}
                   {job.location.country}
@@ -205,25 +223,28 @@ function JobsDetailsScreen({ route }) {
           </View>
 
           {/* Bottom Action Bar */}
-        <View style={styles.bottomBar}>
-          <TouchableOpacity style={styles.applyButton} onPress={() =>
-            navigation.navigate("OtherPages", {
-              screen: "Proposal",
-              params: { jobId: job._id },
-            })
-          }>
-            <Text style={styles.applyButtonText}>Apply Now</Text>
-            <Ionicons name="arrow-forward" size={18} color={Colors.white} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.messageButton}>
-            <Ionicons
-              name="chatbubble-outline"
-              size={20}
-              color={Colors.primary_2}
-            />
-            <Text style={styles.messageButtonText}>Save job</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.bottomBar}>
+            <TouchableOpacity
+              style={styles.applyButton}
+              onPress={() =>
+                navigation.navigate("OtherPages", {
+                  screen: "Proposal",
+                  params: { jobId: job._id },
+                })
+              }
+            >
+              <Text style={styles.applyButtonText}>Apply Now</Text>
+              <Ionicons name="arrow-forward" size={18} color={Colors.white} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.messageButton}>
+              <Ionicons
+                name="chatbubble-outline"
+                size={20}
+                color={Colors.primary_2}
+              />
+              <Text style={styles.messageButtonText}>Save job</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>

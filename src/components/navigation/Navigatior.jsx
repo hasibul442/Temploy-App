@@ -16,9 +16,8 @@ import {
   OtherStack,
   JobListStack,
 } from "./CustomStack";
-import { StyleSheet } from "react-native";
 import { checkAuthStatus } from "../../slices/authSlice";
-import LoadingScreen from "../LoadingScreen";
+import LoadingScreen from "../../app/LoadingScreen";
 
 // Navigators
 const Tab = createBottomTabNavigator();

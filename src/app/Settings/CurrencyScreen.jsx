@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  ToastAndroid,
+  Platform,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../utils/constants/Color';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -26,6 +29,18 @@ function CurrencyScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Load saved currency from AsyncStorage
+  const loadSavedCurrency = async () => {
+    try {
+      const savedCurrency = await AsyncStorage.getItem('selectedCurrency');
+      if (savedCurrency) {
+        setSelectedCurrency(savedCurrency);
+      }
+    } catch (err) {
+      console.error('Error loading saved currency:', err);
+    }
+  };
+
   const fetchCurrencies = async () => {
     try {
       setLoading(true);
@@ -41,6 +56,7 @@ function CurrencyScreen() {
   };
 
   useEffect(() => {
+    loadSavedCurrency();
     fetchCurrencies();
   }, []);
 
@@ -55,9 +71,20 @@ function CurrencyScreen() {
     );
   }, [searchQuery, currencies]);
 
-  const handleCurrencySelect = (code) => {
-    setSelectedCurrency(code);
-    // You can add logic here to save the selected currency
+  const handleCurrencySelect = async (item) => {
+    try {
+      setSelectedCurrency(item.code);
+      await AsyncStorage.setItem('selectedCurrency', item.code);
+      await AsyncStorage.setItem('selectedSymbol', item.symbol);
+      if (Platform.OS === 'android') {
+        ToastAndroid.show(`Currency changed to ${item.code}`, ToastAndroid.SHORT);
+      }
+    } catch (err) {
+      console.error('Error saving currency:', err);
+      if (Platform.OS === 'android') {
+        ToastAndroid.show('Failed to save currency', ToastAndroid.SHORT);
+      }
+    }
   };
 
   const renderCurrencyItem = ({ item }) => {
@@ -65,7 +92,7 @@ function CurrencyScreen() {
     return (
       <TouchableOpacity
         style={[styles.currencyItem, isSelected && styles.selectedItem]}
-        onPress={() => handleCurrencySelect(item.code)}
+        onPress={() => handleCurrencySelect(item)}
         activeOpacity={0.7}
       >
         <View style={styles.currencyInfo}>
@@ -87,7 +114,7 @@ function CurrencyScreen() {
     if (loading) {
       return (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={Colors.primary_1} />
+          <ActivityIndicator size="large" color={Colors.white} />
           <Text style={styles.loadingText}>Loading currencies...</Text>
         </View>
       );

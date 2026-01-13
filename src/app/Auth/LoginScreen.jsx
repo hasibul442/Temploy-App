@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -20,6 +20,7 @@ import { CommonValidation } from "../../utils/validation/CommonValidation";
 import { postData } from "../../utils/helper/HttpHelper";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../slices/authSlice";
+import LoadingScreen from "../LoadingScreen";
 
 const { width, height } = Dimensions.get("window");
 
@@ -28,6 +29,7 @@ function LoginScreen() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({ field: "", message: "" });
+  const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -44,6 +46,7 @@ function LoginScreen() {
       return;
     }
     setError({ field: "", message: "" });
+    setLoading(true);
 
     try {
       await postData(
@@ -61,7 +64,9 @@ function LoginScreen() {
               user: response?.user || null,
             })
           ).unwrap();
+          setLoading(false);
         } else {
+          setLoading(false);
           ToastAndroid.show(
             response?.message || "Login failed. Please try again.",
             ToastAndroid.SHORT
@@ -69,116 +74,132 @@ function LoginScreen() {
         }
       });
     } catch (error) {
+      setLoading(false);
       ToastAndroid.show(
-        "An error occurred during login. Please try again.",
+        error?.message || "An error occurred during login. Please try again.",
         ToastAndroid.SHORT
       );
     }
   };
 
   return (
-    <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
-      <View style={styles.backgroundSolid}>
-        <View style={CommonStyles.circleTopLeft} />
-        <View style={CommonStyles.circleTopRight} />
+    <>
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <SafeAreaView style={CommonStyles.safeArea} edges={["top"]}>
+          <View style={styles.backgroundSolid}>
+            <View style={CommonStyles.circleTopLeft} />
+            <View style={CommonStyles.circleTopRight} />
 
-        <KeyboardAwareScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          extraHeight={180}
-          enableOnAndroid={true}
-          enableAutomaticScroll={true}
-        >
-          <View style={styles.headerContent}>
-            <View>
-              <Text style={styles.helloText}>Hello</Text>
-              <Text style={styles.signInText}>Sign in!</Text>
-            </View>
-          </View>
-
-          <View style={styles.loginCard}>
-            {/* Email */}
-            <View style={styles.inputGroup}>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  mode="outlined"
-                  label="Email"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  value={email}
-                  onChangeText={setEmail}
-                  outlineColor={
-                    error.field === "email" ? Colors.danger : Colors.dark
-                  }
-                  activeOutlineColor={Colors.success}
-                  textColor={
-                    error.field === "email" ? Colors.danger : Colors.black
-                  }
-                  style={{ backgroundColor: Colors.white, width: "100%" }}
-                  error={error.field === "email"}
-                />
-                <HelperText type="error" visible={error.field === "email"}>
-                  {error.message}
-                </HelperText>
+            <KeyboardAwareScrollView
+              contentContainerStyle={styles.scrollContent}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              extraHeight={180}
+              enableOnAndroid={true}
+              enableAutomaticScroll={true}
+            >
+              <View style={styles.headerContent}>
+                <View>
+                  <Text style={styles.helloText}>Hello</Text>
+                  <Text style={styles.signInText}>Sign in!</Text>
+                </View>
               </View>
-            </View>
 
-            {/* Password */}
-            <View style={styles.inputGroup}>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  mode="outlined"
-                  label="Password"
-                  secureTextEntry={!showPassword}
-                  value={password}
-                  onChangeText={setPassword}
-                  outlineColor={
-                    error.field === "password" ? "#DC0000" : Colors.dark
-                  }
-                  activeOutlineColor={Colors.success}
-                  textColor={
-                    error.field === "password" ? Colors.danger : Colors.black
-                  }
-                  style={{ backgroundColor: Colors.white, width: "100%" }}
-                  error={error.field === "password"}
-                  right={
-                    <TextInput.Icon
-                      icon={showPassword ? "eye-off" : "eye"}
-                      onPress={() => setShowPassword(!showPassword)}
+              <View style={styles.loginCard}>
+                {/* Email */}
+                <View style={styles.inputGroup}>
+                  <View style={styles.inputContainer}>
+                    <TextInput
+                      mode="outlined"
+                      label="Email"
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                      value={email}
+                      onChangeText={setEmail}
+                      outlineColor={
+                        error.field === "email" ? Colors.danger : Colors.dark
+                      }
+                      activeOutlineColor={Colors.success}
+                      textColor={
+                        error.field === "email" ? Colors.danger : Colors.black
+                      }
+                      style={{ backgroundColor: Colors.white, width: "100%" }}
+                      error={error.field === "email"}
                     />
-                  }
-                />
-                <HelperText type="error" visible={error.field === "password"}>
-                  {error.message}
-                </HelperText>
+                    <HelperText type="error" visible={error.field === "email"}>
+                      {error.message}
+                    </HelperText>
+                  </View>
+                </View>
+
+                {/* Password */}
+                <View style={styles.inputGroup}>
+                  <View style={styles.inputContainer}>
+                    <TextInput
+                      mode="outlined"
+                      label="Password"
+                      secureTextEntry={!showPassword}
+                      value={password}
+                      onChangeText={setPassword}
+                      outlineColor={
+                        error.field === "password" ? "#DC0000" : Colors.dark
+                      }
+                      activeOutlineColor={Colors.success}
+                      textColor={
+                        error.field === "password"
+                          ? Colors.danger
+                          : Colors.black
+                      }
+                      style={{ backgroundColor: Colors.white, width: "100%" }}
+                      error={error.field === "password"}
+                      right={
+                        <TextInput.Icon
+                          icon={showPassword ? "eye-off" : "eye"}
+                          onPress={() => setShowPassword(!showPassword)}
+                        />
+                      }
+                    />
+                    <HelperText
+                      type="error"
+                      visible={error.field === "password"}
+                    >
+                      {error.message}
+                    </HelperText>
+                  </View>
+                </View>
+
+                <TouchableOpacity
+                  style={styles.forgotPasswordButton}
+                  onPress={() => navigation.navigate("ForgetPassword")}
+                >
+                  <Text style={styles.forgotPasswordText}>
+                    Forgot password?
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={ButtonStyle.signInButton}
+                  onPress={handleSignIn}
+                >
+                  <Text style={ButtonStyle.signInButtonText}>SIGN IN</Text>
+                </TouchableOpacity>
+
+                <View style={styles.signUpContainer}>
+                  <Text style={styles.signUpText}>Don't have account? </Text>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Signup")}
+                  >
+                    <Text style={styles.signUpLink}>Sign up</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-
-            <TouchableOpacity
-              style={styles.forgotPasswordButton}
-              onPress={() => navigation.navigate("ForgetPassword")}
-            >
-              <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={ButtonStyle.signInButton}
-              onPress={handleSignIn}
-            >
-              <Text style={ButtonStyle.signInButtonText}>SIGN IN</Text>
-            </TouchableOpacity>
-
-            <View style={styles.signUpContainer}>
-              <Text style={styles.signUpText}>Don't have account? </Text>
-              <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-                <Text style={styles.signUpLink}>Sign up</Text>
-              </TouchableOpacity>
-            </View>
+            </KeyboardAwareScrollView>
           </View>
-        </KeyboardAwareScrollView>
-      </View>
-    </SafeAreaView>
+        </SafeAreaView>
+      )}
+    </>
   );
 }
 

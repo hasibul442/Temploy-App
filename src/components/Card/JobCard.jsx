@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
-import { convertTimeStampToTimeAgo, stripHtmlTags } from "../../utils/helper/Helper";
+import { convertTimeStampToTimeAgo, stripHtmlTags, getCurrencySymbol } from "../../utils/helper/Helper";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../utils/constants/Color";
 import PaymentVerified from "./Tag/PaymentVerified";
@@ -10,6 +10,12 @@ import Badge from "./Tag/Badge";
 function JobCard({ job }) {
   const [saved, setSaved] = useState(false);
   const navigation = useNavigation();
+  
+  const [currencySymbol, setCurrencySymbol] = useState('$');
+  useEffect(() => {
+    getCurrencySymbol().then(setCurrencySymbol);
+  }, []);
+
   return (
     <>
       <TouchableOpacity
@@ -55,7 +61,7 @@ function JobCard({ job }) {
           <Text style={styles.metaText}>
             Est. Budget:{" "}
             <Text style={styles.budgetText}>
-              $ {job.budget.toLocaleString()}
+              {currencySymbol} {job.budget.toLocaleString()}
             </Text>
           </Text>
         </View>
