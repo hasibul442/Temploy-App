@@ -42,7 +42,7 @@ function ProfileScreen() {
         <View style={styles.contentCardBlock}>
           <View style={styles.earningHeader}>
             <Text style={styles.sectionTitle}>Your Earning</Text>
-            <TouchableOpacity onPress={() => { navigation.navigate("OtherPages", { screen: "Earnings" }) }}>
+            <TouchableOpacity onPress={() => { navigation.navigate("OtherPages", { screen: "Earnings", initial: false }) }}>
               <Text style={styles.seeMoreLink}>See more</Text>
             </TouchableOpacity>
           </View>

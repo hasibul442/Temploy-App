@@ -31,99 +31,123 @@ export function getStatusColor(status) {
     case "pending":
       return Colors.warning;
     case "processing":
+    case "in-progress":
+    case "interview":
       return Colors.info;
     case "completed":
+    case "success":
+    case "approved":
+    case "accepted":
+    case "open":
       return Colors.success;
     case "failed":
     case "canceled":
+    case "rejected":
       return Colors.danger;
+    case "closed":
+      return Colors.gray_500;
     default:
       return Colors.gray_400;
   }
 }
 
 export function getStatusText(status) {
-    switch (status) {
-      case 'pending':
-        return 'Pending'
-      case 'processing':
-        return 'Processing'
-      case 'completed':
-        return 'Completed'
-      case 'failed':
-        return 'Failed'
-      case 'in-progress':
-        return 'In Progress'
-      case 'not-started':
-        return 'Not Started'
-      case 'canceled':
-        return 'Canceled'
-      default:
-        return status
-    }
+  switch (status) {
+    case "pending":
+      return "Pending";
+    case "processing":
+      return "Processing";
+    case "completed":
+      return "Completed";
+    case "failed":
+      return "Failed";
+    case "in-progress":
+      return "In Progress";
+    case "not-started":
+      return "Not Started";
+    case "canceled":
+      return "Canceled";
+    default:
+      return status;
+  }
 }
 
-  // Helper function to get background color based on status
-  export function  getStatusBackgroundColor (status) {
-    switch (status) {
-      case 'completed':
-        return Colors.success + '20'
-      case 'active':
-        return Colors.info + '20'
-      case 'failed':
-        return Colors.danger + '20'
-      default:
-        return Colors.gray_100
-    }
+// Helper function to get background color based on status
+export function getStatusBackgroundColor(status) {
+  switch (status) {
+    case "completed":
+      return Colors.success + "20";
+    case "active":
+      return Colors.info + "20";
+    case "failed":
+      return Colors.danger + "20";
+    default:
+      return Colors.gray_100;
   }
+}
 
-  // Helper function to get icon color based on status
-  export function  getStatusIconColor (status) {
-    switch (status) {
-      case 'completed':
-        return Colors.success
-      case 'active':
-        return Colors.info
-      case 'failed':
-        return Colors.danger
-      default:
-        return Colors.gray_400
-    }
+// Helper function to get icon color based on status
+export function getStatusIconColor(status) {
+  switch (status) {
+    case "completed":
+      return Colors.success;
+    case "active":
+      return Colors.info;
+    case "failed":
+      return Colors.danger;
+    default:
+      return Colors.gray_400;
   }
+}
 
-  export function getIconForStatus(status) {
-    switch (status) {
-      case 'completed':
-        return 'checkmark-circle'
-      case 'active':
-        return 'time'
-      case 'failed':
-        return 'close-circle'
-      default:
-        return 'ellipse-outline'
-    }
+export function getIconForStatus(status) {
+  switch (status) {
+    case "completed":
+      return "checkmark-circle";
+    case "active":
+      return "time";
+    case "failed":
+      return "close-circle";
+    default:
+      return "ellipse-outline";
   }
+}
 
-    export function getLevelColor(level) {
-      switch (level) {
-        case 'Beginner':
-          return Colors.success;
-        case 'Intermediate':
-          return Colors.warning;
-        case 'Advanced':
-          return Colors.danger;
-        default:
-          return Colors.gray_400;
-      }
-    };
+export function getLevelColor(level) {
+  switch (level) {
+    case "Beginner":
+      return Colors.success;
+    case "Intermediate":
+      return Colors.warning;
+    case "Advanced":
+      return Colors.danger;
+    default:
+      return Colors.gray_400;
+  }
+}
 
 // Helper function to get currency symbol from AsyncStorage
 export async function getCurrencySymbol() {
   try {
-    const symbol = await AsyncStorage.getItem('selectedSymbol');
-    return symbol || '$'; // Default to '$' if not found
+    const symbol = await AsyncStorage.getItem("selectedSymbol");
+    return symbol || "$"; // Default to '$' if not found
   } catch (error) {
-    console.error('Error loading currency symbol:', error);
-    return '$'; // Return default on error
+    console.error("Error loading currency symbol:", error);
+    return "$"; // Return default on error
   }
+}
+
+export function getTimeAgo(date) {
+  const seconds = Math.floor((new Date() - date) / 1000);
+  if (seconds < 10) return "Just now";
+  if (seconds < 60) return `${seconds}s ago`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  return "Over 1h ago";
+}
+
+export function getTimeColor(hours) {
+  if (hours <= 2) return Colors.danger;
+  if (hours <= 6) return Colors.warning;
+  return Colors.success;
 }

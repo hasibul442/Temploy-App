@@ -25,6 +25,7 @@ function AccountSettingOptionScreen() {
       id: 1,
       title: t("menu_names.profile_info_update"),
       icon: <AntDesign name="transaction" size={20} color={Colors.dark} />,
+      onPress: () => navigation.navigate("OtherPages", { screen: "ProfileInfoUpdate" }),
     },
     {
       id: 2,
@@ -32,6 +33,7 @@ function AccountSettingOptionScreen() {
       icon: (
         <Ionicons name="notifications-outline" size={20} color={Colors.dark} />
       ),
+      onPress: () => navigation.navigate("OtherPages", { screen: "Skill" }),
     },
     {
       id: 3,
@@ -43,6 +45,7 @@ function AccountSettingOptionScreen() {
           color={Colors.dark}
         />
       ),
+      onPress: () => navigation.navigate("OtherPages", { screen: "ContactInformationUpdate" }),
     },
     {
       id: 4,
@@ -72,6 +75,7 @@ function AccountSettingOptionScreen() {
           color={Colors.dark}
         />
       ),
+      onPress: () => navigation.navigate("OtherPages", { screen: "PasswordUpdate" }),
     },
     {
       id: 8,
@@ -83,6 +87,7 @@ function AccountSettingOptionScreen() {
           color={Colors.dark}
         />
       ),
+      onPress: () => navigation.navigate("OtherPages", { screen: "WithdrawMethod" }),
     },
     {
       id: 9,

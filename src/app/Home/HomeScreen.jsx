@@ -145,16 +145,26 @@ function HomeScreen() {
                 </View>
               </View>
 
-              {/* Create Job Button */}
+              {/* Create Job Buttons */}
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                <TouchableOpacity
+                  style={[style.create_job_button, { flex: 1, marginRight: 5, marginTop: 0 }]}
+                  onPress={() =>
+                    navigation.navigate("OtherPages", { screen: "JobPost" })
+                  }
+                >
+                  <Text style={style.create_job_button_text}>{t('button.post_a_job')}</Text>
+                </TouchableOpacity>
 
-              <TouchableOpacity
-                style={style.create_job_button}
-                onPress={() =>
-                  navigation.navigate("OtherPages", { screen: "JobPost" })
-                }
-              >
-                <Text style={style.create_job_button_text}>{t('button.post_a_job')}</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={[style.create_job_button, { flex: 1, marginLeft: 5, marginTop: 0, backgroundColor: Colors.info }]}
+                  onPress={() =>
+                    navigation.navigate("OtherPages", { screen: "LiveJobList" })
+                  }
+                >
+                  <Text style={style.create_job_button_text}>{t('button.live_bidding')}</Text>
+                </TouchableOpacity>
+              </View>
 
               {/* Trending Section */}
               <View style={style.trending_section}>

@@ -33,7 +33,7 @@ function WorkerMenuOption() {
         icon={<Ionicons name="heart-outline" size={24} color={Colors.dark} />}
         title={t('menu_names.my_jobs')}
         showChevron={true}
-        onPress={() => { }}
+        onPress={() => navigation.navigate("OtherPages", { screen: "MyJobs" })}
       />
       <MenuItem
         icon={<Ionicons name="pricetag" size={24} color={Colors.dark} />}

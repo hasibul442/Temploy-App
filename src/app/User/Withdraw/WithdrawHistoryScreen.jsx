@@ -30,7 +30,8 @@ function WithdrawHistoryScreen() {
               {withdrawal.map((item) => (
               <TransactionCard key={item.id} item={item} type="withdrawal" onPress={() => navigation.navigate('OtherPages', { 
                   screen: 'WithdrawDetail',
-                  params: { id: item.id }
+                  params: { id: item.id },
+                  initial: false
                 })} />
             ))}
             </View>
